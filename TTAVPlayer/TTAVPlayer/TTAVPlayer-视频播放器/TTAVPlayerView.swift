@@ -79,6 +79,23 @@ class TTAVPlayerView: UIView {
 // MARK: - 方法实现
 extension TTAVPlayerView {
     
+    // MARK: 转时间格式
+    /// - Parameters:
+    ///   - position: 当前时间
+    ///   - duration: 总时间
+    fileprivate func changeTimeFormat(position: Int, duration:Int) -> String {
+        
+        guard  duration != 0 else{
+            return "00:00"
+        }
+        let durationHours = (duration / 3600) % 60            //小时
+        let durationMinutes = (duration / 60) % 60            //分钟
+        let durationSeconds = duration % 60                   //秒
+        if (durationHours == 0)  {
+            return String(format: "%02d:%02d",durationMinutes,durationSeconds)
+        }
+        return String(format: "%d:%02d:%02d",durationHours,durationMinutes,durationSeconds)
+    }
     
     // MARK: KVO观察
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -132,6 +149,10 @@ extension TTAVPlayerView {
             let totalTime = CMTimeGetSeconds((player.currentItem?.asset.duration)!)
             //视频最大进度
             let maximumValue = Float(Int(totalTime) % 3600)
+            // 播放了多少
+            let playTimeValue = self?.changeTimeFormat(position: Int(loadTime), duration: Int(loadTime))
+            //视频总时长
+            let endTimeValue = self?.changeTimeFormat(position: Int(loadTime), duration: Int(totalTime))
             
         })
     }
