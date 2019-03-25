@@ -12,6 +12,7 @@
 		20556F6A22438116007C0172 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20556F6822438116007C0172 /* Main.storyboard */; };
 		20556F6C22438117007C0172 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20556F6B22438117007C0172 /* Assets.xcassets */; };
 		20556F6F22438118007C0172 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20556F6D22438118007C0172 /* LaunchScreen.storyboard */; };
+		2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		20556F6B22438117007C0172 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20556F6E22438118007C0172 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20556F7022438118007C0172 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTAVPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		20556F6322438116007C0172 /* TTAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				2064A6FD2248AC2200363BDC /* TTAVPlayer-视频播放器 */,
 				20556F6422438116007C0172 /* AppDelegate.swift */,
 				20556F6622438116007C0172 /* ViewController.swift */,
 				20556F6822438116007C0172 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				20556F7022438118007C0172 /* Info.plist */,
 			);
 			path = TTAVPlayer;
+			sourceTree = "<group>";
+		};
+		2064A6FD2248AC2200363BDC /* TTAVPlayer-视频播放器 */ = {
+			isa = PBXGroup;
+			children = (
+				2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */,
+			);
+			path = "TTAVPlayer-视频播放器";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20556F6722438116007C0172 /* ViewController.swift in Sources */,
+				2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */,
 				20556F6522438116007C0172 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +295,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MGZUJKTG4V;
 				INFOPLIST_FILE = TTAVPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -300,6 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MGZUJKTG4V;
 				INFOPLIST_FILE = TTAVPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
