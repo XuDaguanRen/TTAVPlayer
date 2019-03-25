@@ -11,7 +11,7 @@ import UIKit
 import AVKit
 
 class TTAVPlayerView: UIView {
-
+    
     /// 播放器
     fileprivate var player: AVPlayer?
     /// 创建视频资源
@@ -23,14 +23,14 @@ class TTAVPlayerView: UIView {
     /// 播放速度
     var rate: CGFloat = 1.0 {
         didSet {
-        
+            
         }
     }
     /// 播放文件路径
     var urlString: String = "" {
         didSet {
             if !self.urlString.isEmpty {
-
+                
             }
         }
     }
@@ -80,6 +80,62 @@ class TTAVPlayerView: UIView {
 extension TTAVPlayerView {
     
     
+    // MARK: KVO观察
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "status" {
+            switch self.playerItem?.status {
+            case .readyToPlay?: //指示播放器项已准备好要播放
+                
+                break
+            case .failed?: //指示由于错误不能再播放播放器
+                
+                break
+            case.unknown?: // 指示尚未知道播放器状态，因为它尚未尝试加载新媒体资源
+                
+                break
+            default:
+                break;
+            }
+        } else if keyPath == "loadedTimeRanges"{  //缓冲的所有时间
+            let loadTimeArray = self.playerItem?.loadedTimeRanges
+            //如果缓冲时间数组有 则走下面
+            if !(loadTimeArray?.isEmpty)! {
+                //获取最新缓存的区间
+                let newTimeRange : CMTimeRange = loadTimeArray?.first as! CMTimeRange
+                let startSeconds = CMTimeGetSeconds(newTimeRange.start);
+                let durationSeconds = CMTimeGetSeconds(newTimeRange.duration);
+                let _ = startSeconds + durationSeconds;   //缓冲总长度
+                TTLog("当前缓冲总长度")
+            }
+            
+        } else if keyPath == "playbackBufferEmpty" {  //正在缓存视频请稍等
+            
+        } else if keyPath == "playbackLikelyToKeepUp" { //缓存好了可以播放了
+            
+        }
+    }
+    
+    fileprivate func listenPlayer() -> Void {
+        guard let player = self.player else {return}
+        //        weak var weakSelf = self
+        player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: Int64(1.0), timescale: Int32(1.0)), queue: nil, using: { [weak self] (time) in
+            
+            /*
+             “添加周期时间观察者” ，参数1 interal 为CMTime 类型的，参数2 queue为串行队列，如果传入NULL就是默认主线程，参数3 为CMTime 的block类型。
+             简而言之就是，每隔一段时间后执行 block。
+             比如：我们把interval设置成CMTimeMake(1, 10)，在block里面刷新label，就是一秒钟刷新10次。
+             */
+            
+            //当前正在播放的时间
+            let loadTime = CMTimeGetSeconds(time)
+            //视频总时间
+            let totalTime = CMTimeGetSeconds((player.currentItem?.asset.duration)!)
+            //视频最大进度
+            let maximumValue = Float(Int(totalTime) % 3600)
+            
+        })
+    }
+    
     // MARK: 初始化playerItem
     fileprivate func getPlayItemWithURLString(url: String) -> AVPlayerItem {
         
@@ -88,7 +144,6 @@ extension TTAVPlayerView {
         if urlString == nil {
             if url.contains("var") ||  url.contains("Users") {
                 urlString = NSURL.init(fileURLWithPath: url)
-                //                TTLog("是本地路径 \(urlString!)")
             }
         }
         TTLog("视频路径 \(urlString!)")
