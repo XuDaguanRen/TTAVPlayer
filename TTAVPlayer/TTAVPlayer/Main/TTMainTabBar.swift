@@ -16,7 +16,7 @@ class TTMainTabBar: UITabBarController {
         setupChildControllers()
     }
     
-    func addController(dict:[String : String]) -> UIViewController {
+    fileprivate  func addController(dict:[String : String]) -> UIViewController {
         //守护是否有值
         let namespace = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? ""
         guard let clsName = dict["clsName"],
@@ -35,7 +35,7 @@ class TTMainTabBar: UITabBarController {
         return TTNavigationController(rootViewController: vc)
     }
     
-    func setupChildControllers() -> Void {
+    fileprivate func setupChildControllers() -> Void {
         let barArray = [
             ["clsName" : "TTHomeController", "title" : "视频", "imgName" : "dd_bar_home"], //dd_bar_home
             ["clsName" : "TTMyController", "title" : "我的", "imgName" : "dd_bar_my"], //dd_bar_my
@@ -45,7 +45,7 @@ class TTMainTabBar: UITabBarController {
         var barArrayM = [UIViewController]()
         
         for vcDict in barArray {
-             barArrayM.append(addController(dict: vcDict))
+            barArrayM.append(addController(dict: vcDict))
         }
         
         viewControllers = barArrayM

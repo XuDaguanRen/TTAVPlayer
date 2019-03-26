@@ -14,5 +14,11 @@ class TTMyController: TTBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ttTitleString = "我的"
+        
+        setupMyUI()
+    }
+    
+    fileprivate func setupMyUI() -> Void {
+        
     }
 }

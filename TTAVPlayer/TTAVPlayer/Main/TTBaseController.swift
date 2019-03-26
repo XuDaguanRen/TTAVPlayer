@@ -38,7 +38,7 @@ class TTBaseController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func setupUI() -> Void {
+    fileprivate func setupUI() -> Void {
         ttNavigationBar.frame = CGRect(x: 0, y: 0, width:kScreemWidth, height: kNavBarHeight)
         view.addSubview(ttNavigationBar)
         
@@ -52,7 +52,7 @@ class TTBaseController: UIViewController {
         ttNavigationBar.addSubview(titleLabel)
         
         callbackBtn.frame = CGRect(x: kScale * 10 , y: kStatusbarHeigt, width: titleX - 50, height: titleY)
-//        callbackBtn.setImage(UIImage.init(named: "tt_callback_icon"), for: .normal)
+        //        callbackBtn.setImage(UIImage.init(named: "tt_callback_icon"), for: .normal)
         callbackBtn.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -kScale*30, bottom: 0, right: 0)
         callbackBtn.setTitle("  返回", for: .normal)
         callbackBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: fontSize18)

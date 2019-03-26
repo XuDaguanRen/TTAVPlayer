@@ -14,5 +14,11 @@ class TTHomeController: TTBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ttTitleString = "首页"
+        
+        setupHomeUI()
+    }
+    
+   fileprivate func setupHomeUI() -> Void {
+        
     }
 }
