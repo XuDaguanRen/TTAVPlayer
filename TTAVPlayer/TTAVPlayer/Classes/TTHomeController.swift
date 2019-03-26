@@ -13,6 +13,6 @@ class TTHomeController: TTBaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "首页"
+        ttTitleString = "首页"
     }
 }

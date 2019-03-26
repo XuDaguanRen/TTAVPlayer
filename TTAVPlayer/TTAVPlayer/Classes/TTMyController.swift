@@ -13,6 +13,6 @@ class TTMyController: TTBaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的"
+        ttTitleString = "我的"
     }
 }
