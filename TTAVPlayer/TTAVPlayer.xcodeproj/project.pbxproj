@@ -83,8 +83,8 @@
 		2061D6312249B651006929D8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				2061D6322249B665006929D8 /* TTNavigationController.swift */,
 				2061D6342249B674006929D8 /* TTMainTabBar.swift */,
+				2061D6322249B665006929D8 /* TTNavigationController.swift */,
 				2061D6362249B68A006929D8 /* TTBaseController.swift */,
 			);
 			path = Main;
