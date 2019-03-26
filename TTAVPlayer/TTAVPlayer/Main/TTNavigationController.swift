@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TTNavgationController: UINavigationController, UIGestureRecognizerDelegate {
+class TTNavigationController: UINavigationController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
