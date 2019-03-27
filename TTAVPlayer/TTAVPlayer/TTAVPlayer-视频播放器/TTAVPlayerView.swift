@@ -143,7 +143,6 @@ class TTAVPlayerView: UIView {
         DispatchQueue.main.async {
             self.playerLayer?.player = self.player
         }
-        
     }
     
     // MARK: 删除屏幕播放画面

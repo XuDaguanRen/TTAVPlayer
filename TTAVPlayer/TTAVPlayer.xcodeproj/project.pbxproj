@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20536F91224B1C690072872D /* 01-课程安排.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 20536F90224B1C690072872D /* 01-课程安排.mp4 */; };
+		20536F93224B4D530072872D /* TTAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F92224B4D530072872D /* TTAVPlayer.swift */; };
 		20556F6522438116007C0172 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20556F6422438116007C0172 /* AppDelegate.swift */; };
 		20556F6722438116007C0172 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20556F6622438116007C0172 /* ViewController.swift */; };
 		20556F6A22438116007C0172 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20556F6822438116007C0172 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		20536F90224B1C690072872D /* 01-课程安排.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-课程安排.mp4"; sourceTree = "<group>"; };
+		20536F92224B4D530072872D /* TTAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTAVPlayer.swift; sourceTree = "<group>"; };
 		20556F6122438116007C0172 /* TTAVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTAVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20556F6422438116007C0172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20556F6622438116007C0172 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				2064A7022248B1E000363BDC /* TTRefs.swift */,
 				2064A7002248AEF700363BDC /* TTCONSTDefine.swift */,
 				2064A7042248B6B100363BDC /* TTLog.swift */,
+				20536F92224B4D530072872D /* TTAVPlayer.swift */,
 				2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */,
 			);
 			path = "TTAVPlayer-视频播放器";
@@ -201,6 +204,7 @@
 				2061D6352249B674006929D8 /* TTMainTabBar.swift in Sources */,
 				2061D63C2249C6E5006929D8 /* TTMyController.swift in Sources */,
 				2061D6332249B665006929D8 /* TTNavigationController.swift in Sources */,
+				20536F93224B4D530072872D /* TTAVPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
