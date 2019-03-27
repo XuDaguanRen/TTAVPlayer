@@ -9,16 +9,24 @@
 import Foundation
 import UIKit
 
-class TTAVPlayer: UIView {
+class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
+    
+    
     
     /// 记录初始大小
-    var ttFrame: CGRect?
+    var ttFrame: CGRect? 
     /// 记录父视图 视频全屏播放后返回初始播放
     var ttContainerView: UIView?
     /// 记录父视图 视频全屏播放后返回初始播放
     var ttContainerVC: UIViewController?
+    /// 播放器
+    lazy var avPlayerView: TTAVPlayerView? = {
+        let avPlayer = TTAVPlayerView.init(frame: self.bounds)
+        avPlayer.backgroundColor = UIColor.black
+        return avPlayer
+    }()
     
-     // MARK: - 初始化配置
+    // MARK: - 初始化配置
     ///
     /// - Parameters:
     ///   - frame: 大小
@@ -43,9 +51,19 @@ class TTAVPlayer: UIView {
         
     }
     
-    // MARK: - 布局TTAVPlayerUI
-   fileprivate func setupTTAVPlayerUI() -> Void {
+    // MARK: 布局AVPlayer播放器
+    func setupAVPlayer() -> Void {
         
+        //视频播放器
+        avPlayerView?.delegate = self    //设置代理
+        self.addSubview(avPlayerView!)
+        
+    }
+    
+    // MARK: - 布局TTAVPlayerUI
+    fileprivate func setupTTAVPlayerUI() -> Void {
+        
+        setupAVPlayer()
     }
     
 }
