@@ -10,6 +10,25 @@ import Foundation
 import UIKit
 import AVKit
 
+
+protocol TTAVPlayerViewDelegate: NSObjectProtocol {
+    
+    // MARK: 播放完成
+    func tt_PlayToEndTime() -> Void
+    
+    // MARK: 缓冲完成播放
+    func tt_PlayBufferToComplete() -> Void
+    
+    // MARK: 视频播放进度监听
+    /// - Parameters:
+    ///   - maximumValue: 视频d总时长
+    ///   - sliderValue: sliderValue b播放的进度
+    ///   - playTimeValue: 已经播放时间
+    ///   - endTimeValue: 视频总时间
+    func tt_PeriodicTimeObserver(maximumValue: Float, sliderValue: Float, playTimeValue: String, endTimeValue: String) -> Void
+
+}
+
 class TTAVPlayerView: UIView {
     
     /// 播放器
@@ -34,13 +53,14 @@ class TTAVPlayerView: UIView {
            player?.volume = volume
         }
     }
-    
     /// 播放速度
     var rate: CGFloat = 1.0 {
         didSet {
             
         }
     }
+    /// 代理
+    public var delegate: TTAVPlayerViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,7 +75,16 @@ class TTAVPlayerView: UIView {
     }
     
     deinit {
-        
+        self.player?.pause()
+        NotificationCenter.default.removeObserver(self)
+        self.playerItem?.removeObserver(self, forKeyPath: "status", context: nil)
+        self.playerItem?.removeObserver(self, forKeyPath: "loadedTimeRanges", context: nil)
+        self.playerItem?.removeObserver(self, forKeyPath: "playbackBufferEmpty", context: nil)
+        self.playerItem?.removeObserver(self, forKeyPath: "playbackLikelyToKeepUp", context: nil)
+        self.playerItem = nil
+        self.playerLayer = nil
+        self.player = nil
+        TTLog("播放器 - TTAVPlayerView -- 销毁了？？？？")
     }
     
     // MARK: 重新添加播放画面
@@ -95,13 +124,23 @@ class TTAVPlayerView: UIView {
         self.playerLayer!.videoGravity = .resizeAspectFill
         self.playerLayer!.frame = self.bounds
         self.layer.addSublayer(self.playerLayer!)
-        
+        /// 播放完成
+        NotificationCenter.default.addObserver(self, selector: #selector(playToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     
 }
 
 // MARK: - 方法实现
 extension TTAVPlayerView {
+    
+    // MARK: 播放完成
+    @objc func playToEndTime(){
+
+        //代理守护下
+        if let delegate = self.delegate {
+            delegate.tt_PlayToEndTime()
+        }
+    }
     
     // MARK: 旋转全屏动画
     func ttOrientationLeftAndRightAnimation() -> Void {
@@ -156,6 +195,10 @@ extension TTAVPlayerView {
         playerItem = self.getPlayItemWithURLString(url: videoURLStr)
         player?.replaceCurrentItem(with: self.playerItem)
         
+        //切换URL完成 监听视频缓冲达到可以播放的状态
+        if let delegata = self.delegate {
+            delegata.tt_PlayBufferToComplete()
+        }
     }
     
     // MARK: 暂停播放
@@ -244,6 +287,14 @@ extension TTAVPlayerView {
             //视频总时长
             let endTimeValue = self?.changeTimeFormat(position: Int(loadTime), duration: Int(totalTime))
             
+            //代理守护
+            if let delegate = self?.delegate {
+                guard let playValue = playTimeValue,
+                    let endValue = endTimeValue else {
+                        return
+                }
+                delegate.tt_PeriodicTimeObserver(maximumValue: maximumValue, sliderValue: Float(Int(loadTime)), playTimeValue: playValue, endTimeValue: endValue)
+            }
         })
     }
     
