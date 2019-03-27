@@ -87,11 +87,43 @@ class TTAVPlayerView: UIView {
 // MARK: - 方法实现
 extension TTAVPlayerView {
     
+    // MARK: 视频已经播放的时长
+    func currentTime() -> CGFloat {
+        guard let avItem = self.playerItem else {
+            return 0
+        }
+        return CGFloat(avItem.currentTime().value)/CGFloat(avItem.currentTime().timescale)
+    }
+    
+    // MARK: 视频总时长
+    func durationTime() -> CGFloat {
+        guard let avItem = self.playerItem else {
+            return 0
+        }
+        return CGFloat(avItem.duration.value)/CGFloat(avItem.duration.timescale)
+    }
+
+    // MARK: 重播
+    func playSpecifyLocation(sliderTime: CGFloat) -> Void {
+        guard let avItem = self.playerItem else { return }
+        let position = durationTime()
+        let po = CMTimeMakeWithSeconds(Float64(position) * Float64(sliderTime), preferredTimescale: 1)
+        avItem.seek(to: po, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+    }
+    
+    // MARK: 更新播放进度
+    func playerSeek(_ seekTime: Float) -> Void {
+        if player?.status == .readyToPlay {
+            let seekTimeValue = CMTimeMake(value: Int64(seekTime), timescale: 1)
+            player?.seek(to: seekTimeValue)
+        }
+    }
+    
     // MARK: 切换视频调用方法
     fileprivate func exchangeWithURL(videoURLStr : String)  {
         
-        self.playerItem = self.getPlayItemWithURLString(url: videoURLStr)
-        self.player?.replaceCurrentItem(with: self.playerItem)
+        playerItem = self.getPlayItemWithURLString(url: videoURLStr)
+        player?.replaceCurrentItem(with: self.playerItem)
         
     }
     
