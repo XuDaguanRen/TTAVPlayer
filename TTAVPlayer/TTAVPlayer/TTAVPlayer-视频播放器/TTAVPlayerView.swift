@@ -87,6 +87,21 @@ class TTAVPlayerView: UIView {
 // MARK: - 方法实现
 extension TTAVPlayerView {
     
+    // MARK: 旋转全屏动画
+    func ttOrientationLeftAndRightAnimation() -> Void {
+        ttLayoutIfNeeded()
+    }
+    // MARK: 旋转竖屏动画
+    func ttOrientationPortraitAnimation() -> Void {
+        ttLayoutIfNeeded()
+    }
+    
+    // MARK: 修改视频frame
+    func ttLayoutIfNeeded() -> Void {
+        self.playerLayer!.frame = self.bounds
+        self.layer.addSublayer(self.playerLayer!)
+    }
+    
     // MARK: 视频已经播放的时长
     func currentTime() -> CGFloat {
         guard let avItem = self.playerItem else {
