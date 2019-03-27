@@ -20,18 +20,25 @@ class TTAVPlayerView: UIView {
     fileprivate var playerLayer: AVPlayerLayer?
     /// 视频集合
     fileprivate var avAsset: AVAsset?
-    /// 播放速度
-    var rate: CGFloat = 1.0 {
-        didSet {
-            
-        }
-    }
     /// 播放文件路径
     var urlString: String = "" {
         didSet {
             if !self.urlString.isEmpty {
-                
+                exchangeWithURL(videoURLStr: self.urlString) //视频切换
             }
+        }
+    }
+    /// 音量设置
+    var volume: Float = AVAudioSession.sharedInstance().outputVolume {
+        didSet {
+           player?.volume = volume
+        }
+    }
+    
+    /// 播放速度
+    var rate: CGFloat = 1.0 {
+        didSet {
+            
         }
     }
     
@@ -57,7 +64,8 @@ class TTAVPlayerView: UIView {
         
         //创建AVplayer：负责视频播放
         self.player = AVPlayer.init(playerItem: self.playerItem)
-        self.player?.volume = AVAudioSession.sharedInstance().outputVolume //设置系统音量
+        //设置系统音量
+        self.player?.volume = volume
         //播放速度 播放前设置
         self.player?.rate = Float(self.rate)
         //创建显示视频的图层
@@ -78,6 +86,24 @@ class TTAVPlayerView: UIView {
 
 // MARK: - 方法实现
 extension TTAVPlayerView {
+    
+    // MARK: 切换视频调用方法
+    fileprivate func exchangeWithURL(videoURLStr : String)  {
+        
+        self.playerItem = self.getPlayItemWithURLString(url: videoURLStr)
+        self.player?.replaceCurrentItem(with: self.playerItem)
+        
+    }
+    
+    // MARK: 暂停播放
+    func clickPause(){
+        player?.pause()
+    }
+    
+    // MARK: 开始播放
+    func clickPlay(){
+        player?.play()
+    }
     
     // MARK: 转时间格式
     /// - Parameters:
@@ -132,6 +158,7 @@ extension TTAVPlayerView {
         }
     }
     
+    // MARK: 监听Player状态
     fileprivate func listenPlayer() -> Void {
         guard let player = self.player else {return}
         //        weak var weakSelf = self
@@ -157,7 +184,7 @@ extension TTAVPlayerView {
         })
     }
     
-    // MARK: 初始化playerItem
+    // MARK: - 初始化playerItem
     fileprivate func getPlayItemWithURLString(url: String) -> AVPlayerItem {
         
         ///初始化播放 item
