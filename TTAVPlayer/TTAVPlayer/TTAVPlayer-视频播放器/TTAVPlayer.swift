@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
-    
-    
-    
+
     /// 记录初始大小
     var ttFrame: CGRect? 
     /// 记录父视图 视频全屏播放后返回初始播放
@@ -24,6 +22,20 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
         let avPlayer = TTAVPlayerView.init(frame: self.bounds)
         avPlayer.backgroundColor = UIColor.black
         return avPlayer
+    }()
+    /// 播放文件路径
+    var urlString: String = "" {
+        didSet {
+            if !urlString.isEmpty {
+                avPlayerView?.urlString = urlString   //传递视频路径直接播放了，外部调用直接传路径就好了
+            }
+        }
+    }
+    /// 底部Bar 使用
+    lazy var bottomBarView: TTBottomBarView = {
+        //底部播放 暂定 快进 全屏播放工具条
+        let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 50, width: self.bounds.width, height: kScale * 50), sliderHeight: kScale * 30)
+        return bottomBar
     }()
     
     // MARK: - 初始化配置
@@ -51,6 +63,13 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
         
     }
     
+    // MARK: 布局底部播放控制View按钮SliderView
+    func setupBottomBarView() -> Void {
+        //底部播放 暂定 快进 全屏播放工具条
+        bottomBarView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
+        self.addSubview(bottomBarView)
+    }
+    
     // MARK: 布局AVPlayer播放器
     func setupAVPlayer() -> Void {
         
@@ -64,6 +83,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
     fileprivate func setupTTAVPlayerUI() -> Void {
         
         setupAVPlayer()
+        setupBottomBarView()
+        
     }
     
 }
