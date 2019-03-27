@@ -47,6 +47,7 @@ class TTAVPlayerView: UIView {
         self.backgroundColor = UIColor.black
         
         setupAVPlayerUI()
+        listenPlayer()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,6 +56,21 @@ class TTAVPlayerView: UIView {
     
     deinit {
         
+    }
+    
+    // MARK: 重新添加播放画面
+    func resetPlayerToPlayerLayer() -> Void {
+        DispatchQueue.main.async {
+            self.playerLayer?.player = self.player
+        }
+        
+    }
+    
+    // MARK: 删除屏幕播放画面
+    func removePlayerOnPlayerLayer() -> Void {
+        DispatchQueue.main.async {
+            self.playerLayer?.player = nil
+        }
     }
     
     /// 初始化设置
