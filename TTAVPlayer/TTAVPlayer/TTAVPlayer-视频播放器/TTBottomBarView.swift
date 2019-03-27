@@ -52,7 +52,12 @@ class TTBottomBarView: UIView {
     /// 按钮状态
     var isSelectedPlay: Bool = false {
         didSet {
-            
+            if isSelectedPlay {
+                playButtonImageView?.image = UIImage.init(named: "player_ctrl_icon_pause")
+            } else {
+                playButtonImageView?.image = UIImage.init(named: "player_ctrl_icon_play")
+            }
+            playBtn.isSelected = isSelectedPlay
         }
     }
     /// 播放时间
@@ -121,7 +126,6 @@ class TTBottomBarView: UIView {
             self.ttSlider.setThumbImage(self.thumbImage, for: .normal)
         }
     }
-    
     /// 是否是全屏状态
     var isFullScreen: TTPlayBottomBarType? {
         didSet {
@@ -231,12 +235,16 @@ extension TTBottomBarView {
     
     // MARK: 全屏播放按钮
     @objc private func clickFullScreenPlayButton() -> Void {
-    
+        if let delegate = delegate {
+            delegate.tt_ClickFullScreenPlayButton() 
+        }
     }
     
     // MARK: 滑动开始监听
     @objc private func ttSliderChanged(slider: UISlider) -> Void {
-        
+        if let delegate = delegate {
+            delegate.tt_SliderChanged(slider: slider) //代理
+        }
     }
     
     // MARK: 修改布局 正常
@@ -312,11 +320,8 @@ extension TTBottomBarView {
     
     // MARK: 播放按钮
     @objc private func clickPlayButton() -> Void {
-        
-        if playBtn.isSelected {
-            playButtonImageView?.image = UIImage.init(named: "player_ctrl_icon_pause")
-        } else {
-            playButtonImageView?.image = UIImage.init(named: "player_ctrl_icon_play")
+        if let delegate = delegate {
+            delegate.tt_ClickPlayButton(isPlay: playBtn.isSelected)  //代理
         }
     }
 }
