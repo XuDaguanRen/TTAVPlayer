@@ -24,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20536F8F224B0E0A0072872D /* 01-课程安排.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-课程安排.mp4"; sourceTree = "<group>"; };
 		20556F6122438116007C0172 /* TTAVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTAVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20556F6422438116007C0172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20556F6622438116007C0172 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 				20556F6622438116007C0172 /* ViewController.swift */,
 				20556F6822438116007C0172 /* Main.storyboard */,
 				20556F6B22438117007C0172 /* Assets.xcassets */,
+				20536F8F224B0E0A0072872D /* 01-课程安排.mp4 */,
 				20556F6D22438118007C0172 /* LaunchScreen.storyboard */,
 				20556F7022438118007C0172 /* Info.plist */,
 			);
