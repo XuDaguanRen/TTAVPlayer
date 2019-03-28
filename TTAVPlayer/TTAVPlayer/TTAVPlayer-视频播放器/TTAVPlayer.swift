@@ -66,18 +66,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 底部Bar 使用
     lazy var bottomBarView: TTBottomBarView = {
         //底部播放 暂定 快进 全屏播放工具条
-        let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 56, width: self.bounds.width, height: kScale * 56), sliderHeight: kScale * 35)
-        bottomBar.layer.masksToBounds = true
-        bottomBar.layer.cornerRadius = 2.0
+        let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 50, width: self.bounds.width, height: kScale * 50), sliderHeight: kScale * 30)
         return bottomBar
     }()
     /// 是否是全屏
     var isOrientation : Bool = false
     /// 顶部Bar控制View
     lazy var topBarView: TTTopBarView = {
-        let topBar = TTTopBarView.init(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 56))
-        topBar.layer.masksToBounds = true
-        topBar.layer.cornerRadius = 2.0
+        let topBar = TTTopBarView.init(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50))
+
         return topBar
     }()
     
@@ -112,13 +109,14 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         if isOrientation { //横屏状态
             self.frame = (UIApplication.shared.keyWindow?.bounds)!
             avPlayerView?.frame = self.frame
-            bottomBarView.frame = CGRect(x: 0, y: self.frame.width - kScale*56, width:  self.frame.height, height: kScale*56)
-            topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*56)
+            bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*65, width: self.frame.width, height: kScale*65)
+            topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*65)
+
         } else { //竖屏状态
             self.frame = ttFrame!
             avPlayerView?.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-            bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*56, width: self.frame.width, height: kScale*56)
-            topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*56)
+            bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*50, width: self.frame.width, height: kScale*50)
+            topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*50)
         }
         
         self.layoutIfNeeded()
@@ -127,9 +125,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     // MARK: 布局顶部控制BarView
     func setupTopBarView() -> Void {
         topBarView.delegate = self
-        topBarView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
+        topBarView.backgroundColor = UIColor.clear
         topBarView.isHiddenTopBar = true          //第一进入播放器竖屏下默认隐藏顶部Bar
-
         self.addSubview(topBarView)
     }
     
@@ -137,7 +134,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     fileprivate func setupBottomBarView() -> Void {
         //底部播放 暂定 快进 全屏播放工具条
         bottomBarView.delegate = self
-        bottomBarView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.2)
+        bottomBarView.backgroundColor = UIColor.clear
         self.addSubview(bottomBarView)
     }
     
