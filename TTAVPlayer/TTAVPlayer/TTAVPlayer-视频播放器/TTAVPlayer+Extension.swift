@@ -11,6 +11,54 @@ import UIKit
 import AVKit
 import MediaPlayer
 
+// MARK: - 顶部控制Bar 和 底部控制Bar 显示或消失动画
+extension TTAVPlayer {
+    // MARK: 顶部和底部Bar展现动画
+    @objc func tt_TopAndBottomBarShow(duration: TimeInterval) -> Void {
+        // 动画消失 顶部和底部控制Bar
+        UIView.animate(withDuration: duration, animations: {
+            
+            if self.isOrientation { //如果是全屏就响应点击事件啊
+                //显示控制器Bar
+                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
+                self.topBarView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50)
+                
+            } else {
+                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
+            }
+            self.bottomBarView.alpha = 1.0
+            self.topBarView.alpha = 1.0
+            
+        }) { (Bool) in
+           
+        }
+    }
+}
+
+// MARK: - 顶部控制Bar TTTopBarDelegate  代理方法
+extension TTAVPlayer {
+    // MARK: 顶部更多按钮
+    func tt_ClickTopBarMoreButton() {
+        
+    }
+    // MARK: 顶部返回按钮
+    func tt_ClickTopBarBackButton() {
+        tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
+        isOrientation = false
+        setupResetSubviewLayout()           //重置子视图布局
+        topBarView.isHiddenTopBar = true    //隐藏顶部Bar
+        avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
+        if let vcView = ttContainerVC {
+            vcView.view.addSubview(self)
+        } else {
+           ttContainerView?.addSubview(self)
+        }
+        ttPlayerOrientationPortraitAnimation()
+        topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
+        bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
+    }
+}
+
 // MARK: - 底部控制Bar TTBottomBarDelegate  代理方法
 extension TTAVPlayer {
     
@@ -52,11 +100,15 @@ extension TTAVPlayer {
         if !isOrientation {
             tt_UIInterfaceOrientation(UIInterfaceOrientation.landscapeRight)    //右边
             isOrientation = true
+            topBarView.isHiddenTopBar = false
             setupResetSubviewLayout()       //重置子视图布局
             bottomBarView.fullScreenPlayTitle = "倍速"
             avPlayerView?.ttOrientationLeftAndRightAnimation()       //改变 playerLayer 大小
             UIApplication.shared.keyWindow?.addSubview(self)         //播放器加载到window 上
-
+            tt_TopAndBottomBarShow(duration: 0.1)
+            ttPlayerOrientationLeftAndRightAnimation()
+            topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
+            bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
         } else {
             
         }
