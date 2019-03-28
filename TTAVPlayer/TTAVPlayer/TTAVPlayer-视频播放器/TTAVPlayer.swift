@@ -71,6 +71,9 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate {
         bottomBar.layer.cornerRadius = 2.0
         return bottomBar
     }()
+    /// 是否是全屏
+    var isOrientation : Bool = false
+
     
     // MARK: - 初始化配置
     ///
@@ -95,6 +98,23 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate {
     
     deinit {
         
+    }
+    
+    // MARK: 重置子视图布局
+    func setupResetSubviewLayout() -> Void {
+        self.removeFromSuperview()
+        if isOrientation { //横屏状态
+            self.frame = (UIApplication.shared.keyWindow?.bounds)!
+            avPlayerView?.frame = self.frame
+            bottomBarView.frame = CGRect(x: 0, y: self.frame.width - kScale*50, width:  self.frame.height, height: kScale*50)
+            
+        } else { //竖屏状态
+            self.frame = ttFrame!
+            avPlayerView?.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*50, width: self.frame.width, height: kScale*50)
+        }
+        
+        self.layoutIfNeeded()
     }
     
     // MARK: 布局底部播放控制View按钮SliderView

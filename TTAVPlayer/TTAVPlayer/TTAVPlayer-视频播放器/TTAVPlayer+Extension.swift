@@ -14,9 +14,52 @@ import MediaPlayer
 // MARK: - 底部控制Bar TTBottomBarDelegate  代理方法
 extension TTAVPlayer {
     
+    // MARK: 强制横屏 通过KVC直接设置屏幕旋转方向
+    func tt_UIInterfaceOrientation(_ orientation: UIInterfaceOrientation) {
+        
+        if orientation == UIInterfaceOrientation.landscapeRight || orientation == UIInterfaceOrientation.landscapeLeft {
+            tt_OrientationSupport = TTOrientationSupport.orientationRight //左右
+            UIDevice.current.setValue(NSNumber(integerLiteral: UIInterfaceOrientation.landscapeRight.rawValue), forKey: "orientation")
+        } else if orientation == UIInterfaceOrientation.portrait {
+            tt_OrientationSupport = TTOrientationSupport.orientationPortrait  //上下左右
+            UIDevice.current.setValue(NSNumber(integerLiteral: UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
+    }
+    
+    // MARK: 旋转全屏动画
+    func ttPlayerOrientationLeftAndRightAnimation() -> Void {
+        let transformAnima = CABasicAnimation(keyPath: "transform.rotation")
+        transformAnima.fromValue = -(Double.pi/2)
+        transformAnima.toValue = 0
+        transformAnima.duration = 0.2       //动画时间
+        transformAnima.isRemovedOnCompletion = true
+        transformAnima.fillMode = CAMediaTimingFillMode.forwards
+        self.layer.add(transformAnima, forKey: "transform.rotation")
+    }
+    // MARK: 旋转竖屏动画
+    func ttPlayerOrientationPortraitAnimation() -> Void {
+        let transformAnima = CABasicAnimation(keyPath: "transform.rotation")
+        transformAnima.fromValue = (Double.pi/2)
+        transformAnima.toValue = 0
+        transformAnima.duration = 0.2       //动画时间
+        transformAnima.isRemovedOnCompletion = true
+        transformAnima.fillMode = CAMediaTimingFillMode.forwards
+        self.layer.add(transformAnima, forKey: "transform.rotation")
+    }
+    
      // MARK: 全屏播放
     func tt_ClickFullScreenPlayButton() {
-        
+        if !isOrientation {
+            tt_UIInterfaceOrientation(UIInterfaceOrientation.landscapeRight)    //右边
+            isOrientation = true
+            setupResetSubviewLayout()       //重置子视图布局
+            bottomBarView.fullScreenPlayTitle = "倍速"
+            avPlayerView?.ttOrientationLeftAndRightAnimation()       //改变 playerLayer 大小
+            UIApplication.shared.keyWindow?.addSubview(self)         //播放器加载到window 上
+
+        } else {
+            
+        }
     }
     // MARK: 滑动结束
     ///
