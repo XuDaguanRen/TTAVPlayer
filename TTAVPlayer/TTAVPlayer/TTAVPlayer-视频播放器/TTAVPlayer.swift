@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
+class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate {
 
     /// 记录初始大小
     var ttFrame: CGRect? 
@@ -68,6 +68,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
     // MARK: 布局底部播放控制View按钮SliderView
     func setupBottomBarView() -> Void {
         //底部播放 暂定 快进 全屏播放工具条
+        bottomBarView.delegate = self
         bottomBarView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.2)
         self.addSubview(bottomBarView)
     }
