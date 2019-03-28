@@ -35,6 +35,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
     lazy var bottomBarView: TTBottomBarView = {
         //底部播放 暂定 快进 全屏播放工具条
         let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 56, width: self.bounds.width, height: kScale * 56), sliderHeight: kScale * 35)
+        bottomBar.layer.masksToBounds = true
+        bottomBar.layer.cornerRadius = 2.0
         return bottomBar
     }()
     
