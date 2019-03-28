@@ -139,6 +139,8 @@ class TTBottomBarView: UIView {
             self.layoutIfNeeded()
         }
     }
+    /// 毛玻璃效果
+    fileprivate var effectView = UIVisualEffectView.init()
     
     // MARK: - 初始化方法
     /// 初始化方法
@@ -160,7 +162,7 @@ class TTBottomBarView: UIView {
        
         //  效果视图（效果为模糊）
         let blurEffect = UIBlurEffect.init(style: .light)
-        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView = UIVisualEffectView(effect: blurEffect)
         effectView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         // 设置透明度
         effectView.alpha = 0.35
@@ -286,6 +288,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX, y: 0, width: self.frame.height, height: self.frame.height)
+            self.effectView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             //隐藏控件
             self.playTimeL.isHidden = false
             self.endTimeL.isHidden = false
@@ -322,6 +325,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX - kScale * 10, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height)
+            self.effectView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             //是否隐藏控件
             self.playTimeL.isHidden = false
             self.endTimeL.isHidden = false
