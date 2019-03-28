@@ -13,19 +13,20 @@ import MediaPlayer
 
 // MARK: - 顶部控制Bar 和 底部控制Bar 显示或消失动画
 extension TTAVPlayer {
+    
     // MARK: 顶部和底部Bar展现动画
     @objc func tt_TopAndBottomBarShow(duration: TimeInterval) -> Void {
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: duration, animations: {
             
-            if self.isOrientation { //如果是全屏就响应点击事件啊
-                //显示控制器Bar
-                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
-                self.topBarView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50)
-                
-            } else {
-                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
-            }
+//            if self.isOrientation { //如果是全屏就响应点击事件啊
+//                //显示控制器Bar
+//                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
+//                self.topBarView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50)
+//                
+//            } else {
+//                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
+//            }
             self.bottomBarView.alpha = 1.0
             self.topBarView.alpha = 1.0
             

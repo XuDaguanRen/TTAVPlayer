@@ -269,6 +269,10 @@ extension TTBottomBarView {
             self.fullScreenPlayTitle = ""       //竖屏不显示全屏按钮标题
             
         }) { (Bool) in
+            //播放按钮
+            self.playBtn.frame = CGRect(x: 0, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height)
+            //按钮图片
+            self.playButtonImageView?.frame = CGRect(x: (self.playBtn.frame.width - kScale * 28) / 2, y: (self.playBtn.frame.height - kScale * 28) / 2, width: kScale * 28, height: kScale * 28)
             //开始时间
             self.playTimeL.frame = CGRect(x: self.playBtn.right + kScale * 1, y: (self.frame.height - kScale * 16) / 2, width: kScale * 48, height: kScale * 16)
             //结束时间
@@ -283,6 +287,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX, y: 0, width: self.frame.height, height: self.frame.height)
+
             self.barMaskImageView.frame = self.bounds
             //隐藏控件
             self.playTimeL.isHidden = false
@@ -322,7 +327,9 @@ extension TTBottomBarView {
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX - kScale * 10, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
             
             self.playBtn.frame = CGRect(x: 0, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
+            
             self.playButtonImageView?.frame = CGRect(x: (self.playBtn.frame.width - kScale * 28) / 2, y: (self.playBtn.frame.height - kScale * 28) / 2, width: kScale * 28, height: kScale * 28)
+            
             self.barMaskImageView.frame = self.bounds
             
             //是否隐藏控件
