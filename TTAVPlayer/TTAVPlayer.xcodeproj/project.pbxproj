@@ -120,10 +120,7 @@
 		2064A6FD2248AC2200363BDC /* TTAVPlayer-视频播放器 */ = {
 			isa = PBXGroup;
 			children = (
-				2064A7022248B1E000363BDC /* TTRefs.swift */,
-				2064A7002248AEF700363BDC /* TTCONSTDefine.swift */,
-				2064A7042248B6B100363BDC /* TTLog.swift */,
-				20536F98224B660C0072872D /* TTView+Extension.swift */,
+				20883891224C5A9F008928BF /* Tools */,
 				20536F92224B4D530072872D /* TTAVPlayer.swift */,
 				20536F94224B548D0072872D /* TTAVPlayer+Extension.swift */,
 				2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */,
@@ -131,6 +128,17 @@
 				20536F9A224B6AA00072872D /* TTSlider.swift */,
 			);
 			path = "TTAVPlayer-视频播放器";
+			sourceTree = "<group>";
+		};
+		20883891224C5A9F008928BF /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				20536F98224B660C0072872D /* TTView+Extension.swift */,
+				2064A7022248B1E000363BDC /* TTRefs.swift */,
+				2064A7002248AEF700363BDC /* TTCONSTDefine.swift */,
+				2064A7042248B6B100363BDC /* TTLog.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
