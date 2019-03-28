@@ -68,9 +68,8 @@ class TTTopBarView: UIView {
             self.isHidden = isHiddenTopBar
         }
     }
-    /// 毛玻璃效果
-    fileprivate var effectView = UIVisualEffectView.init()
-    
+    /// 播放栏背景蒙版
+    fileprivate var barMaskImageView = UIImageView.init(image: UIImage.init(named: "miniplayer_mask_top"))
     // MARK: - 重写初始化方法
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,10 +84,10 @@ class TTTopBarView: UIView {
     // MARK: 修改布局 全屏
     @objc func ttLayoutIfNeededFullTopBarView() -> Void {
         // 返回按钮
-        backButton?.frame = CGRect(x: 0, y: 0, width: kScale * 50, height: self.frame.height)
-        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (kScale * 50) * 2 + kScale * 20, height: self.frame.height)
-        moreButton?.frame = CGRect(x: self.frame.width - kScale * 50, y: 0, width: kScale * 50, height: self.frame.height)
-        effectView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        backButton?.frame = CGRect(x: 0, y: -kScale * 5, width: kScale * 50, height: self.frame.height - kScale * 5)
+        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: kScale * 5, width: self.frame.width - (kScale * 50) * 2 + kScale * 20, height: self.frame.height - kScale * 5)
+        moreButton?.frame = CGRect(x: self.frame.width - kScale * 50, y: -kScale * 5, width: kScale * 50, height: self.frame.height - kScale * 5)
+        barMaskImageView.frame = self.bounds
     }
     
     // MARK: 修改布局 正常
@@ -97,19 +96,14 @@ class TTTopBarView: UIView {
         backButton?.frame = CGRect(x: 0, y: 0, width: kScale * 50, height: self.frame.height)
         videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (kScale * 50) * 2 + kScale * 20, height: self.frame.height)
         moreButton?.frame = CGRect(x: self.frame.width - kScale * 50, y: 0, width: kScale * 50, height: self.frame.height)
-        effectView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        barMaskImageView.frame = self.bounds
     }
     
     // MARK: 布局UI
     func setupTopControlBarViewUI() -> Void {
         
-        //  效果视图（效果为模糊）
-        let blurEffect = UIBlurEffect.init(style: .light)
-        effectView = UIVisualEffectView(effect: blurEffect)
-        effectView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        // 设置透明度
-        effectView.alpha = 0.35
-        self.addSubview(effectView)
+        barMaskImageView.frame = self.bounds
+        self.addSubview(barMaskImageView)
         
         // 返回按钮
         backButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: kScale * 50, height: self.frame.height))

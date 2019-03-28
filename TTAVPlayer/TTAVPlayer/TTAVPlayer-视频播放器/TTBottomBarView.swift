@@ -139,8 +139,8 @@ class TTBottomBarView: UIView {
             self.layoutIfNeeded()
         }
     }
-    /// 毛玻璃效果
-    fileprivate var effectView = UIVisualEffectView.init()
+    /// 播放栏背景蒙版
+    fileprivate var barMaskImageView = UIImageView.init(image: UIImage.init(named: "miniplayer_mask"))
     
     // MARK: - 初始化方法
     /// 初始化方法
@@ -160,13 +160,8 @@ class TTBottomBarView: UIView {
     // MARK: 布局页面
     func setupBottomBarUI(frame: CGRect, sliderHeight: CGFloat) -> Void {
        
-        //  效果视图（效果为模糊）
-        let blurEffect = UIBlurEffect.init(style: .light)
-        effectView = UIVisualEffectView(effect: blurEffect)
-        effectView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        // 设置透明度
-        effectView.alpha = 0.35
-        self.addSubview(effectView)
+        barMaskImageView.frame = self.bounds
+        self.addSubview(barMaskImageView)
         
         ttEliderHeight = sliderHeight
         
@@ -288,7 +283,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX, y: 0, width: self.frame.height, height: self.frame.height)
-            self.effectView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            self.barMaskImageView.frame = self.bounds
             //隐藏控件
             self.playTimeL.isHidden = false
             self.endTimeL.isHidden = false
@@ -312,20 +307,24 @@ extension TTBottomBarView {
             self.fullPlayImageView?.isHidden = true
         }) { (Bool) in
             
-            self.playTimeL.frame = CGRect(x: self.playBtn.right + kScale * 5, y: (self.frame.height - kScale * 16) / 2, width: kScale * 58, height: kScale * 16)
+            self.playTimeL.frame = CGRect(x: self.playBtn.right + kScale * 5, y: (self.frame.height - kScale * 16) / 2 + kScale * 5, width: kScale * 58, height: kScale * 16)
             //Y
             let sliderY =  (self.frame.size.height - self.ttEliderHeight) / 2
             //宽度
             let sliderWidth =  (self.frame.size.width - self.playBtn.width - self.playTimeL.width - self.endTimeL.width - self.fullScreenPlayBtn.width - kScale * 35)
             
-            self.ttSlider.frame = CGRect(x: self.playTimeL.right + kScale * 5, y: sliderY, width: sliderWidth, height: self.ttEliderHeight);
+            self.ttSlider.frame = CGRect(x: self.playTimeL.right + kScale * 5, y: sliderY + kScale * 5, width: sliderWidth, height: self.ttEliderHeight);
             //结束时间
-            self.endTimeL.frame = CGRect(x: self.ttSlider.right + kScale * 10, y: (self.frame.height - kScale * 16)/2, width: kScale * 58, height: kScale * 16)
+            self.endTimeL.frame = CGRect(x: self.ttSlider.right + kScale * 10, y: (self.frame.height - kScale * 16)/2 + kScale * 5, width: kScale * 58, height: kScale * 16)
             //全屏按钮 X
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
-            self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX - kScale * 10, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height)
-            self.effectView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX - kScale * 10, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
+            
+            self.playBtn.frame = CGRect(x: 0, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
+            self.playButtonImageView?.frame = CGRect(x: (self.playBtn.frame.width - kScale * 28) / 2, y: (self.playBtn.frame.height - kScale * 28) / 2, width: kScale * 28, height: kScale * 28)
+            self.barMaskImageView.frame = self.bounds
+            
             //是否隐藏控件
             self.playTimeL.isHidden = false
             self.endTimeL.isHidden = false
