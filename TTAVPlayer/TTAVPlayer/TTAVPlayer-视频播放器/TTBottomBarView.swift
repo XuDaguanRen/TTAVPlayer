@@ -154,6 +154,14 @@ class TTBottomBarView: UIView {
     
     // MARK: 布局页面
     func setupBottomBarUI(frame: CGRect, sliderHeight: CGFloat) -> Void {
+       
+        //  效果视图（效果为模糊）
+        let blurEffect = UIBlurEffect.init(style: .light)
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        // 设置透明度
+        effectView.alpha = 0.35
+        self.addSubview(effectView)
         
         ttEliderHeight = sliderHeight
         
@@ -226,7 +234,7 @@ class TTBottomBarView: UIView {
         fullPlayImageView = UIImageView.init(frame: CGRect(x: (playBtn.frame.width - kScale * 28) / 2, y: (playBtn.frame.height - kScale * 28) / 2, width:  kScale * 28, height: kScale * 28))
         fullScreenPlayBtn.addSubview(fullPlayImageView!)
         fullPlayImageView?.image = UIImage.init(named: "player_icon_fullscreen")
-        
+
     }
     
 }

@@ -34,7 +34,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
     /// 底部Bar 使用
     lazy var bottomBarView: TTBottomBarView = {
         //底部播放 暂定 快进 全屏播放工具条
-        let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 50, width: self.bounds.width, height: kScale * 50), sliderHeight: kScale * 30)
+        let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 56, width: self.bounds.width, height: kScale * 56), sliderHeight: kScale * 35)
         return bottomBar
     }()
     
@@ -66,7 +66,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate {
     // MARK: 布局底部播放控制View按钮SliderView
     func setupBottomBarView() -> Void {
         //底部播放 暂定 快进 全屏播放工具条
-        bottomBarView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.3)
+        bottomBarView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.2)
         self.addSubview(bottomBarView)
     }
     
