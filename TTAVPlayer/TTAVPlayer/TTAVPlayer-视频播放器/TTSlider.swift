@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 
+// MARK: - Block回调
 typealias tt_SliderTouchesEndedBlock = (_ slider: UISlider) -> Void
 
 class TTSlider: UISlider {
+    // MARK: - 属性
     /// Slider进度条高度
     var ttHeight: CGFloat = 0.0
     //记录大小
@@ -19,6 +21,7 @@ class TTSlider: UISlider {
     /// 按钮滑动结束回调
     var sliderTouchesEndedBlock: tt_SliderTouchesEndedBlock?
     
+    // MARK: - 重载写方法
     override func minimumValueImageRect(forBounds bounds: CGRect) -> CGRect {
         return self.bounds
     }

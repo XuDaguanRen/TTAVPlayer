@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// MARK: - 枚举
 /// 播放是否全屏
 ///
 /// - normal: 正常状态
@@ -18,6 +19,7 @@ enum TTPlayBottomBarType {
     case Full
 }
 
+// MARK: - 代理
 @objc protocol TTBottomBarDelegate: NSObjectProtocol {
     
     // MARK: 全屏播放按钮
@@ -40,7 +42,7 @@ enum TTPlayBottomBarType {
 }
 
 class TTBottomBarView: UIView {
-    
+    // MARK: - 属性
     /// 代理
     weak open var delegate: TTBottomBarDelegate?
     /// slider高度
@@ -138,6 +140,7 @@ class TTBottomBarView: UIView {
         }
     }
     
+    // MARK: - 初始化方法
     /// 初始化方法
     ///
     /// - Parameters:
@@ -239,6 +242,7 @@ class TTBottomBarView: UIView {
     
 }
 
+// MARK: - 方法实现
 extension TTBottomBarView {
     
     // MARK: 全屏播放按钮
