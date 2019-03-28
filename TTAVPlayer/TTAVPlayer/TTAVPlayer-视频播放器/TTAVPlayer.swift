@@ -9,8 +9,40 @@
 import Foundation
 import UIKit
 
+// MARK: - 播放状态枚举
+@objc public enum TTAVPlayerStatus: Int {
+    case Failed             //文件错误缓冲失败
+    case ReadyToPlay        //准备好播放
+    case Unknown            //未知错误
+    case Buffering          //缓冲中
+    case Playing            //正在播放
+    case Pause              //暂停播放
+    case EndTime            //播放完成
+}
+
 class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate {
 
+    // MARK: - 属性
+    /// 播放状态
+    var ttAVPlayerStatus: TTAVPlayerStatus? {
+        didSet {
+            if ttAVPlayerStatus == TTAVPlayerStatus.Playing {     //播放状态
+                //播放
+                avPlayerView?.clickPlay()
+                bottomBarView.isSelectedPlay = true
+            } else if ttAVPlayerStatus == TTAVPlayerStatus.Pause {       //暂停状态
+                //暂停
+                avPlayerView?.clickPause()
+                bottomBarView.isSelectedPlay = false    //修改播放按钮状态
+            } else if ttAVPlayerStatus == TTAVPlayerStatus.EndTime {       //播放完成
+                //暂停
+                avPlayerView?.clickPause()
+                bottomBarView.isSelectedPlay = false    //修改播放按钮状态
+            } else if ttAVPlayerStatus == TTAVPlayerStatus.Buffering {      //正在缓冲
+               
+            }
+        }
+    }
     /// 记录初始大小
     var ttFrame: CGRect? 
     /// 记录父视图 视频全屏播放后返回初始播放
