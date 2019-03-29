@@ -139,7 +139,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     func setupTopBarView() -> Void {
         topBarView.delegate = self
         topBarView.backgroundColor = UIColor.clear
-        topBarView.isHiddenTopBar = true          //第一进入播放器竖屏下默认隐藏顶部Bar
+//        topBarView.isHiddenTopBar = true          //第一进入播放器竖屏下默认隐藏顶部Bar
         self.addSubview(topBarView)
     }
     

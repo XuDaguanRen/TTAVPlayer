@@ -30,6 +30,7 @@ class TTHomeController: TTBaseController {
 //    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180))
     let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self, nil)
     ttPlayer.urlString = path!
+    ttPlayer.videoName = "01-课程安排"
     
     view.addSubview(ttPlayer)
     

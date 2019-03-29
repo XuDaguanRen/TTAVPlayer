@@ -312,6 +312,10 @@ extension TTBottomBarView {
             self.fullPlayImageView?.isHidden = true
         }) { (Bool) in
             
+            self.playBtn.frame = CGRect(x: 0, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
+            
+            self.playButtonImageView?.frame = CGRect(x: (self.playBtn.frame.width - kScale * 28) / 2, y: (self.playBtn.frame.height - kScale * 28) / 2, width: kScale * 28, height: kScale * 28)
+            
             self.playTimeL.frame = CGRect(x: self.playBtn.right + kScale * 5, y: (self.frame.height - kScale * 16) / 2 + kScale * 5, width: kScale * 58, height: kScale * 16)
             //Y
             let sliderY =  (self.frame.size.height - self.ttEliderHeight) / 2
@@ -325,11 +329,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX - kScale * 10, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
-            
-            self.playBtn.frame = CGRect(x: 0, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
-            
-            self.playButtonImageView?.frame = CGRect(x: (self.playBtn.frame.width - kScale * 28) / 2, y: (self.playBtn.frame.height - kScale * 28) / 2, width: kScale * 28, height: kScale * 28)
-            
+
             self.barMaskImageView.frame = self.bounds
             
             //是否隐藏控件

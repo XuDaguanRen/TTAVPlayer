@@ -84,18 +84,18 @@ class TTTopBarView: UIView {
     // MARK: 修改布局 全屏
     @objc func ttLayoutIfNeededFullTopBarView() -> Void {
         // 返回按钮
-        backButton?.frame = CGRect(x: 0, y: -kScale * 5, width: kScale * 50, height: self.frame.height - kScale * 5)
-        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: kScale * 5, width: self.frame.width - (kScale * 50) * 2 + kScale * 20, height: self.frame.height - kScale * 5)
-        moreButton?.frame = CGRect(x: self.frame.width - kScale * 50, y: -kScale * 5, width: kScale * 50, height: self.frame.height - kScale * 5)
+        backButton?.frame = CGRect(x: 0, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
+        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (self.frame.height + kScale * 10) * 2 - kScale * 20, height: self.frame.height - kScale * 10)
+        moreButton?.frame = CGRect(x: videoNameLable.right + kScale * 10, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
         barMaskImageView.frame = self.bounds
     }
     
     // MARK: 修改布局 正常
     @objc func ttLayoutIfNeededNormalTopBarView() -> Void {
         // 返回按钮
-        backButton?.frame = CGRect(x: 0, y: 0, width: kScale * 50, height: self.frame.height)
-        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (kScale * 50) * 2 + kScale * 20, height: self.frame.height)
-        moreButton?.frame = CGRect(x: self.frame.width - kScale * 50, y: 0, width: kScale * 50, height: self.frame.height)
+        backButton?.frame = CGRect(x: 0, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height)
+        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (self.frame.height + kScale * 10) * 2 - kScale * 20, height: self.frame.height)
+        moreButton?.frame = CGRect(x: videoNameLable.right + kScale * 10, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height)
         barMaskImageView.frame = self.bounds
     }
     
@@ -106,18 +106,18 @@ class TTTopBarView: UIView {
         self.addSubview(barMaskImageView)
         
         // 返回按钮
-        backButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: kScale * 50, height: self.frame.height))
+        backButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height))
         backButton?.setImage(UIImage.init(named: "player_icon_nav_back"), for: .normal)
         backButton?.addTarget(self, action: #selector(clickTopBarBackButton), for: .touchUpInside)
         
         self.addSubview(backButton!)
         
-        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (kScale * 50) * 2 + kScale * 20, height: self.frame.height)
+        videoNameLable.frame = CGRect(x: backButton!.right + kScale * 10, y: 0, width: self.frame.width - (self.frame.height + kScale * 10) * 2 - kScale * 20, height: self.frame.height)
         videoNameLable.text = videoNameString
         self.addSubview(videoNameLable)
         
         // 更多按钮
-        moreButton = UIButton.init(frame: CGRect(x: self.frame.width - kScale * 50, y: 0, width: kScale * 50, height: self.frame.height))
+        moreButton = UIButton.init(frame: CGRect(x:  videoNameLable.right + kScale * 10, y: 0, width: self.frame.height + kScale * 10, height: self.frame.height))
         moreButton?.setImage(UIImage.init(named: "player_icon_more"), for: .normal)
         moreButton?.addTarget(self, action: #selector(clickTopBarMoreButton), for: .touchUpInside)
         
