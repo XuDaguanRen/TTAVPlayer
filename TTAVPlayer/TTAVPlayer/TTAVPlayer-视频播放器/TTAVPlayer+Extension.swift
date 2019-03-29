@@ -11,11 +11,31 @@ import UIKit
 import AVKit
 import MediaPlayer
 
+// MARK: 屏幕手势
+extension TTAVPlayer {
+    
+    // MARK: 按住屏幕上下滑动修改音量和亮度手势
+    @objc func panGestureRecognizers(_ sender: UIPanGestureRecognizer) {
+        
+    }
+    
+    // MARK: 屏幕双击手势 播放或者暂停
+    @objc func doubleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
+        
+    }
+    
+    // MARK: 屏幕单击手势 隐藏或者显示顶部和底部控制Bar
+    @objc func singleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
+        topAndBottomBarHidden = !topAndBottomBarHidden
+    }
+    
+}
+
 // MARK: - 顶部控制Bar 和 底部控制Bar 显示或消失动画
 extension TTAVPlayer {
     
     // MARK: 顶部和底部Bar展现动画
-    @objc fileprivate func tt_TopAndBottomBarShow(duration: TimeInterval) -> Void {
+    @objc func tt_TopAndBottomBarShow(_ duration: TimeInterval) -> Void {
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: duration, animations: {
             
@@ -30,17 +50,18 @@ extension TTAVPlayer {
             self.topBarView.alpha = 1.0
             
         }) { (Bool) in
-            //取消隐藏动画后在重新添加5秒延迟动画
+            //显示bar后，5秒后重新添加5秒延迟消失bar动画
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
             //延迟五秒调用方法
-            self.perform(#selector(self.tt_TopAndBottomBarHidden), with: nil, afterDelay: 5)
+            self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
         }
     }
     
     // MARK: 顶部和底部Bar消失动画
-    @objc fileprivate func tt_TopAndBottomBarHidden() -> Void {
+    @objc func tt_TopAndBottomBarHidden(_ duration: TimeInterval) -> Void {
+        let tt_Duration = duration > 0 ? duration : 0.5
         // 动画消失 顶部和底部控制Bar
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: tt_Duration) {
             if self.isOrientation { //如果是全屏就隐藏顶部和底部Bar
                 self.topBarView.frame = CGRect(x: 0, y: -kScale*65, width: self.bounds.width, height: kScale*65)
                 self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height + kScale*65, width: self.frame.width, height: kScale*65)
@@ -51,7 +72,7 @@ extension TTAVPlayer {
             self.bottomBarView.alpha = 0.0
         }
     }
-
+    
 }
 
 // MARK: - 顶部控制Bar TTTopBarDelegate  代理方法

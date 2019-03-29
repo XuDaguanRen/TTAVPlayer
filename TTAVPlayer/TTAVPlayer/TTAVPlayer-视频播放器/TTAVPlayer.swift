@@ -37,7 +37,7 @@ import UIKit
     
 }
 
-class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarDelegate {
+class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarDelegate, UIGestureRecognizerDelegate {
     
     // MARK: - 属性
     /// 代理
@@ -138,6 +138,46 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             bottomBarView.isHidden = isHiddenbottomBarBar
         }
     }
+    /// 单击手势
+    lazy var singleTapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(singleTapGestureRecognizers(_:)))
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        return gesture
+    }()
+    /// 双击手势
+    lazy var doubleTapGesture: UITapGestureRecognizer = {
+        let gesture = UITapGestureRecognizer()
+        gesture.addTarget(self, action: #selector(doubleTapGestureRecognizers(_:)))
+        gesture.numberOfTapsRequired = 2
+        gesture.numberOfTouchesRequired = 1
+        return gesture
+    }()
+    /// 滑动手势
+    lazy var panGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer()
+        gesture.addTarget(self, action: #selector(panGestureRecognizers(_:)))
+        gesture.delegate = self
+        gesture.maximumNumberOfTouches = 1
+        gesture.isEnabled = false          //先让手势不能触发 全屏的时候在触发手势
+        return gesture
+    }()
+    /// 是否隐藏bar
+    var topAndBottomBarHidden: Bool = false {
+        didSet {
+            if topAndBottomBarHidden {
+                tt_TopAndBottomBarHidden(0.2)        //隐藏顶部和底部Bar控制器
+            } else {
+                tt_TopAndBottomBarShow(0.2)           //显示顶部和底部Bar控制器
+            }
+        }
+    }
+    
+    
+    
+    
+    
     // MARK: - 初始化配置
     ///
     /// - Parameters:
@@ -163,6 +203,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         
     }
     
+    
     // MARK: 重置子视图布局
     func setupResetSubviewLayout() -> Void {
         self.removeFromSuperview()
@@ -180,6 +221,23 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
         
         self.layoutIfNeeded()
+    }
+    
+    // MARK: 添加屏幕点击拖动手势
+    func addGestureRecognizer() -> Void {
+        
+        self.addGestureRecognizer(singleTapGesture)     //单击手势
+        self.addGestureRecognizer(doubleTapGesture)     //双击手势
+        self.addGestureRecognizer(panGesture)           //滑动手势
+        // 解决点击当前view时候响应其他控件事件
+        singleTapGesture.delaysTouchesBegan = true
+        doubleTapGesture.delaysTouchesBegan = true
+        panGesture.delaysTouchesBegan = true
+        panGesture.delaysTouchesEnded = true
+        panGesture.cancelsTouchesInView = true
+        // 双击，滑动 ，失败响应单击事件,
+        singleTapGesture.require(toFail: doubleTapGesture)
+        singleTapGesture.require(toFail: panGesture)
     }
     
     // MARK: 布局顶部控制BarView
@@ -203,15 +261,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         //视频播放器
         avPlayerView?.delegate = self    //设置代理
         self.addSubview(avPlayerView!)
-        
     }
     
     // MARK: - 布局TTAVPlayerUI
     fileprivate func setupTTAVPlayerUI() -> Void {
         
-        setupAVPlayer()
-        setupBottomBarView()
-        setupTopBarView()
+        setupAVPlayer()                 //布局UI
+        setupBottomBarView()            //添加底部控制Bar
+        setupTopBarView()               //添加顶部控制Bar
+        addGestureRecognizer()          //添加手势
     }
     
 }
