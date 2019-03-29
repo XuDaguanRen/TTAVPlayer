@@ -47,7 +47,8 @@ extension TTAVPlayer {
     }
     // MARK: 顶部返回按钮
     func tt_ClickTopBarBackButton() {
-        if (ttContainerVC?.navigationController?.viewControllers.count)! > 0 {
+       
+        if isOrientation {
             tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
             isOrientation = false
             setupResetSubviewLayout()           //重置子视图布局
@@ -65,7 +66,13 @@ extension TTAVPlayer {
             topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
             topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
         } else {
-            ttContainerVC?.navigationController?.popViewController(animated: true)
+            var index = 0
+            if let containerVC = ttContainerVC {
+                index = containerVC.navigationController?.viewControllers.lastIndex(of: containerVC) ?? 0
+            }
+            if index > 1 {
+                ttContainerVC?.navigationController?.popViewController(animated: true)
+            }
         }
         //返回按钮回调
         if let ttDelegate = delegate {
