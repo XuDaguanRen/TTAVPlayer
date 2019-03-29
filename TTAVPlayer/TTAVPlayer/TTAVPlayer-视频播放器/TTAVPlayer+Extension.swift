@@ -179,7 +179,7 @@ extension TTAVPlayer {
             topBarView.videoNameLable.isHidden = false
             topBarView.moreButton?.isHidden = false
             //延迟五秒调用方法
-            self.perform(#selector(self.tt_TopAndBottomBarHidden), with: nil, afterDelay: 5)
+            self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
             
         } else {
             //如果不是全屏状态 按钮响应事件
@@ -284,6 +284,8 @@ extension TTAVPlayer {
     // MARK: 缓冲完成播放
     func tt_PlayBufferToComplete() {
         bottomBarView.isSelectedPlay = true
+        //延迟五秒隐藏底部Bar
+        self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
     }
     
     // MARK: 视频播放中的进度监听
