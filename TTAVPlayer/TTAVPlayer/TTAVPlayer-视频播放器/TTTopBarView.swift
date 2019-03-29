@@ -36,7 +36,7 @@ class TTTopBarView: UIView {
     /// 返回按钮
     fileprivate var backButton: UIButton?
     /// 更多按钮
-    fileprivate var moreButton: UIButton?
+    var moreButton: UIButton? 
     /// 视频名称
     lazy var videoNameLable: UILabel = {
         let lable = UILabel()
@@ -60,12 +60,6 @@ class TTTopBarView: UIView {
                 ttLayoutIfNeededNormalTopBarView()
             }
             self.layoutIfNeeded()
-        }
-    }
-    /// 是否隐藏顶部Bar控制面板
-    var isHiddenTopBar: Bool = true {
-        didSet {    //竖屏默认隐藏
-            self.isHidden = isHiddenTopBar
         }
     }
     /// 播放栏背景蒙版

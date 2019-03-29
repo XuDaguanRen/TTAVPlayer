@@ -89,8 +89,30 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             self.avPlayerView?.rate = self.rate
         }
     }
-    
-    
+    /// 是否隐藏顶部Bar控制面板
+    var isHiddenTopBar: Bool = false {
+        didSet { 
+            topBarView.isHidden = isHiddenTopBar
+        }
+    }
+    /// 是否隐藏顶部Bar视频名称
+    var isHiddenTopBarVideoName: Bool = false {
+        didSet {
+            topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
+        }
+    }
+    /// 是否隐藏顶部Bar更多按钮
+    var isHiddenTopBarMoreButton: Bool = false {
+        didSet {
+            topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
+        }
+    }
+    /// 是否隐藏底部部Bar控制面板
+    var isHiddenbottomBarBar: Bool = false {
+        didSet {    //竖屏默认隐藏
+            bottomBarView.isHidden = isHiddenbottomBarBar
+        }
+    }
     // MARK: - 初始化配置
     ///
     /// - Parameters:
@@ -139,7 +161,6 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     func setupTopBarView() -> Void {
         topBarView.delegate = self
         topBarView.backgroundColor = UIColor.clear
-//        topBarView.isHiddenTopBar = true          //第一进入播放器竖屏下默认隐藏顶部Bar
         self.addSubview(topBarView)
     }
     

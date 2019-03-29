@@ -47,7 +47,6 @@ extension TTAVPlayer {
         tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
         isOrientation = false
         setupResetSubviewLayout()           //重置子视图布局
-        topBarView.isHiddenTopBar = true    //隐藏顶部Bar
         avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
         if let vcView = ttContainerVC {
             vcView.view.addSubview(self)
@@ -57,6 +56,9 @@ extension TTAVPlayer {
         ttPlayerOrientationPortraitAnimation()
         topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
         bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
+        topBarView.isHidden = self.isHiddenTopBar
+        topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
+        topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
     }
 }
 
@@ -101,7 +103,6 @@ extension TTAVPlayer {
         if !isOrientation {
             tt_UIInterfaceOrientation(UIInterfaceOrientation.landscapeRight)    //右边
             isOrientation = true
-            topBarView.isHiddenTopBar = false
             setupResetSubviewLayout()       //重置子视图布局
             bottomBarView.fullScreenPlayTitle = "倍速"
             avPlayerView?.ttOrientationLeftAndRightAnimation()       //改变 playerLayer 大小
@@ -110,6 +111,9 @@ extension TTAVPlayer {
             ttPlayerOrientationLeftAndRightAnimation()
             topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
             bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
+            topBarView.isHidden = false
+            topBarView.videoNameLable.isHidden = false
+            topBarView.moreButton?.isHidden = false
         } else {
             //如果不是全屏状态 按钮响应事件
             switch self.rate {
