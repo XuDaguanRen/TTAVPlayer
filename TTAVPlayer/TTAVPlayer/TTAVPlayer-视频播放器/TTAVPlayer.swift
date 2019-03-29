@@ -90,6 +90,12 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
     }
     /// 是否隐藏顶部Bar控制面板
+    var isHiddenTopBar: Bool = false {
+        didSet {
+            topBarView.isHidden = isHiddenTopBar
+        }
+    }
+    /// 是否隐藏顶部Bar控制面板
     var isHiddenTopBarBackButton: Bool = false {
         didSet { 
             topBarView.backButton?.isHidden = isHiddenTopBarBackButton

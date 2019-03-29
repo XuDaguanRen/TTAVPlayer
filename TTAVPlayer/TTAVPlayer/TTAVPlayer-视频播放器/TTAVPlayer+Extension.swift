@@ -56,6 +56,7 @@ extension TTAVPlayer {
         ttPlayerOrientationPortraitAnimation()
         topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
         bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
+        topBarView.isHidden = isHiddenTopBar
         topBarView.backButton?.isHidden = isHiddenTopBarBackButton
         topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
         topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
@@ -111,9 +112,11 @@ extension TTAVPlayer {
             ttPlayerOrientationLeftAndRightAnimation()
             topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
             bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
+            topBarView.isHidden = false
             topBarView.backButton?.isHidden = false
             topBarView.videoNameLable.isHidden = false
             topBarView.moreButton?.isHidden = false
+            
         } else {
             //如果不是全屏状态 按钮响应事件
             switch self.rate {
