@@ -77,9 +77,9 @@ class TTAVPlayerView: UIView {
         }
     }
     /// 播放速度
-    var rate: CGFloat = 1.0 {
+    var rate: Float = 1.0 {
         didSet {
-            
+          player?.rate = rate
         }
     }
     /// 代理

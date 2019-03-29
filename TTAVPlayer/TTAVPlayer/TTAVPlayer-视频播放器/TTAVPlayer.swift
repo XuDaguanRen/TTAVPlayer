@@ -103,7 +103,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
     }
     /// 播放速度
-    var rate: CGFloat = 1.0 {
+    var rate: Float = 1.0 {
         didSet {
             self.avPlayerView?.rate = self.rate
         }
