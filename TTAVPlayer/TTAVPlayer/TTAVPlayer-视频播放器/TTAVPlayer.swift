@@ -77,6 +77,19 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
 
         return topBar
     }()
+    /// 视频名称String
+    var videoName: String = "" {
+        didSet {
+            topBarView.videoNameString = self.videoName
+        }
+    }
+    /// 播放速度
+    var rate: CGFloat = 1.0 {
+        didSet {
+            self.avPlayerView?.rate = self.rate
+        }
+    }
+    
     
     // MARK: - 初始化配置
     ///

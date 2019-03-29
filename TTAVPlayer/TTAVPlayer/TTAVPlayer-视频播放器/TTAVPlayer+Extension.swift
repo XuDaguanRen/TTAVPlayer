@@ -111,7 +111,31 @@ extension TTAVPlayer {
             topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
             bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
         } else {
-            
+            //如果不是全屏状态 按钮响应事件
+            switch self.rate {
+            case 1.0:
+                bottomBarView.fullScreenPlayTitle = "x1.5"
+                self.rate = 1.5
+                break
+            case 1.5:
+                bottomBarView.fullScreenPlayTitle = "x2.0"
+                self.rate = 2.0
+                break
+            case 2.0:
+                bottomBarView.fullScreenPlayTitle = "x2.5"
+                self.rate = 2.5
+                break
+            case 2.5:
+                bottomBarView.fullScreenPlayTitle = "x0.5"
+                self.rate = 0.5
+                break
+            case 0.5:
+                bottomBarView.fullScreenPlayTitle = "正常"
+                self.rate = 1.0
+                break
+            default:
+                break
+            }
         }
     }
     // MARK: 滑动结束
