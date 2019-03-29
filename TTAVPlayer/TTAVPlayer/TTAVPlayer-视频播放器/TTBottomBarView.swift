@@ -44,7 +44,7 @@ enum TTPlayBottomBarType {
 class TTBottomBarView: UIView {
     // MARK: - 属性
     /// 代理
-    weak open var delegate: TTBottomBarDelegate?
+    weak var delegate: TTBottomBarDelegate?
     /// slider高度
     private var ttEliderHeight: CGFloat = 0.0
     /// 播放按钮
