@@ -245,6 +245,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         self.layoutIfNeeded()
     }
     
+    // MARK: 双击屏幕播放暂停按钮
     func addReplayAdnPlayOrPauseButton() -> Void {
         //暂停按钮
         self.addSubview(playOrPauseBtn)

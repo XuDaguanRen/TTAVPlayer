@@ -53,7 +53,7 @@ protocol TTAVPlayerViewDelegate: NSObjectProtocol {
 }
 
 class TTAVPlayerView: UIView {
-    
+    // MARK: - 属性
     /// 播放器
     fileprivate var player: AVPlayer?
     /// 创建视频资源
@@ -348,7 +348,7 @@ extension TTAVPlayerView {
         })
     }
     
-    // MARK: - 初始化playerItem
+    // MARK: 初始化playerItem
     fileprivate func getPlayItemWithURLString(url: String) -> AVPlayerItem {
         
         ///初始化播放 item
