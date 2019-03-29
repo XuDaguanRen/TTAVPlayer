@@ -22,18 +22,17 @@ import UIKit
 
 // MARK: - 代理
 @objc protocol TTAVPlayerDelegate: NSObjectProtocol {
-    // MARK: 播放器加载状态 代理
-    ///
-    /// - Parameter status: 播放状态
+    
+    /// 播放器加载状态
     @objc optional func tt_avPlayerStatus(status: TTAVPlayerStatus) -> Void
     
-    // MARK: - 顶部选集按钮
+    /// 顶部选集按钮
     @objc optional func tt_avPlayerTopBarMoreButton() -> Void
     
-    // MARK: - 顶部返回按钮
+    ///  顶部返回按钮
     @objc optional func tt_avPlayerTopBarBackButton() -> Void
     
-    // MARK: - 底部部全屏按钮
+    /// 底部部全屏按钮
     @objc optional func tt_avPlayerBottomBarFullScreenPlayButton() -> Void
     
 }
