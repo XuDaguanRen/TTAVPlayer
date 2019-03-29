@@ -38,7 +38,7 @@ extension TTAVPlayer {
             playOrPauseBtn.isHidden = false
             isPausePlay = true
             //取消隐藏动画后在重新添加5秒延迟动画
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden(_:)), object: self)
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden(_:)), object: nil)
             tt_TopAndBottomBarHidden(0.2)                         //隐藏底部Bar控制View
             ttAVPlayerStatus = TTAVPlayerStatus.Pause        //播放完成暂停播放
         } else {
@@ -211,7 +211,7 @@ extension TTAVPlayer {
             topBarView.backButton?.isHidden = false
             topBarView.videoNameLable.isHidden = false
             topBarView.moreButton?.isHidden = false
-            //延迟五秒调用方法
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden(_:)), object: nil)
             self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
             
         } else {
