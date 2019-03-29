@@ -26,7 +26,12 @@ extension TTAVPlayer {
     
     // MARK: 屏幕单击手势 隐藏或者显示顶部和底部控制Bar
     @objc func singleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
-        topAndBottomBarHidden = !topAndBottomBarHidden
+        
+        if !topAndBottomBarHidden {
+            tt_TopAndBottomBarHidden(0.2)        //隐藏顶部和底部Bar控制器
+        } else {
+            tt_TopAndBottomBarShow(0.2)           //显示顶部和底部Bar控制器
+        }
     }
     
 }
@@ -38,7 +43,7 @@ extension TTAVPlayer {
     @objc func tt_TopAndBottomBarShow(_ duration: TimeInterval) -> Void {
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: duration, animations: {
-            
+            self.topAndBottomBarHidden = false
             if self.isOrientation { //如果是全屏展现Bar
                 //显示控制器Bar
                 self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*65, width: self.frame.width, height: kScale*65)
@@ -62,6 +67,7 @@ extension TTAVPlayer {
         let tt_Duration = duration > 0 ? duration : 0.5
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: tt_Duration) {
+            self.topAndBottomBarHidden = true
             if self.isOrientation { //如果是全屏就隐藏顶部和底部Bar
                 self.topBarView.frame = CGRect(x: 0, y: -kScale*65, width: self.bounds.width, height: kScale*65)
                 self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height + kScale*65, width: self.frame.width, height: kScale*65)

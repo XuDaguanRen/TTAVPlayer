@@ -164,15 +164,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return gesture
     }()
     /// 是否隐藏bar
-    var topAndBottomBarHidden: Bool = false {
-        didSet {
-            if topAndBottomBarHidden {
-                tt_TopAndBottomBarHidden(0.2)        //隐藏顶部和底部Bar控制器
-            } else {
-                tt_TopAndBottomBarShow(0.2)           //显示顶部和底部Bar控制器
-            }
-        }
-    }
+    var topAndBottomBarHidden: Bool = false
     
     
     
