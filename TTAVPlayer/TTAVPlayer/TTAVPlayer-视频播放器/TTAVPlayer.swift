@@ -165,7 +165,33 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }()
     /// 是否隐藏bar
     var topAndBottomBarHidden: Bool = false
-    
+    /// 暂停提示按钮
+    lazy var playOrPauseBtn: UIButton = {
+        let button = UIButton.init(frame: CGRect(x: (self.frame.width - kScale*125)/2, y: (self.frame.height - kScale*40)/2, width: kScale*125, height: kScale*40))
+        button.setImage(UIImage.init(named: "player_ctrl_icon_pause"), for: .normal)
+        button.setTitle("  已暂停", for: .normal)
+        button.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.6)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: kScale*19)
+        button.layer.cornerRadius = 6
+        button.layer.masksToBounds = true
+        button.isEnabled = false
+        button.isHidden = true
+        return button
+    }()
+    /// 暂停提示按钮
+    lazy var replayBtn: UIButton = {
+        let button = UIButton.init(frame: CGRect(x: (self.frame.width - kScale*80)/2, y: (self.frame.height - kScale*80)/2, width: kScale*80, height: kScale*80))
+        button.setTitle("重播", for: .normal)
+        button.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.6)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: kScale*20)
+        button.layer.cornerRadius = button.frame.height/2
+        button.layer.masksToBounds = true
+        button.isHidden = true
+        button.addTarget(self, action: #selector(clickReplay), for: .touchUpInside)
+        return button
+    }()
+    /// 双击屏幕时修改播放状态
+    var isPausePlay: Bool = false
     
     
     
@@ -204,15 +230,26 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             avPlayerView?.frame = self.frame
             bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*65, width: self.frame.width, height: kScale*65)
             topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*65)
+            playOrPauseBtn.frame = CGRect(x: (self.frame.width - kScale*125)/2, y:  (self.frame.height - kScale*40)/2, width: kScale*125, height: kScale*40)
+            replayBtn.frame = CGRect(x: (self.frame.width - kScale*80)/2, y: (self.frame.height - kScale*80)/2, width: kScale*80, height: kScale*80)
             
         } else { //竖屏状态
             self.frame = ttFrame!
             avPlayerView?.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*50, width: self.frame.width, height: kScale*50)
             topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*50)
+            playOrPauseBtn.frame = CGRect(x: (self.frame.width - kScale*125)/2, y: (self.frame.height - kScale*40)/2, width: kScale*125, height: kScale*40)
+            replayBtn.frame = CGRect(x: (self.frame.width - kScale*80)/2, y: (self.frame.height - kScale*80)/2, width: kScale*80, height: kScale*80)
         }
         
         self.layoutIfNeeded()
+    }
+    
+    func addReplayAdnPlayOrPauseButton() -> Void {
+        //暂停按钮
+        self.addSubview(playOrPauseBtn)
+        //重播按钮
+        self.addSubview(replayBtn)
     }
     
     // MARK: 添加屏幕点击拖动手势
@@ -258,10 +295,11 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     // MARK: - 布局TTAVPlayerUI
     fileprivate func setupTTAVPlayerUI() -> Void {
         
-        setupAVPlayer()                 //布局UI
-        setupBottomBarView()            //添加底部控制Bar
-        setupTopBarView()               //添加顶部控制Bar
-        addGestureRecognizer()          //添加手势
+        setupAVPlayer()                     //布局UI
+        setupBottomBarView()                //添加底部控制Bar
+        setupTopBarView()                   //添加顶部控制Bar
+        addGestureRecognizer()              //添加手势
+        addReplayAdnPlayOrPauseButton()     //添加暂停和播放按钮
     }
     
 }

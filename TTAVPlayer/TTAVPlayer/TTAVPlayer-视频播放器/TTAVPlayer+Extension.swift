@@ -14,6 +14,14 @@ import MediaPlayer
 // MARK: 屏幕手势
 extension TTAVPlayer {
     
+    // MARK: 点击重播按钮
+    @objc func clickReplay() -> Void {
+        avPlayerView?.playSpecifyLocation(sliderTime: 0.0)
+        ttAVPlayerStatus = TTAVPlayerStatus.Playing        //点击重播按钮
+        replayBtn.isHidden = true
+        tt_TopAndBottomBarShow(0.2, true)
+    }
+    
     // MARK: 按住屏幕上下滑动修改音量和亮度手势
     @objc func panGestureRecognizers(_ sender: UIPanGestureRecognizer) {
         
@@ -21,7 +29,26 @@ extension TTAVPlayer {
     
     // MARK: 屏幕双击手势 播放或者暂停
     @objc func doubleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
-        
+        //如果是播放完成状态 双击屏幕不显示暂停按钮
+        if ttAVPlayerStatus == TTAVPlayerStatus.EndTime {
+            return
+        }
+        // 双击时直接响应播放暂停按钮点击
+        if !isPausePlay {
+            playOrPauseBtn.isHidden = false
+            isPausePlay = true
+            //取消隐藏动画后在重新添加5秒延迟动画
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden(_:)), object: self)
+            tt_TopAndBottomBarHidden(0.2)                         //隐藏底部Bar控制View
+            ttAVPlayerStatus = TTAVPlayerStatus.Pause        //播放完成暂停播放
+        } else {
+            playOrPauseBtn.isHidden = true
+            isPausePlay = false
+            //取消隐藏动画后在重新添加5秒延迟动画
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
+            tt_TopAndBottomBarShow(0.2, true)                     //显示底部Bar控制View
+            ttAVPlayerStatus = TTAVPlayerStatus.Playing       //播放完成暂停播放
+        }
     }
     
     // MARK: 屏幕单击手势 隐藏或者显示顶部和底部控制Bar
@@ -156,6 +183,7 @@ extension TTAVPlayer {
         transformAnima.fillMode = CAMediaTimingFillMode.forwards
         self.layer.add(transformAnima, forKey: "transform.rotation")
     }
+    
     // MARK: 旋转竖屏动画
     fileprivate func ttPlayerOrientationPortraitAnimation() -> Void {
         let transformAnima = CABasicAnimation(keyPath: "transform.rotation")
@@ -218,6 +246,7 @@ extension TTAVPlayer {
             ttDelegate.tt_avPlayerBottomBarFullScreenPlayButton?()
         }
     }
+    
     // MARK: 滑动结束
     ///
     /// - Parameter selider: 进度数据
@@ -227,6 +256,7 @@ extension TTAVPlayer {
         //滑动结束播放
         ttAVPlayerStatus = TTAVPlayerStatus.Playing //播放
     }
+    
     // MARK: 滑动进度条
     ///
     /// - Parameter selider: 进度数据
@@ -237,7 +267,10 @@ extension TTAVPlayer {
         // 播放了多少
         bottomBarView.playTimeValue = String(format: "%02d:%02d",(Int(slider.value) % 3600) / 60, Int(slider.value) % 60)
         tt_TopAndBottomBarShow(0.1, true)
+        replayBtn.isHidden = true        //滑动状态隐藏重播
+        playOrPauseBtn.isHidden = true   //滑动状态隐藏暂停按钮
     }
+    
     // MARK: 点击播放 和 暂停播放
     ///
     /// - Parameter isPlay: 是否播放 默认是播放状态
@@ -246,8 +279,9 @@ extension TTAVPlayer {
             self.ttAVPlayerStatus = TTAVPlayerStatus.Pause //暂停
         } else if ttAVPlayerStatus == TTAVPlayerStatus.Pause {
             self.ttAVPlayerStatus = TTAVPlayerStatus.Playing //播放
+            playOrPauseBtn.isHidden = true
         } else if ttAVPlayerStatus == TTAVPlayerStatus.EndTime { 
-            
+            clickReplay()  //播放完成在点击播放按钮重播
         }
     }
 }
@@ -285,6 +319,7 @@ extension TTAVPlayer {
     // MARK: 播放完成
     func tt_PlayToEndTime() {
         ttAVPlayerStatus = TTAVPlayerStatus.EndTime        //播放完成暂停播放
+        replayBtn.isHidden = false
         tt_TopAndBottomBarShow(0.2, false)
     }
     
