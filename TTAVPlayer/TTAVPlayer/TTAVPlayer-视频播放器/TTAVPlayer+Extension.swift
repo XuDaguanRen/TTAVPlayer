@@ -30,7 +30,7 @@ extension TTAVPlayer {
         if !topAndBottomBarHidden {
             tt_TopAndBottomBarHidden(0.2)        //隐藏顶部和底部Bar控制器
         } else {
-            tt_TopAndBottomBarShow(0.2)           //显示顶部和底部Bar控制器
+            tt_TopAndBottomBarShow(0.2, true)           //显示顶部和底部Bar控制器
         }
     }
     
@@ -40,7 +40,8 @@ extension TTAVPlayer {
 extension TTAVPlayer {
     
     // MARK: 顶部和底部Bar展现动画
-    @objc func tt_TopAndBottomBarShow(_ duration: TimeInterval) -> Void {
+    /// 顶部和底部Bar展现动画
+    @objc func tt_TopAndBottomBarShow(_ duration: TimeInterval, _ isHiddenBar: Bool) -> Void {
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: duration, animations: {
             self.topAndBottomBarHidden = false
@@ -55,14 +56,18 @@ extension TTAVPlayer {
             self.topBarView.alpha = 1.0
             
         }) { (Bool) in
-            //显示bar后，5秒后重新添加5秒延迟消失bar动画
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
-            //延迟五秒调用方法
-            self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
+            if isHiddenBar {
+                //显示bar后，5秒后重新添加5秒延迟消失bar动画
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
+                //延迟五秒调用方法
+                self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
+            }
+            
         }
     }
     
     // MARK: 顶部和底部Bar消失动画
+    /// 顶部和底部Bar消失动画
     @objc func tt_TopAndBottomBarHidden(_ duration: TimeInterval) -> Void {
         let tt_Duration = duration > 0 ? duration : 0.5
         // 动画消失 顶部和底部控制Bar
@@ -231,6 +236,7 @@ extension TTAVPlayer {
         avPlayerView?.playerSeek(slider.value + 1)       //滑动到指定位置 并播放
         // 播放了多少
         bottomBarView.playTimeValue = String(format: "%02d:%02d",(Int(slider.value) % 3600) / 60, Int(slider.value) % 60)
+        tt_TopAndBottomBarShow(0.1, true)
     }
     // MARK: 点击播放 和 暂停播放
     ///
@@ -279,6 +285,7 @@ extension TTAVPlayer {
     // MARK: 播放完成
     func tt_PlayToEndTime() {
         ttAVPlayerStatus = TTAVPlayerStatus.EndTime        //播放完成暂停播放
+        tt_TopAndBottomBarShow(0.2, false)
     }
     
     // MARK: 缓冲完成播放
