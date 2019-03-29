@@ -21,7 +21,7 @@ import UIKit
 }
 
 class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarDelegate {
-
+    
     // MARK: - 属性
     /// 播放状态
     var ttAVPlayerStatus: TTAVPlayerStatus? {
@@ -39,7 +39,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
                 avPlayerView?.clickPause()
                 bottomBarView.isSelectedPlay = false    //修改播放按钮状态
             } else if ttAVPlayerStatus == TTAVPlayerStatus.Buffering {      //正在缓冲
-               
+                
             }
         }
     }
@@ -74,7 +74,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 顶部Bar控制View
     lazy var topBarView: TTTopBarView = {
         let topBar = TTTopBarView.init(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50))
-
+        
         return topBar
     }()
     /// 视频名称String
@@ -90,9 +90,9 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
     }
     /// 是否隐藏顶部Bar控制面板
-    var isHiddenTopBar: Bool = false {
+    var isHiddenTopBarBackButton: Bool = false {
         didSet { 
-            topBarView.isHidden = isHiddenTopBar
+            topBarView.backButton?.isHidden = isHiddenTopBarBackButton
         }
     }
     /// 是否隐藏顶部Bar视频名称
@@ -146,7 +146,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             avPlayerView?.frame = self.frame
             bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*65, width: self.frame.width, height: kScale*65)
             topBarView.frame = CGRect(x: 0, y: 0, width:  self.frame.width, height: kScale*65)
-
+            
         } else { //竖屏状态
             self.frame = ttFrame!
             avPlayerView?.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)

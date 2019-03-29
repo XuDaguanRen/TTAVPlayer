@@ -34,7 +34,7 @@ class TTTopBarView: UIView {
     /// 代理
     weak var delegate: TTTopBarDelegate?
     /// 返回按钮
-    fileprivate var backButton: UIButton?
+    var backButton: UIButton?
     /// 更多按钮
     var moreButton: UIButton? 
     /// 视频名称
@@ -64,6 +64,7 @@ class TTTopBarView: UIView {
     }
     /// 播放栏背景蒙版
     fileprivate var barMaskImageView = UIImageView.init(image: UIImage.init(named: "miniplayer_mask_top"))
+    
     // MARK: - 重写初始化方法
     override init(frame: CGRect) {
         super.init(frame: frame)
