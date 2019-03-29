@@ -83,7 +83,7 @@ class TTAVPlayerView: UIView {
         }
     }
     /// 代理
-    public var delegate: TTAVPlayerViewDelegate?
+    weak var delegate: TTAVPlayerViewDelegate?
     
     /// 枚举播放状态
     public var ttPlayerStatu: TTPlayerStatus? {

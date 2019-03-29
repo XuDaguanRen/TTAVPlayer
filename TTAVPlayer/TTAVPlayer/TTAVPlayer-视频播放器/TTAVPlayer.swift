@@ -20,9 +20,29 @@ import UIKit
     case EndTime            //播放完成
 }
 
+// MARK: - 代理
+@objc protocol TTAVPlayerDelegate: NSObjectProtocol {
+    // MARK: 播放器加载状态 代理
+    ///
+    /// - Parameter status: 播放状态
+    @objc optional func tt_avPlayerStatus(status: TTAVPlayerStatus) -> Void
+    
+    // MARK: - 顶部选集按钮
+    @objc optional func tt_avPlayerTopBarMoreButton() -> Void
+    
+    // MARK: - 顶部返回按钮
+    @objc optional func tt_avPlayerTopBarBackButton() -> Void
+    
+    // MARK: - 底部部全屏按钮
+    @objc optional func tt_avPlayerBottomBarFullScreenPlayButton() -> Void
+    
+}
+
 class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarDelegate {
     
     // MARK: - 属性
+    /// 代理
+    weak var delegate: TTAVPlayerDelegate?
     /// 播放状态
     var ttAVPlayerStatus: TTAVPlayerStatus? {
         didSet {

@@ -40,26 +40,37 @@ extension TTAVPlayer {
 extension TTAVPlayer {
     // MARK: 顶部更多按钮
     func tt_ClickTopBarMoreButton() {
-        
+        //更多按钮回调
+        if let ttDelegate = delegate {
+            ttDelegate.tt_avPlayerTopBarMoreButton?()
+        }
     }
     // MARK: 顶部返回按钮
     func tt_ClickTopBarBackButton() {
-        tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
-        isOrientation = false
-        setupResetSubviewLayout()           //重置子视图布局
-        avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
-        if let vcView = ttContainerVC {
-            vcView.view.addSubview(self)
+        if (ttContainerVC?.navigationController?.viewControllers.count)! > 0 {
+            tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
+            isOrientation = false
+            setupResetSubviewLayout()           //重置子视图布局
+            avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
+            if let vcView = ttContainerVC {
+                vcView.view.addSubview(self)
+            } else {
+                ttContainerView?.addSubview(self)
+            }
+            ttPlayerOrientationPortraitAnimation()
+            topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
+            bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
+            topBarView.isHidden = isHiddenTopBar
+            topBarView.backButton?.isHidden = isHiddenTopBarBackButton
+            topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
+            topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
         } else {
-           ttContainerView?.addSubview(self)
+            ttContainerVC?.navigationController?.popViewController(animated: true)
         }
-        ttPlayerOrientationPortraitAnimation()
-        topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
-        bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
-        topBarView.isHidden = isHiddenTopBar
-        topBarView.backButton?.isHidden = isHiddenTopBarBackButton
-        topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
-        topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
+        //返回按钮回调
+        if let ttDelegate = delegate {
+            ttDelegate.tt_avPlayerTopBarBackButton?()
+        }
     }
 }
 
@@ -143,6 +154,10 @@ extension TTAVPlayer {
             default:
                 break
             }
+        }
+        //全屏回调
+        if let ttDelegate = delegate {
+            ttDelegate.tt_avPlayerBottomBarFullScreenPlayButton?()
         }
     }
     // MARK: 滑动结束
