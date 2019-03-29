@@ -15,25 +15,43 @@ import MediaPlayer
 extension TTAVPlayer {
     
     // MARK: 顶部和底部Bar展现动画
-    @objc func tt_TopAndBottomBarShow(duration: TimeInterval) -> Void {
+    @objc fileprivate func tt_TopAndBottomBarShow(duration: TimeInterval) -> Void {
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: duration, animations: {
             
-//            if self.isOrientation { //如果是全屏就响应点击事件啊
-//                //显示控制器Bar
-//                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
-//                self.topBarView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50)
-//                
-//            } else {
-//                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale * 50, width: self.frame.width, height: kScale * 50)
-//            }
+            if self.isOrientation { //如果是全屏展现Bar
+                //显示控制器Bar
+                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*65, width: self.frame.width, height: kScale*65)
+                self.topBarView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: kScale*65)
+            } else {
+                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*50, width: self.frame.width, height: kScale*50)
+            }
             self.bottomBarView.alpha = 1.0
             self.topBarView.alpha = 1.0
             
         }) { (Bool) in
-           
+            //取消隐藏动画后在重新添加5秒延迟动画
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
+            //延迟五秒调用方法
+            self.perform(#selector(self.tt_TopAndBottomBarHidden), with: nil, afterDelay: 5)
         }
     }
+    
+    // MARK: 顶部和底部Bar消失动画
+    @objc fileprivate func tt_TopAndBottomBarHidden() -> Void {
+        // 动画消失 顶部和底部控制Bar
+        UIView.animate(withDuration: 0.5) {
+            if self.isOrientation { //如果是全屏就隐藏顶部和底部Bar
+                self.topBarView.frame = CGRect(x: 0, y: -kScale*65, width: self.bounds.width, height: kScale*65)
+                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height + kScale*65, width: self.frame.width, height: kScale*65)
+            } else {
+                self.bottomBarView.frame = CGRect(x: 0, y: self.frame.height - kScale*50, width: self.frame.width, height: kScale*50)
+            }
+            self.topBarView.alpha = 0.0
+            self.bottomBarView.alpha = 0.0
+        }
+    }
+
 }
 
 // MARK: - 顶部控制Bar TTTopBarDelegate  代理方法
@@ -47,7 +65,7 @@ extension TTAVPlayer {
     }
     // MARK: 顶部返回按钮
     func tt_ClickTopBarBackButton() {
-       
+        
         if isOrientation {
             tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
             isOrientation = false
@@ -85,7 +103,7 @@ extension TTAVPlayer {
 extension TTAVPlayer {
     
     // MARK: 强制横屏 通过KVC直接设置屏幕旋转方向
-    func tt_UIInterfaceOrientation(_ orientation: UIInterfaceOrientation) {
+    fileprivate func tt_UIInterfaceOrientation(_ orientation: UIInterfaceOrientation) {
         
         if orientation == UIInterfaceOrientation.landscapeRight || orientation == UIInterfaceOrientation.landscapeLeft {
             tt_OrientationSupport = TTOrientationSupport.orientationRight //左右
@@ -97,7 +115,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 旋转全屏动画
-    func ttPlayerOrientationLeftAndRightAnimation() -> Void {
+    fileprivate func ttPlayerOrientationLeftAndRightAnimation() -> Void {
         let transformAnima = CABasicAnimation(keyPath: "transform.rotation")
         transformAnima.fromValue = -(Double.pi/2)
         transformAnima.toValue = 0
@@ -107,7 +125,7 @@ extension TTAVPlayer {
         self.layer.add(transformAnima, forKey: "transform.rotation")
     }
     // MARK: 旋转竖屏动画
-    func ttPlayerOrientationPortraitAnimation() -> Void {
+    fileprivate func ttPlayerOrientationPortraitAnimation() -> Void {
         let transformAnima = CABasicAnimation(keyPath: "transform.rotation")
         transformAnima.fromValue = (Double.pi/2)
         transformAnima.toValue = 0
@@ -117,7 +135,7 @@ extension TTAVPlayer {
         self.layer.add(transformAnima, forKey: "transform.rotation")
     }
     
-     // MARK: 全屏播放
+    // MARK: 全屏播放
     func tt_ClickFullScreenPlayButton() {
         if !isOrientation {
             tt_UIInterfaceOrientation(UIInterfaceOrientation.landscapeRight)    //右边
@@ -126,7 +144,6 @@ extension TTAVPlayer {
             bottomBarView.fullScreenPlayTitle = "倍速"
             avPlayerView?.ttOrientationLeftAndRightAnimation()       //改变 playerLayer 大小
             UIApplication.shared.keyWindow?.addSubview(self)         //播放器加载到window 上
-            tt_TopAndBottomBarShow(duration: 0.1)
             ttPlayerOrientationLeftAndRightAnimation()
             topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
             bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
@@ -134,6 +151,8 @@ extension TTAVPlayer {
             topBarView.backButton?.isHidden = false
             topBarView.videoNameLable.isHidden = false
             topBarView.moreButton?.isHidden = false
+            //延迟五秒调用方法
+            self.perform(#selector(self.tt_TopAndBottomBarHidden), with: nil, afterDelay: 5)
             
         } else {
             //如果不是全屏状态 按钮响应事件
@@ -195,7 +214,7 @@ extension TTAVPlayer {
         } else if ttAVPlayerStatus == TTAVPlayerStatus.Pause {
             self.ttAVPlayerStatus = TTAVPlayerStatus.Playing //播放
         } else if ttAVPlayerStatus == TTAVPlayerStatus.EndTime { 
-        
+            
         }
     }
 }
@@ -237,7 +256,7 @@ extension TTAVPlayer {
     
     // MARK: 缓冲完成播放
     func tt_PlayBufferToComplete() {
-         bottomBarView.isSelectedPlay = true
+        bottomBarView.isSelectedPlay = true
     }
     
     // MARK: 视频播放中的进度监听
