@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08A5BF332250B60B00FB4FC4 /* TTSlidePlayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */; };
 		20536F91224B1C690072872D /* 01-课程安排.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 20536F90224B1C690072872D /* 01-课程安排.mp4 */; };
 		20536F93224B4D530072872D /* TTAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F92224B4D530072872D /* TTAVPlayer.swift */; };
 		20536F95224B548D0072872D /* TTAVPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F94224B548D0072872D /* TTAVPlayer+Extension.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSlidePlayProgress.swift; sourceTree = "<group>"; };
 		20536F90224B1C690072872D /* 01-课程安排.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-课程安排.mp4"; sourceTree = "<group>"; };
 		20536F92224B4D530072872D /* TTAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTAVPlayer.swift; sourceTree = "<group>"; };
 		20536F94224B548D0072872D /* TTAVPlayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TTAVPlayer+Extension.swift"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				20536F96224B60970072872D /* TTBottomBarView.swift */,
 				20536F9A224B6AA00072872D /* TTSlider.swift */,
 				20883894224C6E27008928BF /* TTTopBarView.swift */,
+				08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */,
 			);
 			path = "TTAVPlayer-视频播放器";
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */,
 				2064A7012248AEF700363BDC /* TTCONSTDefine.swift in Sources */,
 				20883895224C6E27008928BF /* TTTopBarView.swift in Sources */,
+				08A5BF332250B60B00FB4FC4 /* TTSlidePlayProgress.swift in Sources */,
 				20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */,
 				2064A7052248B6B100363BDC /* TTLog.swift in Sources */,
 				2061D63A2249C6D4006929D8 /* TTHomeController.swift in Sources */,
