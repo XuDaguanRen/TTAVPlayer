@@ -19,6 +19,11 @@ import UIKit
     case Pause              //暂停播放
     case EndTime            //播放完成
 }
+// MARK: - 滑动手势的方向枚举
+enum TTPanDirection: Int {
+    case TTPanDirectionHorizontal     //水平
+    case TTPanDirectionVertical       //上下
+}
 
 // MARK: - 代理
 @objc protocol TTAVPlayerDelegate: NSObjectProtocol {
@@ -62,6 +67,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             }
         }
     }
+    /// 滑动方向枚举
+    var ttPanDirection: TTPanDirection?     //滑动手势的方向
     /// 记录初始大小
     var ttFrame: CGRect? 
     /// 记录父视图 视频全屏播放后返回初始播放
@@ -192,7 +199,12 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }()
     /// 双击屏幕时修改播放状态
     var isPausePlay: Bool = false
-    
+    /// 滑动播放显示进度控件
+    lazy var slidePlayProgress: TTSlidePlayProgress = {
+        let slideProgress = TTSlidePlayProgress.init(frame: CGRect(x: (self.frame.width - kScale*160)/2, y: (self.frame.height - kScale*80)/2 - kScale*20, width: kScale*160, height: kScale*80))
+        slideProgress.backgroundColor = UIColor.clear
+        return slideProgress
+    }()
     
     
     
