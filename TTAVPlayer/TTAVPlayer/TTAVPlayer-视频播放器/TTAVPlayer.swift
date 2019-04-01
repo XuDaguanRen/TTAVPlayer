@@ -305,7 +305,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             playOrPauseBtn.frame = CGRect(x: (self.frame.width - kScale*125)/2, y: (self.frame.height - kScale*40)/2, width: kScale*125, height: kScale*40)
             replayBtn.frame = CGRect(x: (self.frame.width - kScale*80)/2, y: (self.frame.height - kScale*80)/2, width: kScale*80, height: kScale*80)
         }
-        
+        layoutIfNeededVolumeAndbrightness()     //重新布局音量和l亮度控件
         self.layoutIfNeeded()
     }
     

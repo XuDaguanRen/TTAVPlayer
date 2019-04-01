@@ -83,7 +83,7 @@ class TTMPVolumeView: UIView {
     func slidingModifyUpdateTTVolume(_ value: CGFloat) {
         volumeSlider?.value -= Float(value)
         let volumeValue = volumeSlider?.value
-        let stage = 1.0/15.0 //一共有15个格子
+        let stage = 1.0/16.0 //一共有15个格子
         let level = Float(volumeValue!) / Float(stage)  //当前亮度除以 所有格子的亮度比例 得到当前应该显示到哪一格
         for index in 0..<self.tipsViewArray.count {
             let tipsView = self.tipsViewArray[index]
@@ -132,12 +132,12 @@ class TTMPVolumeView: UIView {
     
     func tipsViewAnimation() -> Void {
         let volumeValue = volumeSlider!.value
-        let stage = 1.0/15 //一共有15个格子
+        let stage = 1.0/16 //一共有15个格子
         let level = Float(volumeValue) / Float(stage)  //当前亮度除以 所有格子的亮度比例 得到当前应该显示到哪一格
         for index in 0..<self.tipsViewArray.count {
             let tipsView = self.tipsViewArray[index]
             if index <= Int(level)  {
-                if level < 0.6 { //0.6 是最后一个白色tipsView
+                if level < 0.8 { //0.6 是最后一个白色tipsView
                     volumeImage.image = UIImage.init(named: "tips_icon_sound_disable")
                     tipsView.isHidden = true
                 } else {
@@ -152,10 +152,10 @@ class TTMPVolumeView: UIView {
     
     // MARK: 布局进度调View
     func tt_CreateVolumeTipsViews() -> Void {
-        let tipWidth = (volumeBackView.bounds.size.width - 15.0)/15.0 // 每个TIPS间隔1
+        let tipWidth = (volumeBackView.bounds.size.width - 17.0)/16.0 // 每个TIPS间隔1
         let tipHight: CGFloat = 5
         let tipY: CGFloat = 1
-        for index in 0..<15 {
+        for index in 0..<16 {
             let tipsX = CGFloat(index) * (tipWidth + 1) + 1
             let tipsView = UIView()
             tipsView.backgroundColor = UIColor.white
