@@ -28,6 +28,9 @@
 		2064A7012248AEF700363BDC /* TTCONSTDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A7002248AEF700363BDC /* TTCONSTDefine.swift */; };
 		2064A7032248B1E000363BDC /* TTRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A7022248B1E000363BDC /* TTRefs.swift */; };
 		2064A7052248B6B100363BDC /* TTLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A7042248B6B100363BDC /* TTLog.swift */; };
+		2072C78D2251BF29000A9587 /* TTBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C78C2251BF29000A9587 /* TTBrightnessView.swift */; };
+		2072C78F2251BF61000A9587 /* TTMPVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C78E2251BF61000A9587 /* TTMPVolume.swift */; };
+		2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C7902251BF81000A9587 /* TTMPVolumeView.swift */; };
 		20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883892224C69DA008928BF /* TTPlayerOrientation.swift */; };
 		20883895224C6E27008928BF /* TTTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883894224C6E27008928BF /* TTTopBarView.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +59,9 @@
 		2064A7002248AEF700363BDC /* TTCONSTDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTCONSTDefine.swift; sourceTree = "<group>"; };
 		2064A7022248B1E000363BDC /* TTRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTRefs.swift; sourceTree = "<group>"; };
 		2064A7042248B6B100363BDC /* TTLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLog.swift; sourceTree = "<group>"; };
+		2072C78C2251BF29000A9587 /* TTBrightnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBrightnessView.swift; sourceTree = "<group>"; };
+		2072C78E2251BF61000A9587 /* TTMPVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMPVolume.swift; sourceTree = "<group>"; };
+		2072C7902251BF81000A9587 /* TTMPVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMPVolumeView.swift; sourceTree = "<group>"; };
 		20883892224C69DA008928BF /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
 		20883894224C6E27008928BF /* TTTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +140,9 @@
 				20536F9A224B6AA00072872D /* TTSlider.swift */,
 				20883894224C6E27008928BF /* TTTopBarView.swift */,
 				08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */,
+				2072C78C2251BF29000A9587 /* TTBrightnessView.swift */,
+				2072C78E2251BF61000A9587 /* TTMPVolume.swift */,
+				2072C7902251BF81000A9587 /* TTMPVolumeView.swift */,
 			);
 			path = "TTAVPlayer-视频播放器";
 			sourceTree = "<group>";
@@ -225,8 +234,10 @@
 				20536F99224B660C0072872D /* TTView+Extension.swift in Sources */,
 				20556F6722438116007C0172 /* ViewController.swift in Sources */,
 				20536F95224B548D0072872D /* TTAVPlayer+Extension.swift in Sources */,
+				2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */,
 				2064A7032248B1E000363BDC /* TTRefs.swift in Sources */,
 				20536F9B224B6AA00072872D /* TTSlider.swift in Sources */,
+				2072C78F2251BF61000A9587 /* TTMPVolume.swift in Sources */,
 				2061D6372249B68A006929D8 /* TTBaseController.swift in Sources */,
 				2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */,
 				2064A7012248AEF700363BDC /* TTCONSTDefine.swift in Sources */,
@@ -235,6 +246,7 @@
 				20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */,
 				2064A7052248B6B100363BDC /* TTLog.swift in Sources */,
 				2061D63A2249C6D4006929D8 /* TTHomeController.swift in Sources */,
+				2072C78D2251BF29000A9587 /* TTBrightnessView.swift in Sources */,
 				20556F6522438116007C0172 /* AppDelegate.swift in Sources */,
 				20536F97224B60970072872D /* TTBottomBarView.swift in Sources */,
 				2061D6352249B674006929D8 /* TTMainTabBar.swift in Sources */,

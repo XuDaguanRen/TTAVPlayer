@@ -14,6 +14,33 @@ import MediaPlayer
 // MARK: 屏幕手势
 extension TTAVPlayer {
     
+    // MARK: 删除音量控制View
+    @objc fileprivate func removeVolumeView() -> Void {
+        UIView.animate(withDuration: 1.2, animations: {
+            self.volumeSlider.alpha = 0.0
+        }) { (Bool) in
+            self.volumeSlider.removeFromSuperview()
+        }
+    }
+    
+    // MARK: 删除亮度控制View
+    @objc fileprivate func removeBrightnessView() -> Void {
+        UIView.animate(withDuration: 1.2, animations: {
+            self.brightnessSlider.alpha = 0.0
+        }) { (Bool) in
+            self.brightnessSlider.removeFromSuperview()
+        }
+    }
+    
+    // MARK: 调整音量和亮度
+    fileprivate func volumeAndBrightnessVeloctyMoved(_ movedValue: CGFloat, _ isVolume: Bool) {
+        if isVolume {
+            volumeSlider.slidingModifyUpdateTTVolume(movedValue/10000)
+        } else {
+            brightnessSlider.updateTTBrightness(movedValue/10000)
+        }
+    }
+    
     // MARK: 水平移动的距离视频跟随 滑动播放
     ///
     /// - Parameter slidingValue: 滑动的距离
@@ -86,9 +113,39 @@ extension TTAVPlayer {
                 }
                 TTLog("当前视频已经播放的时间\(slidingTime!)")
             } else if x < y {   //垂直滑动
-                
+                ttPanDirection = TTPanDirection.TTPanDirectionVertical     //垂直滑动状态
+                if locationPoint.x > self.bounds.size.width / 2 && locationPoint.y < self.bounds.height - 50 { //右边垂直滑动
+                    //                    TTLog("右边音量滑动")
+                    if !self.subviews.contains(volumeSlider) {
+                        // 调用系统的布局屁用没有  自定义的可以修改  可以和下面的亮度那样封装下
+                        volumeSlider.alpha = 1
+                        if isOrientation {
+                            self.addSubview(volumeSlider)
+                        } else {
+                            if let containerVC = ttContainerVC {
+                                containerVC.view.addSubview(volumeSlider)
+                            } else {
+                                self.addSubview(volumeSlider)
+                            }
+                        }
+                    }
+                } else if locationPoint.x < self.bounds.size.width / 2 && locationPoint.y < self.bounds.height - 50 { //左边亮度垂直滑动
+                    //                    TTLog("左边亮度滑动")
+                    if !self.subviews.contains(self.brightnessSlider) {
+                        // 调用系统的布局屁用没有  自定义的可以修改  可以和下面的亮度那样封装下
+                        brightnessSlider.alpha = 1
+                        if isOrientation {
+                            self.addSubview(brightnessSlider)
+                        } else {
+                            if let containerVC = ttContainerVC {
+                                containerVC.view.addSubview(brightnessSlider)
+                            } else {
+                                self.addSubview(brightnessSlider)
+                            }
+                        }
+                    }
+                }
             }
-                
             break
         case .changed:  //滑动中
             switch ttPanDirection! {
@@ -98,12 +155,24 @@ extension TTAVPlayer {
                 avPlayerView?.playSpecifyLocation(sliderTime: draggedValue)
                 break
             case .TTPanDirectionVertical:
+                if locationPoint.x > self.bounds.size.width / 2 && locationPoint.y < self.bounds.height - 50 { //右边音量垂直滑动
+                    //取消隐藏秒延迟动画
+                    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.removeVolumeView), object: nil)
+                    brightnessSlider.removeFromSuperview()
+                    isScreenChangeVolume = true             //滑动屏幕修改音量
+                    volumeAndBrightnessVeloctyMoved(veloctyPoint.y, true)
+                } else if locationPoint.x < self.bounds.size.width / 2 && locationPoint.y < self.bounds.height - 50 { //左边亮度垂直滑动
+                    //取消隐藏秒延迟动画
+                    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.removeBrightnessView), object: nil)
+                    volumeSlider.removeFromSuperview()
+                    volumeAndBrightnessVeloctyMoved(veloctyPoint.y, false)
+                }
                 break
             }
             break
         case .ended:    //滑动结束
-             switch self.ttPanDirection! {
-             case .TTPanDirectionHorizontal:
+            switch self.ttPanDirection! {
+            case .TTPanDirectionHorizontal:
                 ttAVPlayerStatus = TTAVPlayerStatus.Playing        //水平滑动完成 播放视频
                 slidingTime = 0     //置空记录的播放时间
                 //删除滑动进度View
@@ -114,9 +183,17 @@ extension TTAVPlayer {
                     self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
                 }
                 break
-             case .TTPanDirectionVertical:
+            case .TTPanDirectionVertical:
+                if locationPoint.x < self.bounds.size.width/2 {    // 触摸点在视图左边 隐藏屏幕亮度
+                    //延迟调用方法 //时间太短 延迟不了啊 晕倒 哈哈哈所以要使用这个方法 延迟的时间应该在设置在2秒以上
+                    self.perform(#selector(self.removeBrightnessView), with: nil, afterDelay: 2)
+                } else {
+                    isScreenChangeVolume = false
+                    //延迟调用方法
+                    self.perform(#selector(self.removeVolumeView), with: nil, afterDelay: 2)
+                }
                 break
-             }
+            }
             break
         case .possible:
             break
