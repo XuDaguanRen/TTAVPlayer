@@ -205,7 +205,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         slideProgress.backgroundColor = UIColor.clear
         return slideProgress
     }()
-    
+    var slidingTime: CGFloat?               //记录当前已经播放的时间
     
     
     // MARK: - 初始化配置
@@ -233,6 +233,14 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         
     }
     
+    // MARK: 解决视图长按滑动手势和底部Sliderz拖拽进度手势冲突问题
+    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view!.isKind(of: TTSlider.self) {
+            //            TTLog("是TTSlider")
+            return false
+        }
+        return true
+    }
     
     // MARK: 重置子视图布局
     func setupResetSubviewLayout() -> Void {

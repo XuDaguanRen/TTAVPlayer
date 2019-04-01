@@ -14,6 +14,35 @@ import MediaPlayer
 // MARK: 屏幕手势
 extension TTAVPlayer {
     
+    // MARK: 水平移动的距离视频跟随 滑动播放
+    ///
+    /// - Parameter slidingValue: 滑动的距离
+    func horizontalSlidingValue(_ slidingValue: CGFloat) -> CGFloat {
+        
+        guard var sumValue = slidingTime else {
+            return 0
+        }
+        // 这里可以调整拖动灵敏度， 数字（89）越大，灵敏度越低
+        sumValue += (slidingValue / 89)
+        //视频总时长
+        let totalDurationTime = avPlayerView?.durationTime()
+        
+        guard let total = totalDurationTime else {
+            return 0.0
+        }
+        
+        if sumValue > total {
+            sumValue = total
+        }
+        if sumValue < 0 {
+            sumValue = 0
+        }
+        
+        let dragValue = sumValue / total
+        slidingTime = sumValue
+        return dragValue
+    }
+    
     // MARK: 点击重播按钮
     @objc func clickReplay() -> Void {
         avPlayerView?.playSpecifyLocation(sliderTime: 0.0)
@@ -24,6 +53,70 @@ extension TTAVPlayer {
     
     // MARK: 按住屏幕上下滑动修改音量和亮度手势
     @objc func panGestureRecognizers(_ sender: UIPanGestureRecognizer) {
+        //滑动的位置
+        let locationPoint = sender.location(in: self)
+        /// 根据上次和本次移动的位置，算出一个速率的point
+        let veloctyPoint = sender.velocity(in: self)
+        
+        switch sender.state {
+        case .began:    //开始滑动
+            // 如果开始拖动屏幕则取消5秒自动消失控制栏
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
+            // 使用绝对值来判断移动的方向
+            let x = abs(veloctyPoint.x)
+            let y = abs(veloctyPoint.y)
+            
+            if x > y {  //水平滑动
+                //添加滑动进度View
+                if !self.subviews.contains(slidePlayProgress) {
+                    addSubview(slidePlayProgress)
+                }
+                
+                ttPanDirection = TTPanDirection.TTPanDirectionHorizontal     //水平滑动状态
+                self.ttAVPlayerStatus = TTAVPlayerStatus.Pause                    //水平滑动暂停播放
+                playOrPauseBtn.isHidden = true                                    //隐藏暂停按钮
+                //当前已经播放的时间
+                slidingTime = avPlayerView?.currentTime()
+                TTLog("当前视频已经播放的时间\(slidingTime!)")
+            } else if x < y {   //垂直滑动
+                
+            }
+                
+            break
+        case .changed:  //滑动中
+            switch ttPanDirection! {
+            case .TTPanDirectionHorizontal:
+                replayBtn.isHidden = true            //滑动状态隐藏重播
+                let draggedValue = self.horizontalSlidingValue(veloctyPoint.x)
+                avPlayerView?.playSpecifyLocation(sliderTime: draggedValue)
+                break
+            case .TTPanDirectionVertical:
+                break
+            }
+            break
+        case .ended:    //滑动结束
+             switch self.ttPanDirection! {
+             case .TTPanDirectionHorizontal:
+                ttAVPlayerStatus = TTAVPlayerStatus.Playing        //水平滑动完成 播放视频
+                slidingTime = 0
+                //删除滑动进度View
+                if self.subviews.contains(slidePlayProgress) {
+                    slidePlayProgress.removeFromSuperview()
+                }
+                break
+             case .TTPanDirectionVertical:
+                break
+             }
+            break
+        case .possible:
+            break
+        case .failed:
+            break
+        case .cancelled:
+            break
+        default:
+            break
+        }
         
     }
     
@@ -326,6 +419,7 @@ extension TTAVPlayer {
     // MARK: 缓冲完成播放
     func tt_PlayBufferToComplete() {
         bottomBarView.isSelectedPlay = true
+        panGesture.isEnabled = true             //打开屏幕滑动手势
         //延迟五秒隐藏底部Bar
         self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
     }
@@ -342,5 +436,9 @@ extension TTAVPlayer {
         bottomBarView.value = sliderValue
         bottomBarView.playTimeValue = playTimeValue
         bottomBarView.endTimeValue = endTimeValue
+        //视频中间的进度显示View
+        slidePlayProgress.maximumValue = maximumValue
+        slidePlayProgress.value = sliderValue
+        slidePlayProgress.playTimeValue = playTimeValue
     }
 }
