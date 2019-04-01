@@ -11,6 +11,81 @@ import UIKit
 import AVKit
 import MediaPlayer
 
+// MARK: - 设置后台播放显示信息
+extension TTAVPlayer {
+    
+    // 设置后台播放显示信息
+    func configMediaItemArtwork() -> Void {
+        let mpic = MPNowPlayingInfoCenter.default()
+        
+        //专辑封面
+        let mySize = CGSize(width: 100, height: 100)
+        var albumArt: Any?
+        if #available(iOS 10.0, *) {
+            albumArt = MPMediaItemArtwork(boundsSize:mySize) { sz in
+                return UIImage(named: "player_brightness")!
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        //获取进度
+        let postion = String(describing: Double(bottomBarView.value))
+        let duration = String(describing: Double(bottomBarView.maximumValue))
+        
+        mpic.nowPlayingInfo = [MPMediaItemPropertyTitle: "",
+                               MPMediaItemPropertyArtist: "",
+                               MPMediaItemPropertyArtwork: albumArt as Any, //显示的图片
+            MPNowPlayingInfoPropertyElapsedPlaybackTime: postion,
+            MPMediaItemPropertyPlaybackDuration: duration,
+            MPNowPlayingInfoPropertyPlaybackRate: 1.0] //播放速率
+        
+    }
+    
+    //是否能成为第一响应对象
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    // MARK: 重写后台播放控制
+    override func remoteControlReceived(with event: UIEvent?) {
+        super.remoteControlReceived(with: event)
+        
+        guard let event = event else {
+            return
+        }
+        if event.type == UIEvent.EventType.remoteControl {
+            switch event.subtype {
+            case .remoteControlPlay: //播放
+                ttAVPlayerStatus = TTAVPlayerStatus.Playing
+                break
+            case .remoteControlPause:   //暂停
+                ttAVPlayerStatus = TTAVPlayerStatus.Pause
+                break
+            case .remoteControlStop: //停止
+                break
+            case .remoteControlTogglePlayPause: //切换播放暂停（耳机线控）
+                break
+            case .remoteControlNextTrack: //下一首
+                break
+            case .remoteControlPreviousTrack: //上一首
+                break
+            case .remoteControlBeginSeekingBackward: //开始快退
+                break
+            case .remoteControlEndSeekingBackward: //结束快退
+                break
+            case .remoteControlBeginSeekingForward: //开始快进
+                break
+            case .remoteControlEndSeekingForward:  //结束快进
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+}
+
 // MARK: - APP将要被挂起 前后台切换处理
 extension TTAVPlayer {
     
@@ -65,7 +140,7 @@ extension TTAVPlayer {
     func volumeChangesListener() -> Void {
         do {
             try AVAudioSession.sharedInstance().setActive(true)
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: AVAudioSession.CategoryOptions.defaultToSpeaker)    //设置可后台播放模式
 //            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker) //设置扬声器输出
         } catch _ {
             
@@ -599,6 +674,7 @@ extension TTAVPlayer {
         panGesture.isEnabled = true             //打开屏幕滑动手势
         //延迟五秒隐藏底部Bar
         self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
+       
     }
     
     // MARK: 视频播放中的进度监听
@@ -617,5 +693,6 @@ extension TTAVPlayer {
         slidePlayProgress.maximumValue = maximumValue
         slidePlayProgress.value = sliderValue
         slidePlayProgress.playTimeValue = playTimeValue
+        configMediaItemArtwork()
     }
 }
