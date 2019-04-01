@@ -62,6 +62,7 @@
 		2072C78C2251BF29000A9587 /* TTBrightnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBrightnessView.swift; sourceTree = "<group>"; };
 		2072C78E2251BF61000A9587 /* TTMPVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMPVolume.swift; sourceTree = "<group>"; };
 		2072C7902251BF81000A9587 /* TTMPVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMPVolumeView.swift; sourceTree = "<group>"; };
+		2072C7922251EFB4000A9587 /* TTAVPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TTAVPlayer.entitlements; sourceTree = "<group>"; };
 		20883892224C69DA008928BF /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
 		20883894224C6E27008928BF /* TTTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +97,7 @@
 		20556F6322438116007C0172 /* TTAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				2072C7922251EFB4000A9587 /* TTAVPlayer.entitlements */,
 				2061D6312249B651006929D8 /* Main */,
 				2061D6382249C6C6006929D8 /* Classes */,
 				2064A6FD2248AC2200363BDC /* TTAVPlayer-视频播放器 */,
@@ -191,6 +193,14 @@
 				TargetAttributes = {
 					20556F6022438116007C0172 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
