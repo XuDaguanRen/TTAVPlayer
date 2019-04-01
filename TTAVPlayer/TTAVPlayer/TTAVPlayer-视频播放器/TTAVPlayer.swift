@@ -369,6 +369,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         layoutIfNeededVolumeAndbrightness() //重新布局音量和l亮度控件
         volumeChangesListener()             //添加音量监听
         addNotificationCenter()             //添加前后台切换监听
+        
     }
     
 }

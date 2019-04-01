@@ -34,6 +34,7 @@ class TTHomeController: TTBaseController {
     ttPlayer.isHiddenTopBar = true
 //    ttPlayer.isHiddenTopBarMoreButton = true
 //    ttPlayer.isHiddenTopBarVideoName = true
+    ttPlayer.isPlayingInBackground = true
     
     view.addSubview(ttPlayer)
     
