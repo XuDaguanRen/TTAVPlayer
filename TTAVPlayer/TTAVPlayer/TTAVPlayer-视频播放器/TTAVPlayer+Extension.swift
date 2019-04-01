@@ -77,6 +77,13 @@ extension TTAVPlayer {
                 playOrPauseBtn.isHidden = true                                    //隐藏暂停按钮
                 //当前已经播放的时间
                 slidingTime = avPlayerView?.currentTime()
+                if isOrientation {  //是全屏状态
+                    //取消隐藏动画后在重新添加5秒延迟动画
+                    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden(_:)), object: nil)
+                    tt_TopAndBottomBarShow(0.2, false)
+                } else {
+                    tt_TopAndBottomBarHidden(0.2)       //滑动是隐藏顶部和底部Bar
+                }
                 TTLog("当前视频已经播放的时间\(slidingTime!)")
             } else if x < y {   //垂直滑动
                 
@@ -98,10 +105,13 @@ extension TTAVPlayer {
              switch self.ttPanDirection! {
              case .TTPanDirectionHorizontal:
                 ttAVPlayerStatus = TTAVPlayerStatus.Playing        //水平滑动完成 播放视频
-                slidingTime = 0
+                slidingTime = 0     //置空记录的播放时间
                 //删除滑动进度View
                 if self.subviews.contains(slidePlayProgress) {
                     slidePlayProgress.removeFromSuperview()
+                }
+                if isOrientation {  //是全屏状态
+                    self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
                 }
                 break
              case .TTPanDirectionVertical:
