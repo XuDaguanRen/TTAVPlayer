@@ -11,6 +11,54 @@ import UIKit
 import AVKit
 import MediaPlayer
 
+// MARK: - 监听按键音量变化
+extension TTAVPlayer {
+    
+    // MARK: 删除音量通知 上面已经有了一个删除当前View 的所有通知了 这个不用调用
+    func removeOutputVolume() {
+        AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: "outputVolume", context: nil)
+        UIApplication.shared.endReceivingRemoteControlEvents()
+    }
+    
+    // MARK: 监听手机侧键音量变化
+    func volumeChangesListener() -> Void {
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+        } catch _ {
+            
+        }
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        AVAudioSession.sharedInstance().addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions(rawValue: NSKeyValueObservingOptions.new.rawValue | NSKeyValueObservingOptions.old.rawValue), context: nil)
+    }
+    
+    // MARK: 获取到监听的音量变化数据
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        weak var weakSelf = self
+        guard let newChange = change else {
+            return
+        }
+        let movedValue = newChange[.newKey] as! Float
+        if !weakSelf!.subviews.contains(weakSelf!.volumeSlider) {
+            // 调用系统的布局屁用没有  自定义的可以修改  可以和下面的亮度那样封装下
+            weakSelf!.volumeSlider.alpha = 1
+            if let containerVC = ttContainerVC {
+                containerVC.view.addSubview(weakSelf!.volumeSlider)
+            } else {
+                weakSelf!.addSubview(volumeSlider)
+            }
+        }
+        
+        weakSelf!.volumeSlider.sideButtonModifyUpdateTTVolume(CGFloat(movedValue), isScreenChangeVolume)
+        weakSelf!.avPlayerView?.volume = movedValue         //修改音量
+        //取消隐藏秒延迟动画
+        NSObject.cancelPreviousPerformRequests(withTarget: weakSelf!, selector: #selector(weakSelf!.removeVolumeView), object: nil)
+        //延迟调用方法
+        weakSelf!.perform(#selector(weakSelf!.removeVolumeView), with: nil, afterDelay: 2)
+    }
+    
+}
+
 // MARK: 屏幕手势
 extension TTAVPlayer {
     
