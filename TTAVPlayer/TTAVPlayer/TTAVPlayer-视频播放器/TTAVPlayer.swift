@@ -220,11 +220,11 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         brightView.backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.9)
         return brightView
     }()
-    
-    
-    
-    
-    
+    /// 在前后台切换时记录播放状态
+    var beforeChangePlayerStatus: TTAVPlayerStatus?
+    /// 是否在后台时继续播放
+    var isPlayingInBackground: Bool?
+
     // MARK: - 初始化配置
     ///
     /// - Parameters:
@@ -368,6 +368,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         setupHideSystemVolume()             //隐藏系统音量UI
         layoutIfNeededVolumeAndbrightness() //重新布局音量和l亮度控件
         volumeChangesListener()             //添加音量监听
+        addNotificationCenter()             //添加前后台切换监听
     }
     
 }

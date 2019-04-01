@@ -11,6 +11,47 @@ import UIKit
 import AVKit
 import MediaPlayer
 
+// MARK: - APP将要被挂起 前后台切换处理
+extension TTAVPlayer {
+    
+    // MARK: APP将要被挂起
+    ///
+    /// - Parameter sender: 记录被挂起前的播放状态，进入前台时恢复状态
+    @objc func tt_ApplicationWillResignActive(_ sender: NSNotification) -> Void {
+        //如果设置后台可以播放
+        if isPlayingInBackground == true {
+            avPlayerView?.removePlayerOnPlayerLayer()
+        } else {
+            beforeChangePlayerStatus = ttAVPlayerStatus  // 记录下进入后台前的播放状态
+            self.ttAVPlayerStatus = TTAVPlayerStatus.Pause         //暂停播放
+        }
+    }
+    
+    // MARK: APP进入前台，恢复播放状态
+    ///
+    /// - Parameter sender: 恢复记录被挂起前的播放状态
+    @objc func tt_ApplicationDidBecomeActive(_ sender: NSNotification) -> Void {
+        //如果设置后台可以播放
+        if isPlayingInBackground == true {
+            avPlayerView?.resetPlayerToPlayerLayer()
+        } else {
+            if let oldStatus = beforeChangePlayerStatus {
+                ttAVPlayerStatus = oldStatus
+            } else {
+                self.ttAVPlayerStatus = TTAVPlayerStatus.Pause   //暂停播放
+            }
+        }
+    }
+    
+    // MARK: 添加App前后台切换通知
+    func addNotificationCenter() -> Void {
+        // 注册APP被挂起 + 进入前台通知
+        NotificationCenter.default.addObserver(self, selector: #selector(tt_ApplicationWillResignActive(_:)), name: UIApplication.willResignActiveNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tt_ApplicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+}
+
 // MARK: - 监听按键音量变化
 extension TTAVPlayer {
     
