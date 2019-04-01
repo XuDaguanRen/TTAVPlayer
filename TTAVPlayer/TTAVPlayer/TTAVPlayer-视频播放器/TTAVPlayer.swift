@@ -206,6 +206,23 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return slideProgress
     }()
     var slidingTime: CGFloat?               //记录当前已经播放的时间
+    /// 音量显示
+    lazy var volumeSlider: TTMPVolumeView = {
+        let volumeView = TTMPVolumeView.init(frame: CGRect(x: 0, y: 0, width: kScale*180, height: kScale*180))
+        volumeView.backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.9)
+        return volumeView
+    }()
+    /// 是否是屏幕滑动修改音量
+    var isScreenChangeVolume: Bool = false
+    /// 亮度显示
+    var brightnessSlider: TTBrightnessView = {
+        let brightView = TTBrightnessView.init(frame: CGRect(x: 0, y: 0, width: kScale*180, height: kScale*180))
+        brightView.backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.9)
+        return brightView
+    }()
+    
+    
+    
     
     
     // MARK: - 初始化配置
@@ -240,6 +257,33 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             return false
         }
         return true
+    }
+    
+    // MARK: 修改音量和亮度布局
+    func layoutIfNeededVolumeAndbrightness() -> Void {
+        self.volumeSlider.removeFromSuperview()
+        self.brightnessSlider.removeFromSuperview()
+        let ttCenter = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
+        if ttContainerVC != nil {
+            if isOrientation {
+                volumeSlider.center = ttCenter
+                brightnessSlider.center = ttCenter
+            } else {
+                volumeSlider.center = CGPoint(x: ttCenter.x, y: ttCenter.y + volumeSlider.bounds.height/2)
+                brightnessSlider.center = CGPoint(x: ttCenter.x, y: ttCenter.y + brightnessSlider.bounds.height/2)
+            }
+        } else {
+            volumeSlider.center = CGPoint(x: ttCenter.x, y: ttCenter.y + volumeSlider.bounds.height/2)
+            brightnessSlider.center = CGPoint(x: ttCenter.x, y: ttCenter.y + brightnessSlider.bounds.height/2)
+        }
+    }
+    
+    // MARK: 隐藏系统自身音量控制
+    func setupHideSystemVolume() -> Void {
+        guard let containerVC = ttContainerVC else { return }
+        //隐藏了系统的声音View 使用自定义的 如果系统的音量控制不加载到控制器中 这中隐藏方法不起作用
+        let volumeView = TTMPVolume.init(frame: CGRect(x: -1000, y: -1000, width: 155, height: 155))
+        containerVC.view.addSubview(volumeView)
     }
     
     // MARK: 重置子视图布局
@@ -321,6 +365,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         setupTopBarView()                   //添加顶部控制Bar
         addGestureRecognizer()              //添加手势
         addReplayAdnPlayOrPauseButton()     //添加暂停和播放按钮
+        setupHideSystemVolume()             //隐藏系统音量UI
+        layoutIfNeededVolumeAndbrightness() //重新布局音量和l亮度控件
     }
     
 }
