@@ -112,7 +112,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 播放速度
     var rate: Float = 1.0 {
         didSet {
-            self.avPlayerView?.rate = self.rate
+            self.avPlayerView?.rate = rate
         }
     }
     /// 是否隐藏顶部Bar控制面板
@@ -367,6 +367,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         addReplayAdnPlayOrPauseButton()     //添加暂停和播放按钮
         setupHideSystemVolume()             //隐藏系统音量UI
         layoutIfNeededVolumeAndbrightness() //重新布局音量和l亮度控件
+        volumeChangesListener()             //添加音量监听
     }
     
 }
