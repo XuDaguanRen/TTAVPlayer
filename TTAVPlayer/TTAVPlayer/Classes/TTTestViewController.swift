@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
-class TTTestViewController: TTBaseController {
+class TTTestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ttTitleString = "测试视频播放工具"
         
         setupMyUI()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+
     }
     
     fileprivate func setupMyUI() -> Void {
