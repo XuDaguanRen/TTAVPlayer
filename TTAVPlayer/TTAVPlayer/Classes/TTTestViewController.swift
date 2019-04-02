@@ -28,7 +28,7 @@ class TTTestViewController: TTBaseController {
         let path = Bundle.main.path(forResource: "01-课程安排", ofType: "mp4")
         
         //    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180))
-        let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 0, width: kScreemWidth, height: kScreemHeigh), self, nil)
+        let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self, nil)
         ttPlayer.urlString = path!
         ttPlayer.videoName = "01-课程安排"
         ttPlayer.isHiddenTopBar = true

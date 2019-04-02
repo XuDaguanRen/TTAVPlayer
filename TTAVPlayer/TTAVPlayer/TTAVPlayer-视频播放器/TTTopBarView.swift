@@ -95,7 +95,7 @@ class TTTopBarView: UIView {
     }
     
     // MARK: 布局UI
-    func setupTopControlBarViewUI() -> Void {
+    private func setupTopControlBarViewUI() -> Void {
         
         barMaskImageView.frame = self.bounds
         self.addSubview(barMaskImageView)

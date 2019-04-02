@@ -80,15 +80,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
     }
     /// 滑动方向枚举
-    var ttPanDirection: TTPanDirection?     //滑动手势的方向
+    private var ttPanDirection: TTPanDirection?     //滑动手势的方向
     /// 记录初始大小
-    var ttFrame: CGRect? 
+    private var ttFrame: CGRect?
     /// 记录父视图 视频全屏播放后返回初始播放
-    var ttContainerView: UIView?
+    private var ttContainerView: UIView?
     /// 记录父视图 视频全屏播放后返回初始播放
-    var ttContainerVC: UIViewController?
+    private var ttContainerVC: UIViewController?
     /// 播放器
-    lazy var avPlayerView: TTAVPlayerView? = {
+    private lazy var avPlayerView: TTAVPlayerView? = {
         let avPlayer = TTAVPlayerView.init(frame: self.bounds)
         avPlayer.backgroundColor = UIColor.black
         return avPlayer
@@ -102,15 +102,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
     }
     /// 底部Bar 使用
-    lazy var bottomBarView: TTBottomBarView = {
+    private lazy var bottomBarView: TTBottomBarView = {
         //底部播放 暂定 快进 全屏播放工具条
         let bottomBar = TTBottomBarView.init(frame: CGRect(x: 0, y: self.frame.size.height - kScale * 50, width: self.bounds.width, height: kScale * 50), sliderHeight: kScale * 30)
         return bottomBar
     }()
     /// 是否是全屏
-    var isOrientation : Bool = false
+    private var isOrientation : Bool = false
     /// 顶部Bar控制View
-    lazy var topBarView: TTTopBarView = {
+    private lazy var topBarView: TTTopBarView = {
         let topBar = TTTopBarView.init(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: kScale * 50))
         
         return topBar
@@ -158,7 +158,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         }
     }
     /// 单击手势
-    lazy var singleTapGesture: UITapGestureRecognizer = {
+    private lazy var singleTapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer()
         gesture.addTarget(self, action: #selector(singleTapGestureRecognizers(_:)))
         gesture.numberOfTapsRequired = 1
@@ -166,7 +166,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return gesture
     }()
     /// 双击手势
-    lazy var doubleTapGesture: UITapGestureRecognizer = {
+    private lazy var doubleTapGesture: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer()
         gesture.addTarget(self, action: #selector(doubleTapGestureRecognizers(_:)))
         gesture.numberOfTapsRequired = 2
@@ -174,7 +174,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return gesture
     }()
     /// 滑动手势
-    lazy var panGesture: UIPanGestureRecognizer = {
+    private lazy var panGesture: UIPanGestureRecognizer = {
         let gesture = UIPanGestureRecognizer()
         gesture.addTarget(self, action: #selector(panGestureRecognizers(_:)))
         gesture.delegate = self
@@ -183,9 +183,9 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return gesture
     }()
     /// 是否隐藏bar
-    var topAndBottomBarHidden: Bool = false
+    private var topAndBottomBarHidden: Bool = false
     /// 暂停提示按钮
-    lazy var playOrPauseBtn: UIButton = {
+    private lazy var playOrPauseBtn: UIButton = {
         let button = UIButton.init(frame: CGRect(x: (self.frame.width - kScale*125)/2, y: (self.frame.height - kScale*40)/2, width: kScale*125, height: kScale*40))
         button.setImage(UIImage.init(named: "player_ctrl_icon_pause"), for: .normal)
         button.setTitle("  已暂停", for: .normal)
@@ -198,7 +198,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return button
     }()
     /// 暂停提示按钮
-    lazy var replayBtn: UIButton = {
+    private lazy var replayBtn: UIButton = {
         let button = UIButton.init(frame: CGRect(x: (self.frame.width - kScale*80)/2, y: (self.frame.height - kScale*80)/2, width: kScale*80, height: kScale*80))
         button.setTitle("重播", for: .normal)
         button.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.6)
@@ -210,32 +210,32 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         return button
     }()
     /// 双击屏幕时修改播放状态
-    var isPausePlay: Bool = false
+    private var isPausePlay: Bool = false
     /// 滑动播放显示进度控件
-    lazy var slidePlayProgress: TTSlidePlayProgress = {
+    private lazy var slidePlayProgress: TTSlidePlayProgress = {
         let slideProgress = TTSlidePlayProgress.init(frame: CGRect(x: (self.frame.width - kScale*160)/2, y: (self.frame.height - kScale*80)/2 - kScale*20, width: kScale*160, height: kScale*80))
         slideProgress.backgroundColor = UIColor.clear
         return slideProgress
     }()
-    var slidingTime: CGFloat?               //记录当前已经播放的时间
+    private var slidingTime: CGFloat?               //记录当前已经播放的时间
     /// 音量显示
-    lazy var volumeSlider: TTMPVolumeView = {
+    private lazy var volumeSlider: TTMPVolumeView = {
         let volumeView = TTMPVolumeView.init(frame: CGRect(x: 0, y: 0, width: kScale*180, height: kScale*180))
         volumeView.backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.9)
         return volumeView
     }()
     /// 是否是屏幕滑动修改音量
-    var isScreenChangeVolume: Bool = false
+    private var isScreenChangeVolume: Bool = false
     /// 亮度显示
-    var brightnessSlider: TTBrightnessView = {
+    private var brightnessSlider: TTBrightnessView = {
         let brightView = TTBrightnessView.init(frame: CGRect(x: 0, y: 0, width: kScale*180, height: kScale*180))
         brightView.backgroundColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 0.9)
         return brightView
     }()
     /// 在前后台切换时记录播放状态
-    var beforeChangePlayerStatus: TTAVPlayerStatus?
+    private var beforeChangePlayerStatus: TTAVPlayerStatus?
     /// 是否在后台时继续播放
-    var isPlayingInBackground: Bool?
+    public var isPlayingInBackground: Bool?
     /// 是否是全屏
     public var isDefaultFullScreen: Bool = false {
         didSet {
@@ -291,7 +291,6 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     
     deinit {
         removeOutputVolume()  //注销音量监听
-        
     }
     
     // MARK: 销毁通知
@@ -299,7 +298,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 销毁通知
     ///
     /// - Parameter isFullScreenBack: 是全屏返回
-    func removeAVPlayer(isFullScreenBack: Bool) -> Void {
+   private func removeAVPlayer(isFullScreenBack: Bool) -> Void {
         
         /*
          视图销毁逻辑：如果是默认全屏状态，只有调用全屏左侧上部返回按钮时才销毁播放器，如果是不是默认全屏状态，从别的界面push过来时，当Navgation栈中没有当前控制器时销毁播放器，
@@ -350,7 +349,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 修改音量和亮度布局
-   fileprivate func layoutIfNeededVolumeAndbrightness() -> Void {
+    private func layoutIfNeededVolumeAndbrightness() -> Void {
         self.volumeSlider.removeFromSuperview()
         self.brightnessSlider.removeFromSuperview()
         let ttCenter = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
@@ -369,7 +368,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 隐藏系统自身音量控制
-    fileprivate func setupHideSystemVolume() -> Void {
+    private func setupHideSystemVolume() -> Void {
         guard let containerVC = ttContainerVC else { return }
         //隐藏了系统的声音View 使用自定义的 如果系统的音量控制不加载到控制器中 这中隐藏方法不起作用
         let volumeView = TTMPVolume.init(frame: CGRect(x: -1000, y: -1000, width: 155, height: 155))
@@ -377,7 +376,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 重置子视图布局
-    fileprivate func setupResetSubviewLayout() -> Void {
+    private func setupResetSubviewLayout() -> Void {
         self.removeFromSuperview()
         if isOrientation { //横屏状态
             self.frame = (UIApplication.shared.keyWindow?.bounds)!
@@ -400,7 +399,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 双击屏幕播放暂停按钮
-    fileprivate func addReplayAdnPlayOrPauseButton() -> Void {
+    private func addReplayAdnPlayOrPauseButton() -> Void {
         //暂停按钮
         self.addSubview(playOrPauseBtn)
         //重播按钮
@@ -408,7 +407,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 添加屏幕点击拖动手势
-    fileprivate func addGestureRecognizer() -> Void {
+    private func addGestureRecognizer() -> Void {
         
         self.addGestureRecognizer(singleTapGesture)     //单击手势
         self.addGestureRecognizer(doubleTapGesture)     //双击手势
@@ -425,14 +424,14 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 布局顶部控制BarView
-    fileprivate func setupTopBarView() -> Void {
+    private func setupTopBarView() -> Void {
         topBarView.delegate = self
         topBarView.backgroundColor = UIColor.clear
         self.addSubview(topBarView)
     }
     
     // MARK: 布局底部播放控制View按钮SliderView
-    fileprivate func setupBottomBarView() -> Void {
+    private func setupBottomBarView() -> Void {
         //底部播放 暂定 快进 全屏播放工具条
         bottomBarView.delegate = self
         bottomBarView.backgroundColor = UIColor.clear
@@ -440,7 +439,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: 布局AVPlayer播放器
-    fileprivate func setupAVPlayer() -> Void {
+    private func setupAVPlayer() -> Void {
         
         //视频播放器
         avPlayerView?.delegate = self    //设置代理
@@ -448,7 +447,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: - 布局TTAVPlayerUI
-    fileprivate func setupTTAVPlayerUI() -> Void {
+    private func setupTTAVPlayerUI() -> Void {
         
         setupAVPlayer()                     //布局UI
         setupBottomBarView()                //添加底部控制Bar
@@ -468,7 +467,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
 extension TTAVPlayer {
     
     // 设置后台播放显示信息
-   fileprivate func configMediaItemArtwork() -> Void {
+    private func configMediaItemArtwork() -> Void {
         let mpic = MPNowPlayingInfoCenter.default()
         
         //专辑封面
@@ -553,7 +552,7 @@ extension TTAVPlayer {
     // MARK: APP将要被挂起
     ///
     /// - Parameter sender: 记录被挂起前的播放状态，进入前台时恢复状态
-    @objc fileprivate func tt_ApplicationWillResignActive(_ sender: NSNotification) -> Void {
+    @objc private func tt_ApplicationWillResignActive(_ sender: NSNotification) -> Void {
         //如果设置后台可以播放
         if isPlayingInBackground == true {
             avPlayerView?.removePlayerOnPlayerLayer()
@@ -566,7 +565,7 @@ extension TTAVPlayer {
     // MARK: APP进入前台，恢复播放状态
     ///
     /// - Parameter sender: 恢复记录被挂起前的播放状态
-    @objc fileprivate func tt_ApplicationDidBecomeActive(_ sender: NSNotification) -> Void {
+    @objc private func tt_ApplicationDidBecomeActive(_ sender: NSNotification) -> Void {
         //如果设置后台可以播放
         if isPlayingInBackground == true {
             avPlayerView?.resetPlayerToPlayerLayer()
@@ -580,7 +579,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 添加App前后台切换通知
-   fileprivate func addNotificationCenter() -> Void {
+    private func addNotificationCenter() -> Void {
         // 注册APP被挂起 + 进入前台通知
         NotificationCenter.default.addObserver(self, selector: #selector(tt_ApplicationWillResignActive(_:)), name: UIApplication.willResignActiveNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tt_ApplicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -592,13 +591,13 @@ extension TTAVPlayer {
 extension TTAVPlayer {
     
     // MARK: 删除音量通知
-   fileprivate func removeOutputVolume() {
+    private func removeOutputVolume() {
         AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: "outputVolume", context: nil)
         UIApplication.shared.endReceivingRemoteControlEvents()
     }
     
     // MARK: 监听手机侧键音量变化
-   fileprivate func volumeChangesListener() -> Void {
+    private func volumeChangesListener() -> Void {
         do {
             try AVAudioSession.sharedInstance().setActive(true)
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, options: AVAudioSession.CategoryOptions.defaultToSpeaker)    //设置可后台播放模式
@@ -641,7 +640,7 @@ extension TTAVPlayer {
 extension TTAVPlayer {
     
     // MARK: 删除音量控制View
-    @objc fileprivate func removeVolumeView() -> Void {
+    @objc private func removeVolumeView() -> Void {
         UIView.animate(withDuration: 1.2, animations: {
             self.volumeSlider.alpha = 0.0
         }) { (Bool) in
@@ -650,7 +649,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 删除亮度控制View
-    @objc fileprivate func removeBrightnessView() -> Void {
+    @objc private func removeBrightnessView() -> Void {
         UIView.animate(withDuration: 1.2, animations: {
             self.brightnessSlider.alpha = 0.0
         }) { (Bool) in
@@ -659,7 +658,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 调整音量和亮度
-    fileprivate func volumeAndBrightnessVeloctyMoved(_ movedValue: CGFloat, _ isVolume: Bool) {
+    private func volumeAndBrightnessVeloctyMoved(_ movedValue: CGFloat, _ isVolume: Bool) {
         if isVolume {
             volumeSlider.slidingModifyUpdateTTVolume(movedValue/10000)
         } else {
@@ -670,7 +669,7 @@ extension TTAVPlayer {
     // MARK: 水平移动的距离视频跟随 滑动播放
     ///
     /// - Parameter slidingValue: 滑动的距离
-   fileprivate func horizontalSlidingValue(_ slidingValue: CGFloat) -> CGFloat {
+    private func horizontalSlidingValue(_ slidingValue: CGFloat) -> CGFloat {
         
         guard var sumValue = slidingTime else {
             return 0
@@ -697,7 +696,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 点击重播按钮
-    @objc fileprivate func clickReplay() -> Void {
+    @objc private func clickReplay() -> Void {
         avPlayerView?.playSpecifyLocation(sliderTime: 0.0)
         ttAVPlayerStatus = TTAVPlayerStatus.Playing        //点击重播按钮
         replayBtn.isHidden = true
@@ -705,7 +704,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 按住屏幕上下滑动修改音量和亮度手势
-    @objc fileprivate func panGestureRecognizers(_ sender: UIPanGestureRecognizer) {
+    @objc private func panGestureRecognizers(_ sender: UIPanGestureRecognizer) {
         //滑动的位置
         let locationPoint = sender.location(in: self)
         /// 根据上次和本次移动的位置，算出一个速率的point
@@ -834,7 +833,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 屏幕双击手势 播放或者暂停
-    @objc fileprivate func doubleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
+    @objc private func doubleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
         //如果是播放完成状态 双击屏幕不显示暂停按钮
         if ttAVPlayerStatus == TTAVPlayerStatus.EndTime {
             return
@@ -858,7 +857,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 屏幕单击手势 隐藏或者显示顶部和底部控制Bar
-    @objc fileprivate func singleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
+    @objc private func singleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
         
         if !topAndBottomBarHidden {
             tt_TopAndBottomBarHidden(0.2)        //隐藏顶部和底部Bar控制器
@@ -874,7 +873,7 @@ extension TTAVPlayer {
     
     // MARK: 顶部和底部Bar展现动画
     /// 顶部和底部Bar展现动画
-    @objc fileprivate func tt_TopAndBottomBarShow(_ duration: TimeInterval, _ isHiddenBar: Bool) -> Void {
+    @objc private func tt_TopAndBottomBarShow(_ duration: TimeInterval, _ isHiddenBar: Bool) -> Void {
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: duration, animations: {
             self.topAndBottomBarHidden = false
@@ -901,7 +900,7 @@ extension TTAVPlayer {
     
     // MARK: 顶部和底部Bar消失动画
     /// 顶部和底部Bar消失动画
-    @objc fileprivate func tt_TopAndBottomBarHidden(_ duration: TimeInterval) -> Void {
+    @objc private func tt_TopAndBottomBarHidden(_ duration: TimeInterval) -> Void {
         let tt_Duration = duration > 0 ? duration : 0.5
         // 动画消失 顶部和底部控制Bar
         UIView.animate(withDuration: tt_Duration) {

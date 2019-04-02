@@ -40,7 +40,7 @@ class TTSlidePlayProgress: UIView {
     }
     
     /// 亮度文案
-    lazy var playProgressTitleLab: UILabel = {
+    private lazy var playProgressTitleLab: UILabel = {
         let lable = UILabel()
         lable.font = UIFont.systemFont(ofSize: 32)
         lable.textColor = UIColor.init(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
@@ -48,7 +48,7 @@ class TTSlidePlayProgress: UIView {
         return lable
     }()
     
-    lazy var playProgressSlider: TTSlider = {
+    private lazy var playProgressSlider: TTSlider = {
         let progressSlider = TTSlider()
         progressSlider.ttHeight = 1.5
         return progressSlider
@@ -64,7 +64,7 @@ class TTSlidePlayProgress: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupPlayProgressUI() -> Void {
+    private func setupPlayProgressUI() -> Void {
         
         playProgressTitleLab.frame = CGRect(x: 5, y: 5, width: self.frame.width - 10, height: self.frame.height - 30)
         playProgressTitleLab.text = playTimeValue

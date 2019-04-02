@@ -87,7 +87,7 @@ class TTBottomBarView: UIView {
     /// 按钮标题
     var fullScreenPlayTitle: String = "" {
         didSet {
-           fullScreenPlayBtn.setTitle(self.fullScreenPlayTitle, for: .normal)
+            fullScreenPlayBtn.setTitle(self.fullScreenPlayTitle, for: .normal)
         }
     }
     /// 进度调控件
@@ -140,7 +140,7 @@ class TTBottomBarView: UIView {
         }
     }
     /// 播放栏背景蒙版
-    fileprivate var barMaskImageView = UIImageView.init(image: UIImage.init(named: "miniplayer_mask"))
+    private var barMaskImageView = UIImageView.init(image: UIImage.init(named: "miniplayer_mask"))
     
     // MARK: - 初始化方法
     /// 初始化方法
@@ -158,8 +158,8 @@ class TTBottomBarView: UIView {
     }
     
     // MARK: 布局页面
-    func setupBottomBarUI(frame: CGRect, sliderHeight: CGFloat) -> Void {
-       
+    private func setupBottomBarUI(frame: CGRect, sliderHeight: CGFloat) -> Void {
+        
         barMaskImageView.frame = self.bounds
         self.addSubview(barMaskImageView)
         
@@ -234,7 +234,7 @@ class TTBottomBarView: UIView {
         fullPlayImageView = UIImageView.init(frame: CGRect(x: (playBtn.frame.width - kScale * 28) / 2, y: (playBtn.frame.height - kScale * 28) / 2, width:  kScale * 28, height: kScale * 28))
         fullScreenPlayBtn.addSubview(fullPlayImageView!)
         fullPlayImageView?.image = UIImage.init(named: "player_icon_fullscreen")
-
+        
     }
     
 }
@@ -287,7 +287,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX, y: 0, width: self.frame.height, height: self.frame.height)
-
+            
             self.barMaskImageView.frame = self.bounds
             //隐藏控件
             self.playTimeL.isHidden = false
@@ -329,7 +329,7 @@ extension TTBottomBarView {
             let fullScreenPlayX =  (self.frame.size.width - self.frame.height)
             
             self.fullScreenPlayBtn.frame = CGRect(x: fullScreenPlayX - kScale * 10, y: kScale * 10, width: self.frame.height + kScale * 10, height: self.frame.height - kScale * 10)
-
+            
             self.barMaskImageView.frame = self.bounds
             
             //是否隐藏控件

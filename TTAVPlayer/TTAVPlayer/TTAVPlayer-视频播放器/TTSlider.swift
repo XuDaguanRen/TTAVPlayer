@@ -17,7 +17,7 @@ class TTSlider: UISlider {
     /// Slider进度条高度
     var ttHeight: CGFloat = 0.0
     //记录大小
-    var lastBounds = CGRect.init()
+    private var lastBounds = CGRect.init()
     /// 按钮滑动结束回调
     var sliderTouchesEndedBlock: tt_SliderTouchesEndedBlock?
     

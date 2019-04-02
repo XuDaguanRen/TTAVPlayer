@@ -49,19 +49,19 @@ protocol TTAVPlayerViewDelegate: NSObjectProtocol {
     ///   - playTimeValue: 已经播放时间
     ///   - endTimeValue: 视频总时间
     func tt_PeriodicTimeObserver(maximumValue: Float, sliderValue: Float, playTimeValue: String, endTimeValue: String) -> Void
-
+    
 }
 
 class TTAVPlayerView: UIView {
     // MARK: - 属性
     /// 播放器
-    fileprivate var player: AVPlayer?
+    private var player: AVPlayer?
     /// 创建视频资源
-    fileprivate var playerItem: AVPlayerItem?
+    private var playerItem: AVPlayerItem?
     /// 创建显示视频的图层
-    fileprivate var playerLayer: AVPlayerLayer?
+    private var playerLayer: AVPlayerLayer?
     /// 视频集合
-    fileprivate var avAsset: AVAsset?
+    private var avAsset: AVAsset?
     /// 播放文件路径
     var urlString: String = "" {
         didSet {
@@ -73,13 +73,13 @@ class TTAVPlayerView: UIView {
     /// 音量设置
     var volume: Float = AVAudioSession.sharedInstance().outputVolume {
         didSet {
-           player?.volume = volume
+            player?.volume = volume
         }
     }
     /// 播放速度
     var rate: Float = 1.0 {
         didSet {
-          player?.rate = rate
+            player?.rate = rate
         }
     }
     /// 代理
@@ -153,7 +153,7 @@ class TTAVPlayerView: UIView {
     }
     
     /// 初始化设置
-    func setupAVPlayerUI() -> Void {
+    private func setupAVPlayerUI() -> Void {
         //创建视频资源
         self.playerItem = getPlayItemWithURLString(url: urlString)
         
@@ -202,7 +202,7 @@ extension TTAVPlayerView {
     }
     
     // MARK: 修改视频frame
-    func ttLayoutIfNeeded() -> Void {
+    private func ttLayoutIfNeeded() -> Void {
         self.playerLayer!.frame = self.bounds
         self.layer.addSublayer(self.playerLayer!)
     }
@@ -222,7 +222,7 @@ extension TTAVPlayerView {
         }
         return CGFloat(avItem.duration.value)/CGFloat(avItem.duration.timescale)
     }
-
+    
     // MARK: 重播
     func playSpecifyLocation(sliderTime: CGFloat) -> Void {
         guard let avItem = self.playerItem else { return }
@@ -240,7 +240,7 @@ extension TTAVPlayerView {
     }
     
     // MARK: 切换视频调用方法
-    fileprivate func exchangeWithURL(videoURLStr : String)  {
+    private func exchangeWithURL(videoURLStr : String)  {
         
         playerItem = self.getPlayItemWithURLString(url: videoURLStr)
         player?.replaceCurrentItem(with: self.playerItem)
@@ -265,7 +265,7 @@ extension TTAVPlayerView {
     /// - Parameters:
     ///   - position: 当前时间
     ///   - duration: 总时间
-    fileprivate func changeTimeFormat(position: Int, duration:Int) -> String {
+    private func changeTimeFormat(position: Int, duration:Int) -> String {
         
         guard  duration != 0 else{
             return "00:00"
@@ -284,7 +284,7 @@ extension TTAVPlayerView {
         if keyPath == "status" {
             switch self.playerItem?.status {
             case .readyToPlay?: //指示播放器项已准备好要播放
-                 ttPlayerStatu = TTPlayerStatus.Playing
+                ttPlayerStatu = TTPlayerStatus.Playing
                 break
             case .failed?: //指示由于错误不能再播放播放器
                 ttPlayerStatu = TTPlayerStatus.Failed
@@ -315,7 +315,7 @@ extension TTAVPlayerView {
     }
     
     // MARK: 监听Player状态
-    fileprivate func listenPlayer() -> Void {
+    private func listenPlayer() -> Void {
         guard let player = self.player else {return}
         //        weak var weakSelf = self
         player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: Int64(1.0), timescale: Int32(1.0)), queue: nil, using: { [weak self] (time) in
@@ -349,7 +349,7 @@ extension TTAVPlayerView {
     }
     
     // MARK: 初始化playerItem
-    fileprivate func getPlayItemWithURLString(url: String) -> AVPlayerItem {
+    private func getPlayItemWithURLString(url: String) -> AVPlayerItem {
         
         ///初始化播放 item
         var urlString = NSURL.init(string: url)

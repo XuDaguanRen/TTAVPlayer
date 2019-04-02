@@ -12,13 +12,13 @@ import UIKit
 class TTBrightnessView: UIView {
     
     /// 亮度图片
-    lazy var brightnessImage: UIImageView = {
+    private lazy var brightnessImage: UIImageView = {
         let imageV = UIImageView()
         return imageV
     }()
     
     /// 亮度文案
-    lazy var brightnessTitleLab: UILabel = {
+    private lazy var brightnessTitleLab: UILabel = {
         let lable = UILabel()
         lable.font = UIFont.boldSystemFont(ofSize: 16)
         lable.textColor = UIColor.darkText
@@ -28,14 +28,14 @@ class TTBrightnessView: UIView {
     }()
     
     /// 底部背景京View
-    lazy var brightnessSliderBackView: UIView = {
+    private lazy var brightnessSliderBackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.darkText
         return view
     }()
     
     /// 提示亮度View
-    lazy var tipsViewArray: [UIView] = {
+    private lazy var tipsViewArray: [UIView] = {
         let tips = [UIView]()
         return tips
     }()
@@ -43,7 +43,8 @@ class TTBrightnessView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius  = 10
-        self.layer.masksToBounds = true //
+        self.layer.masksToBounds = true
+        
         setupUI()
     }
     
@@ -73,7 +74,7 @@ class TTBrightnessView: UIView {
     }
     
     // MARK: 布局进度调View
-    func tt_CreateTipsViews() -> Void {
+    private func tt_CreateTipsViews() -> Void {
         
         let tipWidth = (brightnessSliderBackView.bounds.size.width - 17.0)/16.0 // 每个TIPS间隔1
         let tipHight: CGFloat = 5
@@ -90,7 +91,7 @@ class TTBrightnessView: UIView {
     }
     
     // MARK: 布局UI
-    fileprivate func setupUI() -> Void {
+    private func setupUI() -> Void {
         
         //  效果视图（效果为模糊）
         let blurEffect = UIBlurEffect.init(style: .light)

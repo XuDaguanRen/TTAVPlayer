@@ -11,13 +11,13 @@ import MediaPlayer
 
 class TTMPVolumeView: UIView {
     /// 亮度图片
-    lazy var volumeImage: UIImageView = {
+    private lazy var volumeImage: UIImageView = {
         let imageV = UIImageView()
         return imageV
     }()
     
     /// 亮度文案
-    lazy var volumeTitleLab: UILabel = {
+    private lazy var volumeTitleLab: UILabel = {
         let lable = UILabel()
         lable.font = UIFont.boldSystemFont(ofSize: 16)
         lable.textColor = UIColor.darkGray
@@ -27,21 +27,21 @@ class TTMPVolumeView: UIView {
     }()
     
     /// 底部背景京View
-    lazy var volumeBackView: UIView = {
+    private lazy var volumeBackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.darkGray
         return view
     }()
     
     /// 提示亮度View
-    lazy var tipsViewArray: [UIView] = {
+    private lazy var tipsViewArray: [UIView] = {
         let tips = [UIView]()
         return tips
     }()
     
     /// 音量显示
     var volumeSlider: UISlider?
-    fileprivate lazy var volumeView: TTMPVolume = {
+    private lazy var volumeView: TTMPVolume = {
         let volumeV = TTMPVolume.init(frame: CGRect(x: -1000, y: -1000, width: 155, height: 155))
         volumeV.alpha = 0.00001
         volumeV.showsVolumeSlider = false
@@ -71,7 +71,7 @@ class TTMPVolumeView: UIView {
     }
     
     // 获取系统音量控件 及大小
-    fileprivate func configureSystemVolume() {
+    private func configureSystemVolume() {
         let value = AVAudioSession.init().outputVolume
         TTLog("当前音量是多少\(AVAudioSession.init().outputVolume)")
         if value <= 0 {
@@ -130,7 +130,7 @@ class TTMPVolumeView: UIView {
         }
     }
     
-    func tipsViewAnimation() -> Void {
+   private func tipsViewAnimation() -> Void {
         let volumeValue = volumeSlider!.value
         let stage = 1.0/16 //一共有15个格子
         let level = Float(volumeValue) / Float(stage)  //当前亮度除以 所有格子的亮度比例 得到当前应该显示到哪一格
@@ -151,7 +151,7 @@ class TTMPVolumeView: UIView {
     }
     
     // MARK: 布局进度调View
-    func tt_CreateVolumeTipsViews() -> Void {
+   private func tt_CreateVolumeTipsViews() -> Void {
         let tipWidth = (volumeBackView.bounds.size.width - 17.0)/16.0 // 每个TIPS间隔1
         let tipHight: CGFloat = 5
         let tipY: CGFloat = 1
@@ -167,7 +167,7 @@ class TTMPVolumeView: UIView {
     }
     
     // MARK: 布局UI
-    fileprivate func setupUI() -> Void {
+    private func setupUI() -> Void {
         
         //  效果视图（效果为模糊）
         let blurEffect = UIBlurEffect.init(style: .light)
