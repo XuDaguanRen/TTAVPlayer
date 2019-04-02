@@ -138,7 +138,7 @@ extension TTAVPlayer {
 // MARK: - 监听按键音量变化
 extension TTAVPlayer {
     
-    // MARK: 删除音量通知 上面已经有了一个删除当前View 的所有通知了 这个不用调用
+    // MARK: 删除音量通知 
     func removeOutputVolume() {
         AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: "outputVolume", context: nil)
         UIApplication.shared.endReceivingRemoteControlEvents()
@@ -515,7 +515,7 @@ extension TTAVPlayer {
 extension TTAVPlayer {
     
     // MARK: 强制横屏 通过KVC直接设置屏幕旋转方向
-    fileprivate func tt_UIInterfaceOrientation(_ orientation: UIInterfaceOrientation) {
+     func tt_UIInterfaceOrientation(_ orientation: UIInterfaceOrientation) {
         
         if orientation == UIInterfaceOrientation.landscapeRight || orientation == UIInterfaceOrientation.landscapeLeft {
             tt_OrientationSupport = TTOrientationSupport.orientationRight //左右
