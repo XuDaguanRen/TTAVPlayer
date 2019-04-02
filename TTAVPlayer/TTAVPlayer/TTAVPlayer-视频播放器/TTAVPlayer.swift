@@ -40,6 +40,12 @@ enum TTPanDirection: Int {
     /// 底部部全屏按钮
     @objc optional func tt_avPlayerBottomBarFullScreenPlayButton() -> Void
     
+    /// 锁定屏幕播放 下一首
+    @objc optional func tt_avPlayerLockScreenNextTrack() -> Void
+    
+    /// 锁定屏幕播放 上一首
+    @objc optional func tt_avPlayerLockScreenPreviousTrack() -> Void
+    
 }
 
 class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarDelegate, UIGestureRecognizerDelegate {
@@ -240,6 +246,24 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         ttFrame = frame
         
         setupTTAVPlayerUI()
+    }
+    
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()    
+        TTLog("didMoveToWindow 视图将要出现")
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        TTLog("didMoveToSuperview视图已经消失")
+        
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        TTLog("didMoveToSuperview视图已经消失")
     }
     
     required init?(coder aDecoder: NSCoder) {

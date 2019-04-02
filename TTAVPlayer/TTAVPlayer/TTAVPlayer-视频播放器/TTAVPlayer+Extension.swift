@@ -67,8 +67,16 @@ extension TTAVPlayer {
             case .remoteControlTogglePlayPause: //切换播放暂停（耳机线控）
                 break
             case .remoteControlNextTrack: //下一首
+                //下一首回调
+                if let ttDelegate = delegate {
+                    ttDelegate.tt_avPlayerLockScreenNextTrack?()
+                }
                 break
             case .remoteControlPreviousTrack: //上一首
+                //上一首回调
+                if let ttDelegate = delegate {
+                    ttDelegate.tt_avPlayerLockScreenPreviousTrack?()
+                }
                 break
             case .remoteControlBeginSeekingBackward: //开始快退
                 break

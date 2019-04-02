@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class TTHomeController: TTBaseController {
+class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +17,15 @@ class TTHomeController: TTBaseController {
         
         setupHomeUI()
     }
+    
+    func tt_avPlayerLockScreenPreviousTrack() {
+        TTLog("上一首")
+    }
+    
+    func tt_avPlayerLockScreenNextTrack() {
+        TTLog("下一首")
+    }
+    
     
    fileprivate func setupHomeUI() -> Void {
     //1.从mainBundle获取test.mp4的具体路径
@@ -35,6 +44,7 @@ class TTHomeController: TTBaseController {
 //    ttPlayer.isHiddenTopBarMoreButton = true
 //    ttPlayer.isHiddenTopBarVideoName = true
     ttPlayer.isPlayingInBackground = true
+    ttPlayer.delegate = self
     
     view.addSubview(ttPlayer)
     
