@@ -292,6 +292,17 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     deinit {
         removeOutputVolume()  //注销音量监听
     }
+    // MARK: - 获取View 所在控制器
+    func getControllerfromview(view: UIView)->UIViewController?{
+        var nextResponder: UIResponder? = view
+        repeat {
+            nextResponder = nextResponder?.next
+            if let viewController = nextResponder as? UIViewController {
+                return viewController
+            }
+        } while nextResponder != nil
+        return nil
+    }
     
     // MARK: 销毁通知
     
@@ -944,6 +955,13 @@ extension TTAVPlayer {
                 weakSelf!.tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)   //默认屏幕方向
                 containerVC.navigationController?.popViewController(animated: false)
             } else {
+                
+                if let tempVC = ttContainerView {
+                  let vc = self.getControllerfromview(view: tempVC)
+                    if vc != nil {
+                        vc!.navigationController?.popViewController(animated: false)
+                    }
+                }
                 weakSelf!.removeAVPlayer(isFullScreenBack: true)
                 weakSelf!.removeFromSuperview()
                 weakSelf!.tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)   //默认屏幕方向

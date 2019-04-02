@@ -32,7 +32,7 @@ class TTTestViewController: UIViewController {
         let path = Bundle.main.path(forResource: "01-课程安排", ofType: "mp4")
         
         //    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180))
-        let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self, nil)
+        let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), nil, self.view)
         ttPlayer.urlString = path!
         ttPlayer.videoName = "01-课程安排"
         ttPlayer.isHiddenTopBar = true
@@ -41,8 +41,6 @@ class TTTestViewController: UIViewController {
         ttPlayer.isPlayingInBackground = true
 //        ttPlayer.delegate = self
         ttPlayer.isDefaultFullScreen = true
-        
-        view.addSubview(ttPlayer)
 //
 //        let but = UIButton(frame: CGRect(x: 0, y: 110, width: kScale * 90, height: kScale * 55))
 //
