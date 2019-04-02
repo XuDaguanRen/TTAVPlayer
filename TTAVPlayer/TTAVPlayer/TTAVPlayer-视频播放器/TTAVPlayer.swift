@@ -230,6 +230,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     var beforeChangePlayerStatus: TTAVPlayerStatus?
     /// 是否在后台时继续播放
     var isPlayingInBackground: Bool?
+    /// 是否是全屏
+    public var isDefaultFullScreen: Bool = false
 
     // MARK: - 初始化配置
     ///
@@ -257,12 +259,14 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
+         removeAVPlayer(isFullScreenBack: false)
         TTLog("didMoveToSuperview视图已经消失")
         
     }
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
+         removeAVPlayer(isFullScreenBack: false)
         TTLog("didMoveToSuperview视图已经消失")
     }
     
@@ -271,7 +275,34 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     deinit {
+        removeOutputVolume()  //注销音量监听
         
+    }
+    
+    // MARK: 销毁通知
+    func removeAVPlayer(isFullScreenBack: Bool) -> Void {
+        
+        if let containerVC = ttContainerVC {
+            if ((containerVC.navigationController?.viewControllers.count) != nil) {
+                if !(containerVC.navigationController?.viewControllers.contains(containerVC))! {
+                    TTLog("传进来的控制器不在了在Nav栈区")
+                    NotificationCenter.default.removeObserver(self)
+                    self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.Pause
+                    self.removeFromSuperview()
+                    self.avPlayerView?.removeFromSuperview()
+                    self.avPlayerView = nil
+                    self.ttContainerVC = nil
+                }
+            } else {
+                NotificationCenter.default.removeObserver(self)
+                self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.Pause
+                self.removeFromSuperview()
+                self.avPlayerView?.removeFromSuperview()
+                self.avPlayerView = nil
+                self.ttContainerVC = nil
+            }
+        }
+    
     }
     
     // MARK: 解决视图长按滑动手势和底部Sliderz拖拽进度手势冲突问题
