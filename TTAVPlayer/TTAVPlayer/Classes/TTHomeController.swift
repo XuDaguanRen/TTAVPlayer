@@ -18,6 +18,10 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
         setupHomeUI()
     }
     
+    @objc func clickBut() -> Void {
+        navigationController?.pushViewController(TTTestViewController(), animated: true)
+    }
+    
     func tt_avPlayerLockScreenPreviousTrack() {
         TTLog("上一首")
     }
@@ -25,8 +29,7 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     func tt_avPlayerLockScreenNextTrack() {
         TTLog("下一首")
     }
-    
-    
+
    fileprivate func setupHomeUI() -> Void {
     //1.从mainBundle获取test.mp4的具体路径
     //        let paths: String? = "https://lymanli-1258009115.cos.ap-guangzhou.myqcloud.com/video/sample/sample-video2.mp4"
@@ -47,6 +50,13 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     ttPlayer.delegate = self
     
     view.addSubview(ttPlayer)
+    
+    let but = UIButton(frame: CGRect(x: 150, y: 320, width: kScale * 90, height: kScale * 55))
+    
+    but.setTitle("下一页", for: .normal)
+    but.addTarget(self, action: #selector(clickBut), for: .touchUpInside)
+    but.backgroundColor = UIColor.red
+    view.addSubview(but)
     
     }
 }

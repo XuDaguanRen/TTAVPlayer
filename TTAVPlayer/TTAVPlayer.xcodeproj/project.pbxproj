@@ -33,6 +33,7 @@
 		2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C7902251BF81000A9587 /* TTMPVolumeView.swift */; };
 		20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883892224C69DA008928BF /* TTPlayerOrientation.swift */; };
 		20883895224C6E27008928BF /* TTTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883894224C6E27008928BF /* TTTopBarView.swift */; };
+		20BBD0DA2252FA35007D205C /* TTTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBD0D92252FA35007D205C /* TTTestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		2072C7922251EFB4000A9587 /* TTAVPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TTAVPlayer.entitlements; sourceTree = "<group>"; };
 		20883892224C69DA008928BF /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
 		20883894224C6E27008928BF /* TTTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
+		20BBD0D92252FA35007D205C /* TTTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			children = (
 				2061D6392249C6D4006929D8 /* TTHomeController.swift */,
 				2061D63B2249C6E5006929D8 /* TTMyController.swift */,
+				20BBD0D92252FA35007D205C /* TTTestViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				2061D6372249B68A006929D8 /* TTBaseController.swift in Sources */,
 				2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */,
 				2064A7012248AEF700363BDC /* TTCONSTDefine.swift in Sources */,
+				20BBD0DA2252FA35007D205C /* TTTestViewController.swift in Sources */,
 				20883895224C6E27008928BF /* TTTopBarView.swift in Sources */,
 				08A5BF332250B60B00FB4FC4 /* TTSlidePlayProgress.swift in Sources */,
 				20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */,
