@@ -247,11 +247,11 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     
     // MARK: - 初始化配置
-    ///
+    /// 初始化配置
     /// - Parameters:
     ///   - frame: 大小
-    ///   - containerVC: 添加播放器的控制器 便于隐藏系统音量UI
-    ///   - containerView: 添加播放器的控制器View 如果传入了控制器，containerView不生效
+    ///   - containerVC: 添加播放器的控制器 如果默认全屏:containerVC必传 便于隐藏系统音量UI和请使用Push,未处理dismiss情况
+    ///   - containerView: 添加播放器的控制器View 如果传入了控制器，containerView不生效, 单独的View, 默认全屏不起作用
     init(frame: CGRect, _ containerVC: UIViewController?, _ containerView: UIView?) {
         super.init(frame: frame)
         
@@ -936,14 +936,17 @@ extension TTAVPlayer {
         }
         
         if isDefaultFullScreen {  //是默认全屏返回
+            weak var weakSelf = self
             if let containerVC = ttContainerVC {
-                weak var weakSelf = self
-                containerVC.dismiss(animated: false) {
-                    weakSelf!.removeAVPlayer(isFullScreenBack: true)
-                    weakSelf!.removeFromSuperview()
-                    weakSelf!.ttContainerVC = nil     //释放传入的控制器 不然返回时播放器不会释放
-                    weakSelf!.tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)   //默认屏幕方向
-                }
+                weakSelf!.removeAVPlayer(isFullScreenBack: true)
+                weakSelf!.removeFromSuperview()
+                weakSelf!.ttContainerVC = nil     //释放传入的控制器 不然返回时播放器不会释放
+                weakSelf!.tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)   //默认屏幕方向
+                containerVC.navigationController?.popViewController(animated: false)
+            } else {
+                weakSelf!.removeAVPlayer(isFullScreenBack: true)
+                weakSelf!.removeFromSuperview()
+                weakSelf!.tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)   //默认屏幕方向
             }
             return
         }
