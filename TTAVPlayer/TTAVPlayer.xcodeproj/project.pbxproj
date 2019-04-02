@@ -10,7 +10,6 @@
 		08A5BF332250B60B00FB4FC4 /* TTSlidePlayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */; };
 		20536F91224B1C690072872D /* 01-课程安排.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 20536F90224B1C690072872D /* 01-课程安排.mp4 */; };
 		20536F93224B4D530072872D /* TTAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F92224B4D530072872D /* TTAVPlayer.swift */; };
-		20536F95224B548D0072872D /* TTAVPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F94224B548D0072872D /* TTAVPlayer+Extension.swift */; };
 		20536F97224B60970072872D /* TTBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F96224B60970072872D /* TTBottomBarView.swift */; };
 		20536F99224B660C0072872D /* TTView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F98224B660C0072872D /* TTView+Extension.swift */; };
 		20536F9B224B6AA00072872D /* TTSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F9A224B6AA00072872D /* TTSlider.swift */; };
@@ -40,7 +39,6 @@
 		08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSlidePlayProgress.swift; sourceTree = "<group>"; };
 		20536F90224B1C690072872D /* 01-课程安排.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-课程安排.mp4"; sourceTree = "<group>"; };
 		20536F92224B4D530072872D /* TTAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTAVPlayer.swift; sourceTree = "<group>"; };
-		20536F94224B548D0072872D /* TTAVPlayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TTAVPlayer+Extension.swift"; sourceTree = "<group>"; };
 		20536F96224B60970072872D /* TTBottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBottomBarView.swift; sourceTree = "<group>"; };
 		20536F98224B660C0072872D /* TTView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TTView+Extension.swift"; sourceTree = "<group>"; };
 		20536F9A224B6AA00072872D /* TTSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSlider.swift; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			children = (
 				20883891224C5A9F008928BF /* Tools */,
 				20536F92224B4D530072872D /* TTAVPlayer.swift */,
-				20536F94224B548D0072872D /* TTAVPlayer+Extension.swift */,
 				2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */,
 				20536F96224B60970072872D /* TTBottomBarView.swift */,
 				20536F9A224B6AA00072872D /* TTSlider.swift */,
@@ -246,7 +243,6 @@
 			files = (
 				20536F99224B660C0072872D /* TTView+Extension.swift in Sources */,
 				20556F6722438116007C0172 /* ViewController.swift in Sources */,
-				20536F95224B548D0072872D /* TTAVPlayer+Extension.swift in Sources */,
 				2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */,
 				2064A7032248B1E000363BDC /* TTRefs.swift in Sources */,
 				20536F9B224B6AA00072872D /* TTSlider.swift in Sources */,

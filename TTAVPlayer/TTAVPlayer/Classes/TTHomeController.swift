@@ -19,7 +19,11 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     }
     
     @objc func clickBut() -> Void {
-        navigationController?.pushViewController(TTTestViewController(), animated: true)
+        
+        self.present(TTTestViewController(), animated: false) {
+            
+        }
+       
     }
     
     func tt_avPlayerLockScreenPreviousTrack() {
@@ -37,19 +41,19 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     //        path =  "///var/containers/Bundle/Application/A9B82066-0405-484D-8BF0-64BC438B0D4A/Touch.app/01-%E8%AF%BE%E7%A8%8B%E5%AE%89%E6%8E%92.mp4"
 //    let videoName = "01-课程安排.mp4"
     
-    let path = Bundle.main.path(forResource: "01-课程安排", ofType: "mp4")
+//    let path = Bundle.main.path(forResource: "01-课程安排", ofType: "mp4")
     
 //    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180))
-    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self, nil)
-    ttPlayer.urlString = path!
-    ttPlayer.videoName = "01-课程安排"
-    ttPlayer.isHiddenTopBar = true
-//    ttPlayer.isHiddenTopBarMoreButton = true
-//    ttPlayer.isHiddenTopBarVideoName = true
-    ttPlayer.isPlayingInBackground = true
-    ttPlayer.delegate = self
-    
-    view.addSubview(ttPlayer)
+//    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self, nil)
+//    ttPlayer.urlString = path!
+//    ttPlayer.videoName = "01-课程安排"
+//    ttPlayer.isHiddenTopBar = true
+////    ttPlayer.isHiddenTopBarMoreButton = true
+////    ttPlayer.isHiddenTopBarVideoName = true
+//    ttPlayer.isPlayingInBackground = true
+//    ttPlayer.delegate = self
+//
+//    view.addSubview(ttPlayer)
     
     let but = UIButton(frame: CGRect(x: 150, y: 320, width: kScale * 90, height: kScale * 55))
     
