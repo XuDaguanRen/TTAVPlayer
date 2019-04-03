@@ -46,8 +46,6 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     ttPlayer.isPlayingInBackground = true
     ttPlayer.delegate = self
     ttPlayer.ttPlayerFullScreen = TTPlayerFullScreen.notFullScreen
-
-//    view.addSubview(ttPlayer)
     
     let but = UIButton(frame: CGRect(x: 150, y: 320, width: kScale * 90, height: kScale * 55))
     

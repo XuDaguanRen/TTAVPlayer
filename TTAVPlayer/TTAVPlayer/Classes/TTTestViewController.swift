@@ -43,7 +43,8 @@ class TTTestViewController: UIViewController, TTAVPlayerDelegate {
         ttPlayer.isPlayingInBackground = true
         ttPlayer.delegate = self
         ttPlayer.ttPlayerFullScreen = TTPlayerFullScreen.fullScreen
-//
+        
+//        view.addSubview(ttPlayer)
 //        let but = UIButton(frame: CGRect(x: 0, y: 110, width: kScale * 90, height: kScale * 55))
 //
 //        but.setTitle("下一页", for: .normal)
