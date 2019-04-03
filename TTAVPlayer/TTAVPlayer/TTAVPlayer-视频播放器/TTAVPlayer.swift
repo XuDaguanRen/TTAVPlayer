@@ -65,6 +65,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     var ttPlayerFullScreen: TTPlayerFullScreen? {
         didSet {
             if ttPlayerFullScreen == TTPlayerFullScreen.fullScreen {
+                ttContainerVC?.view.backgroundColor = UIColor.black
                 topBarView.isHidden = true
                 bottomBarView.isHidden = true
             }
@@ -100,7 +101,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 记录初始大小
     private var ttFrame: CGRect?
     /// 记录父视图 视频全屏播放后返回初始播放
-    private var ttContainerView: UIView?
+    private var ttContainerView = UIView()
     /// 记录父视图 视频全屏播放后返回初始播放
     private var ttContainerVC: UIViewController?
     /// 播放器
@@ -252,15 +253,6 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     private var beforeChangePlayerStatus: TTAVPlayerStatus?
     /// 是否在后台时继续播放
     public var isPlayingInBackground: Bool?
-    //    /// 是否是全屏
-    //    public var isDefaultFullScreen: Bool = false {
-    //        didSet {
-    //            if isDefaultFullScreen {
-    //                bottomBarView.isHidden = true
-    //                topBarView.isHidden = true
-    //            }
-    //        }
-    //    }
     
     // MARK: - 初始化配置
     /// 初始化配置
@@ -268,13 +260,11 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     ///   - frame: 大小
     ///   - containerVC: 添加播放器的控制器 如果默认全屏:containerVC必传 便于隐藏系统音量UI和请使用Push,未处理dismiss情况
     ///   - containerView: 添加播放器的控制器View 如果传入了控制器，containerView不生效, 单独的View, 默认全屏不起作用
-    init(frame: CGRect, _ containerVC: UIViewController?, _ containerView: UIView?) {
+    init(frame: CGRect, _ containerView: UIView) {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.black
-        containerVC?.view.backgroundColor = UIColor.black
-        containerView?.backgroundColor = UIColor.black
-        ttContainerVC = containerVC
+        ttContainerVC = getControllerfromview(view: containerView)
         ttContainerView = containerView
         ttFrame = frame
         
@@ -971,11 +961,8 @@ extension TTAVPlayer {
                 containerVC.navigationController?.popViewController(animated: false)
             } else {
                 
-                if let tempVC = ttContainerView {
-                    let vc = self.getControllerfromview(view: tempVC)
-                    if vc != nil {
-                        vc!.navigationController?.popViewController(animated: false)
-                    }
+                if let tempVC = ttContainerVC {
+                    tempVC.navigationController?.popViewController(animated: false)
                 }
                 weakSelf!.removeAVPlayer(isFullScreenBack: true)
                 weakSelf!.removeFromSuperview()
@@ -988,11 +975,7 @@ extension TTAVPlayer {
                 isOrientation = false
                 setupResetSubviewLayout()           //重置子视图布局
                 avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
-                if let vcView = ttContainerVC {
-                    vcView.view.addSubview(self)
-                } else {
-                    ttContainerView?.addSubview(self)
-                }
+                ttContainerView.addSubview(self)
                 ttPlayerOrientationPortraitAnimation()
                 topBarView.isFullScreen = TTPlayTopBarType.normal         //竖屏状态
                 bottomBarView.isFullScreen = TTPlayBottomBarType.normal   //竖屏状态
@@ -1071,13 +1054,12 @@ extension TTAVPlayer {
         topBarView.moreButton?.isHidden = false
         bottomBarView.isHidden = false
         tt_TopAndBottomBarShow(0.2, true)
-        if let containerVC = ttContainerVC {
-            if !containerVC.view.subviews.contains(self) { //此处代码这样写 是因为我懒得 在调整一个逻辑了
-                containerVC.view.addSubview(self)
-            }
+        if !ttContainerView.subviews.contains(self) { //此处代码这样写 是因为我懒得 在调整一个逻辑了
+            ttContainerView.addSubview(self)
         } else {
-            UIApplication.shared.keyWindow?.addSubview(self)        //播放器加载到window 上
+           UIApplication.shared.keyWindow?.addSubview(self)        //播放器加载到window 上
         }
+
     }
     
     // MARK: 全屏播放

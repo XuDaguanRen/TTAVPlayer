@@ -15,7 +15,7 @@ class TTTestViewController: UIViewController, TTAVPlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.white
         setupMyUI()
     }
     
@@ -34,7 +34,7 @@ class TTTestViewController: UIViewController, TTAVPlayerDelegate {
         let path = Bundle.main.path(forResource: "01-课程安排", ofType: "mp4")
         
         //    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180))
-        let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), nil, self.view)
+        let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self.view)
         ttPlayer.urlString = path!
         ttPlayer.videoName = "01-课程安排"
         ttPlayer.isHiddenTopBar = true
@@ -42,7 +42,7 @@ class TTTestViewController: UIViewController, TTAVPlayerDelegate {
         //    ttPlayer.isHiddenTopBarVideoName = true
         ttPlayer.isPlayingInBackground = true
         ttPlayer.delegate = self
-//        ttPlayer.ttAVPlayerFullScreen = TTAVPlayerFullScreen.TTDefaultFullScreen
+        ttPlayer.ttPlayerFullScreen = TTPlayerFullScreen.fullScreen
 //
 //        let but = UIButton(frame: CGRect(x: 0, y: 110, width: kScale * 90, height: kScale * 55))
 //
