@@ -460,7 +460,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     
     // MARK: 布局AVPlayer播放器
     private func setupAVPlayer() -> Void {
-
+        //添加播放器
+        ttContainerView.addSubview(self)
         //视频播放器
         avPlayerView?.delegate = self    //设置代理
         self.addSubview(avPlayerView!)
