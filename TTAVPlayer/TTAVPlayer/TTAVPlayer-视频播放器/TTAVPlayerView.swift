@@ -88,21 +88,21 @@ class TTAVPlayerView: UIView {
     /// 枚举播放状态
     public var ttPlayerStatu: TTPlayerStatus? {
         didSet {
-            if ttPlayerStatu == TTPlayerStatus.failed {
-                
-            } else if ttPlayerStatu == TTPlayerStatus.readyToPlay {
-                
-            } else if ttPlayerStatu == TTPlayerStatus.unknown {
-                
-            } else if ttPlayerStatu == TTPlayerStatus.buffering {
-                
-            } else if ttPlayerStatu == TTPlayerStatus.playing {
-                player?.play()
-            }  else if ttPlayerStatu == TTPlayerStatus.pause {
-                player?.pause()
-            }  else if ttPlayerStatu == TTPlayerStatus.endTime {
-                player?.pause()
-            }
+//            if ttPlayerStatu == TTPlayerStatus.failed {
+//                
+//            } else if ttPlayerStatu == TTPlayerStatus.readyToPlay {
+//                
+//            } else if ttPlayerStatu == TTPlayerStatus.unknown {
+//                
+//            } else if ttPlayerStatu == TTPlayerStatus.buffering {
+//                
+//            } else if ttPlayerStatu == TTPlayerStatus.playing {
+//                player?.play()
+//            }  else if ttPlayerStatu == TTPlayerStatus.pause {
+//                player?.pause()
+//            }  else if ttPlayerStatu == TTPlayerStatus.endTime {
+//                player?.pause()
+//            }
             // 回调播放代理
             if let delegate = self.delegate {
                 delegate.tt_PlayerStatus(playerStatus: ttPlayerStatu!)
