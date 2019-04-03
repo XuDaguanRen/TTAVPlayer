@@ -62,7 +62,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 代理
     weak var delegate: TTAVPlayerDelegate?
     /// 是否默认全屏
-    var ttPlayerFullScreen: TTPlayerFullScreen? {
+    var ttPlayerFullScreen: TTPlayerFullScreen = .notFullScreen {
         didSet {
             if ttPlayerFullScreen == TTPlayerFullScreen.fullScreen {
                 ttContainerVC?.view.backgroundColor = UIColor.black
@@ -267,7 +267,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         ttContainerVC = getControllerfromview(view: containerView)
         ttContainerView = containerView
         ttFrame = frame
-        
+    
         setupTTAVPlayerUI()
     }
     
@@ -299,7 +299,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         removeOutputVolume()  //注销音量监听
     }
     // MARK: - 获取View 所在控制器
-    func getControllerfromview(view: UIView)->UIViewController?{
+    func getControllerfromview(view: UIView) -> UIViewController? {
         var nextResponder: UIResponder? = view
         repeat {
             nextResponder = nextResponder?.next
@@ -322,7 +322,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
          还差一个单独在View上播放的销毁时间没有写，稍后加上………………
          */
         
-        switch self.ttPlayerFullScreen! {
+        switch self.ttPlayerFullScreen {
         case .fullScreen:
             if isFullScreenBack {
                 NotificationCenter.default.removeObserver(self)
@@ -460,7 +460,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     
     // MARK: 布局AVPlayer播放器
     private func setupAVPlayer() -> Void {
-        
+
         //视频播放器
         avPlayerView?.delegate = self    //设置代理
         self.addSubview(avPlayerView!)
@@ -950,7 +950,7 @@ extension TTAVPlayer {
     // MARK: 顶部返回按钮
     func tt_ClickTopBarBackButton() {
 
-        switch self.ttPlayerFullScreen! {
+        switch self.ttPlayerFullScreen {
         case .fullScreen: //默认全屏
             weak var weakSelf = self
             if let containerVC = ttContainerVC {
