@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-class TTTestViewController: UIViewController {
+class TTTestViewController: UIViewController, TTAVPlayerDelegate {
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,10 +19,10 @@ class TTTestViewController: UIViewController {
         setupMyUI()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-
+    func tt_avPlayerTopBarBackButton() {
+        TTLog("回调成功了")
     }
+    
     
     fileprivate func setupMyUI() -> Void {
         //1.从mainBundle获取test.mp4的具体路径
@@ -39,8 +41,8 @@ class TTTestViewController: UIViewController {
         //    ttPlayer.isHiddenTopBarMoreButton = true
         //    ttPlayer.isHiddenTopBarVideoName = true
         ttPlayer.isPlayingInBackground = true
-//        ttPlayer.delegate = self
-        ttPlayer.isDefaultFullScreen = true
+        ttPlayer.delegate = self
+//        ttPlayer.ttAVPlayerFullScreen = TTAVPlayerFullScreen.TTDefaultFullScreen
 //
 //        let but = UIButton(frame: CGRect(x: 0, y: 110, width: kScale * 90, height: kScale * 55))
 //

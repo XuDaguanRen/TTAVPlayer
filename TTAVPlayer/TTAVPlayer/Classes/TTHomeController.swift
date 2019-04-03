@@ -45,7 +45,7 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
 //    ttPlayer.isHiddenTopBarVideoName = true
     ttPlayer.isPlayingInBackground = true
     ttPlayer.delegate = self
-    ttPlayer.ttPlayerFullScreen = TTPlayerFullScreen.TTNotFullScreen
+    ttPlayer.ttPlayerFullScreen = TTPlayerFullScreen.notFullScreen
     
 
     view.addSubview(ttPlayer)
