@@ -21,8 +21,14 @@ import MediaPlayer
     case Pause              //暂停播放
     case EndTime            //播放完成
 }
+// MARK: - 是否m默认全屏枚举
+enum TTPlayerFullScreen: Int {
+    case fullScreen       //全屏
+    case notFullScreen    //不是全屏
+}
+
 // MARK: - 滑动手势的方向枚举
-enum TTPanDirection: Int {
+private enum TTPanDirection: Int {
     case TTPanDirectionHorizontal     //水平
     case TTPanDirectionVertical       //上下
 }
@@ -55,6 +61,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     // MARK: - 属性
     /// 代理
     weak var delegate: TTAVPlayerDelegate?
+    /// 是否默认全屏
+    var ttPlayerFullScreen: TTPlayerFullScreen? {
+        didSet {
+            if ttPlayerFullScreen == TTPlayerFullScreen.fullScreen {
+                topBarView.isHidden = true
+                bottomBarView.isHidden = true
+            }
+        }
+    }
     /// 播放状态
     var ttAVPlayerStatus: TTAVPlayerStatus? {
         didSet {
@@ -71,7 +86,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
                 avPlayerView?.clickPause()
                 bottomBarView.isSelectedPlay = false    //修改播放按钮状态
             } else if ttAVPlayerStatus == TTAVPlayerStatus.Buffering {      //正在缓冲
-                if isDefaultFullScreen {
+                if ttPlayerFullScreen == TTPlayerFullScreen.fullScreen {
                     DispatchQueue.main.async {
                         self.tt_DefaultiSFullScreen()        //默认全屏播放
                     }
@@ -79,6 +94,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
             }
         }
     }
+    
     /// 滑动方向枚举
     private var ttPanDirection: TTPanDirection?     //滑动手势的方向
     /// 记录初始大小
@@ -236,15 +252,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     private var beforeChangePlayerStatus: TTAVPlayerStatus?
     /// 是否在后台时继续播放
     public var isPlayingInBackground: Bool?
-    /// 是否是全屏
-    public var isDefaultFullScreen: Bool = false {
-        didSet {
-            if isDefaultFullScreen {
-                bottomBarView.isHidden = true
-                topBarView.isHidden = true
-            }
-        }
-    }
+    //    /// 是否是全屏
+    //    public var isDefaultFullScreen: Bool = false {
+    //        didSet {
+    //            if isDefaultFullScreen {
+    //                bottomBarView.isHidden = true
+    //                topBarView.isHidden = true
+    //            }
+    //        }
+    //    }
     
     // MARK: - 初始化配置
     /// 初始化配置
@@ -309,14 +325,15 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 销毁通知
     ///
     /// - Parameter isFullScreenBack: 是全屏返回
-   private func removeAVPlayer(isFullScreenBack: Bool) -> Void {
+    private func removeAVPlayer(isFullScreenBack: Bool) -> Void {
         
         /*
          视图销毁逻辑：如果是默认全屏状态，只有调用全屏左侧上部返回按钮时才销毁播放器，如果是不是默认全屏状态，从别的界面push过来时，当Navgation栈中没有当前控制器时销毁播放器，
          还差一个单独在View上播放的销毁时间没有写，稍后加上………………
          */
         
-        if isDefaultFullScreen {
+        switch self.ttPlayerFullScreen! {
+        case .fullScreen:
             if isFullScreenBack {
                 NotificationCenter.default.removeObserver(self)
                 self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.Pause
@@ -325,7 +342,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
                 self.avPlayerView = nil
                 self.ttContainerVC = nil
             }
-        } else {
+            break
+        case .notFullScreen:
             if let containerVC = ttContainerVC {
                 if ((containerVC.navigationController?.viewControllers.count) != nil) {
                     if !(containerVC.navigationController?.viewControllers.contains(containerVC))! {
@@ -346,6 +364,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
                     self.ttContainerVC = nil
                 }
             }
+            break
         }
         
     }
@@ -940,13 +959,9 @@ extension TTAVPlayer {
     }
     // MARK: 顶部返回按钮
     func tt_ClickTopBarBackButton() {
-        
-        //返回按钮回调
-        if let ttDelegate = delegate {
-            ttDelegate.tt_avPlayerTopBarBackButton?()
-        }
-        
-        if isDefaultFullScreen {  //是默认全屏返回
+
+        switch self.ttPlayerFullScreen! {
+        case .fullScreen: //默认全屏
             weak var weakSelf = self
             if let containerVC = ttContainerVC {
                 weakSelf!.removeAVPlayer(isFullScreenBack: true)
@@ -957,7 +972,7 @@ extension TTAVPlayer {
             } else {
                 
                 if let tempVC = ttContainerView {
-                  let vc = self.getControllerfromview(view: tempVC)
+                    let vc = self.getControllerfromview(view: tempVC)
                     if vc != nil {
                         vc!.navigationController?.popViewController(animated: false)
                     }
@@ -966,35 +981,41 @@ extension TTAVPlayer {
                 weakSelf!.removeFromSuperview()
                 weakSelf!.tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)   //默认屏幕方向
             }
-            return
+            break
+        case .notFullScreen:
+            if isOrientation { //普通全屏返回
+                tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
+                isOrientation = false
+                setupResetSubviewLayout()           //重置子视图布局
+                avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
+                if let vcView = ttContainerVC {
+                    vcView.view.addSubview(self)
+                } else {
+                    ttContainerView?.addSubview(self)
+                }
+                ttPlayerOrientationPortraitAnimation()
+                topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
+                bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
+                topBarView.isHidden = isHiddenTopBar
+                topBarView.backButton?.isHidden = isHiddenTopBarBackButton
+                topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
+                topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
+            } else { //不是全屏返回
+                var index = 0
+                if let containerVC = ttContainerVC {
+                    index = containerVC.navigationController?.viewControllers.lastIndex(of: containerVC) ?? 0
+                }
+                if index > 1 {
+                    ttContainerVC?.navigationController?.popViewController(animated: true)
+                }
+            }
+            break
         }
         
-        if isOrientation { //普通全屏返回
-            tt_UIInterfaceOrientation(UIInterfaceOrientation.portrait)          //默认屏幕方向
-            isOrientation = false
-            setupResetSubviewLayout()           //重置子视图布局
-            avPlayerView?.ttOrientationPortraitAnimation()       //改变 playerLayer 大小
-            if let vcView = ttContainerVC {
-                vcView.view.addSubview(self)
-            } else {
-                ttContainerView?.addSubview(self)
-            }
-            ttPlayerOrientationPortraitAnimation()
-            topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
-            bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
-            topBarView.isHidden = isHiddenTopBar
-            topBarView.backButton?.isHidden = isHiddenTopBarBackButton
-            topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
-            topBarView.moreButton?.isHidden = isHiddenTopBarMoreButton
-        } else { //不是全屏返回
-            var index = 0
-            if let containerVC = ttContainerVC {
-                index = containerVC.navigationController?.viewControllers.lastIndex(of: containerVC) ?? 0
-            }
-            if index > 1 {
-                ttContainerVC?.navigationController?.popViewController(animated: true)
-            }
-        }
+        //返回按钮回调
+        if let ttDelegate = delegate {
+            ttDelegate.tt_avPlayerTopBarBackButton?()
+        } 
     }
 }
 
@@ -1197,6 +1218,7 @@ extension TTAVPlayer {
     }
     
     // MARK: 视频播放中的进度监听
+    /// 视频播放中的进度监听
     /// - Parameters:
     ///   - maximumValue: 视频总时长
     ///   - sliderValue: sliderValue 播放的进度
