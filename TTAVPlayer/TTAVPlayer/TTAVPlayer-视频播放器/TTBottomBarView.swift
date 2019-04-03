@@ -15,8 +15,8 @@ import UIKit
 /// - normal: 正常状态
 /// - full: 全屏状态
 enum TTPlayBottomBarType {
-    case Normal
-    case Full
+    case full
+    case normal
 }
 
 // MARK: - 代理
@@ -131,7 +131,7 @@ class TTBottomBarView: UIView {
     /// 是否是全屏状态
     var isFullScreen: TTPlayBottomBarType? {
         didSet {
-            if self.isFullScreen == TTPlayBottomBarType.Full {
+            if self.isFullScreen == TTPlayBottomBarType.full {
                 ttLayoutIfNeededFullSliderView()
             } else {
                 ttLayoutIfNeededNormalSliderView()

@@ -15,8 +15,8 @@ import UIKit
 /// - normal: 正常状态
 /// - full: 全屏状态
 enum TTPlayTopBarType {
-    case Normal
-    case Full
+    case full
+    case normal
 }
 
 // MARK: - 代理
@@ -54,7 +54,7 @@ class TTTopBarView: UIView {
     /// 是否是全屏状态
     var isFullScreen: TTPlayTopBarType? {
         didSet {
-            if self.isFullScreen == TTPlayTopBarType.Full {
+            if self.isFullScreen == TTPlayTopBarType.full {
                 ttLayoutIfNeededFullTopBarView()
             } else {
                 ttLayoutIfNeededNormalTopBarView()

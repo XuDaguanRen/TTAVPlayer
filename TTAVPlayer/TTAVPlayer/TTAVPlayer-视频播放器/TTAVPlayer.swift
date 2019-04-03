@@ -13,13 +13,13 @@ import MediaPlayer
 
 // MARK: - 播放状态枚举
 @objc public enum TTAVPlayerStatus: Int {
-    case Failed             //文件错误缓冲失败
-    case ReadyToPlay        //准备好播放
-    case Unknown            //未知错误
-    case Buffering          //缓冲中
-    case Playing            //正在播放
-    case Pause              //暂停播放
-    case EndTime            //播放完成
+    case failed             //文件错误缓冲失败
+    case readyToPlay        //准备好播放
+    case unknown            //未知错误
+    case buffering          //缓冲中
+    case playing            //正在播放
+    case pause              //暂停播放
+    case endTime            //播放完成
 }
 // MARK: - 是否m默认全屏枚举
 enum TTPlayerFullScreen: Int {
@@ -29,8 +29,8 @@ enum TTPlayerFullScreen: Int {
 
 // MARK: - 滑动手势的方向枚举
 private enum TTPanDirection: Int {
-    case TTPanDirectionHorizontal     //水平
-    case TTPanDirectionVertical       //上下
+    case panDirectionHorizontal     //水平
+    case panDirectionVertical       //上下
 }
 
 // MARK: - 代理
@@ -73,19 +73,19 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     /// 播放状态
     var ttAVPlayerStatus: TTAVPlayerStatus? {
         didSet {
-            if ttAVPlayerStatus == TTAVPlayerStatus.Playing {     //播放状态
+            if ttAVPlayerStatus == TTAVPlayerStatus.playing {     //播放状态
                 //播放
                 avPlayerView?.clickPlay()
                 bottomBarView.isSelectedPlay = true
-            } else if ttAVPlayerStatus == TTAVPlayerStatus.Pause {       //暂停状态
+            } else if ttAVPlayerStatus == TTAVPlayerStatus.pause {       //暂停状态
                 //暂停
                 avPlayerView?.clickPause()
                 bottomBarView.isSelectedPlay = false    //修改播放按钮状态
-            } else if ttAVPlayerStatus == TTAVPlayerStatus.EndTime {       //播放完成
+            } else if ttAVPlayerStatus == TTAVPlayerStatus.endTime {       //播放完成
                 //暂停
                 avPlayerView?.clickPause()
                 bottomBarView.isSelectedPlay = false    //修改播放按钮状态
-            } else if ttAVPlayerStatus == TTAVPlayerStatus.Buffering {      //正在缓冲
+            } else if ttAVPlayerStatus == TTAVPlayerStatus.buffering {      //正在缓冲
                 if ttPlayerFullScreen == TTPlayerFullScreen.fullScreen {
                     DispatchQueue.main.async {
                         self.tt_DefaultiSFullScreen()        //默认全屏播放
@@ -336,7 +336,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         case .fullScreen:
             if isFullScreenBack {
                 NotificationCenter.default.removeObserver(self)
-                self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.Pause
+                self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.pause
                 self.removeFromSuperview()
                 self.avPlayerView?.removeFromSuperview()
                 self.avPlayerView = nil
@@ -349,7 +349,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
                     if !(containerVC.navigationController?.viewControllers.contains(containerVC))! {
                         TTLog("传进来的控制器不在了在Nav栈区")
                         NotificationCenter.default.removeObserver(self)
-                        self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.Pause
+                        self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.pause
                         self.removeFromSuperview()
                         self.avPlayerView?.removeFromSuperview()
                         self.avPlayerView = nil
@@ -357,7 +357,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
                     }
                 } else {
                     NotificationCenter.default.removeObserver(self)
-                    self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.Pause
+                    self.avPlayerView?.ttPlayerStatu = TTPlayerStatus.pause
                     self.removeFromSuperview()
                     self.avPlayerView?.removeFromSuperview()
                     self.avPlayerView = nil
@@ -539,10 +539,10 @@ extension TTAVPlayer {
         if event.type == UIEvent.EventType.remoteControl {
             switch event.subtype {
             case .remoteControlPlay: //播放
-                ttAVPlayerStatus = TTAVPlayerStatus.Playing
+                ttAVPlayerStatus = TTAVPlayerStatus.playing
                 break
             case .remoteControlPause:   //暂停
-                ttAVPlayerStatus = TTAVPlayerStatus.Pause
+                ttAVPlayerStatus = TTAVPlayerStatus.pause
                 break
             case .remoteControlStop: //停止
                 break
@@ -588,7 +588,7 @@ extension TTAVPlayer {
             avPlayerView?.removePlayerOnPlayerLayer()
         } else {
             beforeChangePlayerStatus = ttAVPlayerStatus  // 记录下进入后台前的播放状态
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Pause         //暂停播放
+            self.ttAVPlayerStatus = TTAVPlayerStatus.pause         //暂停播放
         }
     }
     
@@ -603,7 +603,7 @@ extension TTAVPlayer {
             if let oldStatus = beforeChangePlayerStatus {
                 ttAVPlayerStatus = oldStatus
             } else {
-                self.ttAVPlayerStatus = TTAVPlayerStatus.Pause   //暂停播放
+                self.ttAVPlayerStatus = TTAVPlayerStatus.pause   //暂停播放
             }
         }
     }
@@ -728,7 +728,7 @@ extension TTAVPlayer {
     // MARK: 点击重播按钮
     @objc private func clickReplay() -> Void {
         avPlayerView?.playSpecifyLocation(sliderTime: 0.0)
-        ttAVPlayerStatus = TTAVPlayerStatus.Playing        //点击重播按钮
+        ttAVPlayerStatus = TTAVPlayerStatus.playing        //点击重播按钮
         replayBtn.isHidden = true
         tt_TopAndBottomBarShow(0.2, true)
     }
@@ -754,8 +754,8 @@ extension TTAVPlayer {
                     addSubview(slidePlayProgress)
                 }
                 
-                ttPanDirection = TTPanDirection.TTPanDirectionHorizontal     //水平滑动状态
-                self.ttAVPlayerStatus = TTAVPlayerStatus.Pause                    //水平滑动暂停播放
+                ttPanDirection = TTPanDirection.panDirectionHorizontal     //水平滑动状态
+                self.ttAVPlayerStatus = TTAVPlayerStatus.pause                    //水平滑动暂停播放
                 playOrPauseBtn.isHidden = true                                    //隐藏暂停按钮
                 //当前已经播放的时间
                 slidingTime = avPlayerView?.currentTime()
@@ -768,7 +768,7 @@ extension TTAVPlayer {
                 }
                 TTLog("当前视频已经播放的时间\(slidingTime!)")
             } else if x < y {   //垂直滑动
-                ttPanDirection = TTPanDirection.TTPanDirectionVertical     //垂直滑动状态
+                ttPanDirection = TTPanDirection.panDirectionVertical     //垂直滑动状态
                 if locationPoint.x > self.bounds.size.width / 2 && locationPoint.y < self.bounds.height - 50 { //右边垂直滑动
                     //                    TTLog("右边音量滑动")
                     if !self.subviews.contains(volumeSlider) {
@@ -804,12 +804,12 @@ extension TTAVPlayer {
             break
         case .changed:  //滑动中
             switch ttPanDirection! {
-            case .TTPanDirectionHorizontal:
+            case .panDirectionHorizontal:
                 replayBtn.isHidden = true            //滑动状态隐藏重播
                 let draggedValue = self.horizontalSlidingValue(veloctyPoint.x)
                 avPlayerView?.playSpecifyLocation(sliderTime: draggedValue)
                 break
-            case .TTPanDirectionVertical:
+            case .panDirectionVertical:
                 if locationPoint.x > self.bounds.size.width / 2 && locationPoint.y < self.bounds.height - 50 { //右边音量垂直滑动
                     //取消隐藏秒延迟动画
                     NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.removeVolumeView), object: nil)
@@ -827,8 +827,8 @@ extension TTAVPlayer {
             break
         case .ended:    //滑动结束
             switch self.ttPanDirection! {
-            case .TTPanDirectionHorizontal:
-                ttAVPlayerStatus = TTAVPlayerStatus.Playing        //水平滑动完成 播放视频
+            case .panDirectionHorizontal:
+                ttAVPlayerStatus = TTAVPlayerStatus.playing        //水平滑动完成 播放视频
                 slidingTime = 0     //置空记录的播放时间
                 //删除滑动进度View
                 if self.subviews.contains(slidePlayProgress) {
@@ -838,7 +838,7 @@ extension TTAVPlayer {
                     self.perform(#selector(self.tt_TopAndBottomBarHidden(_:)), with: nil, afterDelay: 5)
                 }
                 break
-            case .TTPanDirectionVertical:
+            case .panDirectionVertical:
                 if locationPoint.x < self.bounds.size.width/2 {    // 触摸点在视图左边 隐藏屏幕亮度
                     //延迟调用方法 //时间太短 延迟不了啊 晕倒 哈哈哈所以要使用这个方法 延迟的时间应该在设置在2秒以上
                     self.perform(#selector(self.removeBrightnessView), with: nil, afterDelay: 2)
@@ -865,7 +865,7 @@ extension TTAVPlayer {
     // MARK: 屏幕双击手势 播放或者暂停
     @objc private func doubleTapGestureRecognizers(_ sender: UITapGestureRecognizer) {
         //如果是播放完成状态 双击屏幕不显示暂停按钮
-        if ttAVPlayerStatus == TTAVPlayerStatus.EndTime {
+        if ttAVPlayerStatus == TTAVPlayerStatus.endTime {
             return
         }
         // 双击时直接响应播放暂停按钮点击
@@ -874,15 +874,15 @@ extension TTAVPlayer {
             isPausePlay = true
             //取消隐藏动画后在重新添加5秒延迟动画
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden(_:)), object: nil)
-            tt_TopAndBottomBarHidden(0.2)                         //隐藏底部Bar控制View
-            ttAVPlayerStatus = TTAVPlayerStatus.Pause        //播放完成暂停播放
+            tt_TopAndBottomBarHidden(0.2)                    //隐藏底部Bar控制View
+            ttAVPlayerStatus = TTAVPlayerStatus.pause        //播放完成暂停播放
         } else {
             playOrPauseBtn.isHidden = true
             isPausePlay = false
             //取消隐藏动画后在重新添加5秒延迟动画
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
-            tt_TopAndBottomBarShow(0.2, true)                     //显示底部Bar控制View
-            ttAVPlayerStatus = TTAVPlayerStatus.Playing       //播放完成暂停播放
+            tt_TopAndBottomBarShow(0.2, true)                 //显示底部Bar控制View
+            ttAVPlayerStatus = TTAVPlayerStatus.playing       //播放完成暂停播放
         }
     }
     
@@ -994,8 +994,8 @@ extension TTAVPlayer {
                     ttContainerView?.addSubview(self)
                 }
                 ttPlayerOrientationPortraitAnimation()
-                topBarView.isFullScreen = TTPlayTopBarType.Normal         //竖屏状态
-                bottomBarView.isFullScreen = TTPlayBottomBarType.Normal   //竖屏状态
+                topBarView.isFullScreen = TTPlayTopBarType.normal         //竖屏状态
+                bottomBarView.isFullScreen = TTPlayBottomBarType.normal   //竖屏状态
                 topBarView.isHidden = isHiddenTopBar
                 topBarView.backButton?.isHidden = isHiddenTopBarBackButton
                 topBarView.videoNameLable.isHidden = isHiddenTopBarVideoName
@@ -1063,8 +1063,8 @@ extension TTAVPlayer {
         setupResetSubviewLayout()       //重置子视图布局
         avPlayerView?.ttOrientationLeftAndRightAnimation()       //改变 playerLayer 大小
         bottomBarView.fullScreenPlayTitle = "倍速"
-        topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
-        bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
+        topBarView.isFullScreen = TTPlayTopBarType.full             //全屏状态
+        bottomBarView.isFullScreen = TTPlayBottomBarType.full       //全屏状态
         topBarView.isHidden = false
         topBarView.backButton?.isHidden = false
         topBarView.videoNameLable.isHidden = false
@@ -1090,8 +1090,8 @@ extension TTAVPlayer {
             avPlayerView?.ttOrientationLeftAndRightAnimation()       //改变 playerLayer 大小
             UIApplication.shared.keyWindow?.addSubview(self)         //播放器加载到window 上
             ttPlayerOrientationLeftAndRightAnimation()
-            topBarView.isFullScreen = TTPlayTopBarType.Full             //全屏状态
-            bottomBarView.isFullScreen = TTPlayBottomBarType.Full       //全屏状态
+            topBarView.isFullScreen = TTPlayTopBarType.full             //全屏状态
+            bottomBarView.isFullScreen = TTPlayBottomBarType.full       //全屏状态
             topBarView.isHidden = false
             topBarView.backButton?.isHidden = false
             topBarView.videoNameLable.isHidden = false
@@ -1139,7 +1139,7 @@ extension TTAVPlayer {
         //滑块进度
         bottomBarView.value = slider.value
         //滑动结束播放
-        ttAVPlayerStatus = TTAVPlayerStatus.Playing //播放
+        ttAVPlayerStatus = TTAVPlayerStatus.playing //播放
     }
     
     // MARK: 滑动进度条
@@ -1147,7 +1147,7 @@ extension TTAVPlayer {
     /// - Parameter selider: 进度数据
     func tt_SliderChanged(slider: UISlider) {
         //滑动时暂停
-        ttAVPlayerStatus = TTAVPlayerStatus.Pause  //暂停
+        ttAVPlayerStatus = TTAVPlayerStatus.pause  //暂停
         avPlayerView?.playerSeek(slider.value + 1)       //滑动到指定位置 并播放
         // 播放了多少
         bottomBarView.playTimeValue = String(format: "%02d:%02d",(Int(slider.value) % 3600) / 60, Int(slider.value) % 60)
@@ -1160,12 +1160,12 @@ extension TTAVPlayer {
     ///
     /// - Parameter isPlay: 是否播放 默认是播放状态
     func tt_ClickPlayButton(isPlay: Bool) {
-        if ttAVPlayerStatus == TTAVPlayerStatus.Playing {
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Pause //暂停
-        } else if ttAVPlayerStatus == TTAVPlayerStatus.Pause {
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Playing //播放
+        if ttAVPlayerStatus == TTAVPlayerStatus.playing {
+            self.ttAVPlayerStatus = TTAVPlayerStatus.pause //暂停
+        } else if ttAVPlayerStatus == TTAVPlayerStatus.pause {
+            self.ttAVPlayerStatus = TTAVPlayerStatus.playing //播放
             playOrPauseBtn.isHidden = true
-        } else if ttAVPlayerStatus == TTAVPlayerStatus.EndTime {
+        } else if ttAVPlayerStatus == TTAVPlayerStatus.endTime {
             clickReplay()  //播放完成在点击播放按钮重播
         }
     }
@@ -1177,33 +1177,33 @@ extension TTAVPlayer {
     // MARK: 获取到播放状态
     func tt_PlayerStatus(playerStatus: TTPlayerStatus) {
         switch playerStatus {
-        case .Failed:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Failed
+        case .failed:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.failed
             break
-        case .ReadyToPlay:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.ReadyToPlay
+        case .readyToPlay:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.readyToPlay
             break
-        case .Unknown:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Unknown
+        case .unknown:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.unknown
             break
-        case .Buffering:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Buffering
+        case .buffering:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.buffering
             break
-        case .Playing:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Playing
+        case .playing:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.playing
             break
-        case .Pause:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.Pause
+        case .pause:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.pause
             break
-        case .EndTime:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.EndTime
+        case .endTime:
+            self.ttAVPlayerStatus = TTAVPlayerStatus.endTime
             break
         }
     }
     
     // MARK: 播放完成
     func tt_PlayToEndTime() {
-        ttAVPlayerStatus = TTAVPlayerStatus.EndTime        //播放完成暂停播放
+        ttAVPlayerStatus = TTAVPlayerStatus.endTime        //播放完成暂停播放
         replayBtn.isHidden = false
         tt_TopAndBottomBarShow(0.2, false)
     }

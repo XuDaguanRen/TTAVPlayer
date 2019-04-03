@@ -20,13 +20,13 @@ import AVKit
 /// - Pause: 暂停
 /// - EndTime: 完成
 public enum TTPlayerStatus {
-    case Failed
-    case ReadyToPlay
-    case Unknown
-    case Buffering
-    case Playing
-    case Pause
-    case EndTime
+    case failed
+    case readyToPlay
+    case unknown
+    case buffering
+    case playing
+    case pause
+    case endTime
 }
 
 protocol TTAVPlayerViewDelegate: NSObjectProtocol {
@@ -88,19 +88,19 @@ class TTAVPlayerView: UIView {
     /// 枚举播放状态
     public var ttPlayerStatu: TTPlayerStatus? {
         didSet {
-            if ttPlayerStatu == TTPlayerStatus.Failed {
+            if ttPlayerStatu == TTPlayerStatus.failed {
                 
-            } else if ttPlayerStatu == TTPlayerStatus.ReadyToPlay {
+            } else if ttPlayerStatu == TTPlayerStatus.readyToPlay {
                 
-            } else if ttPlayerStatu == TTPlayerStatus.Unknown {
+            } else if ttPlayerStatu == TTPlayerStatus.unknown {
                 
-            } else if ttPlayerStatu == TTPlayerStatus.Buffering {
+            } else if ttPlayerStatu == TTPlayerStatus.buffering {
                 
-            } else if ttPlayerStatu == TTPlayerStatus.Playing {
+            } else if ttPlayerStatu == TTPlayerStatus.playing {
                 player?.play()
-            }  else if ttPlayerStatu == TTPlayerStatus.Pause {
+            }  else if ttPlayerStatu == TTPlayerStatus.pause {
                 player?.pause()
-            }  else if ttPlayerStatu == TTPlayerStatus.EndTime {
+            }  else if ttPlayerStatu == TTPlayerStatus.endTime {
                 player?.pause()
             }
             // 回调播放代理
@@ -115,7 +115,7 @@ class TTAVPlayerView: UIView {
         self.backgroundColor = UIColor.black
         DispatchQueue.main.async {
             //主要作用是 表示 已创建视频播放器就表示加载中 方便TTAVPlayer 根据状态判断旋转 这个状态不及时传递出去 旋转手机会有卡顿 体验不好
-            self.ttPlayerStatu = TTPlayerStatus.Buffering
+            self.ttPlayerStatu = TTPlayerStatus.buffering
             self.setupAVPlayerUI()
             self.listenPlayer()
         }
@@ -185,7 +185,7 @@ extension TTAVPlayerView {
     
     // MARK: 播放完成
     @objc func playToEndTime(){
-        ttPlayerStatu = TTPlayerStatus.EndTime
+        ttPlayerStatu = TTPlayerStatus.endTime
         //代理守护下
         if let delegate = self.delegate {
             delegate.tt_PlayToEndTime()
@@ -284,13 +284,13 @@ extension TTAVPlayerView {
         if keyPath == "status" {
             switch self.playerItem?.status {
             case .readyToPlay?: //指示播放器项已准备好要播放
-                ttPlayerStatu = TTPlayerStatus.Playing
+                ttPlayerStatu = TTPlayerStatus.playing
                 break
             case .failed?: //指示由于错误不能再播放播放器
-                ttPlayerStatu = TTPlayerStatus.Failed
+                ttPlayerStatu = TTPlayerStatus.failed
                 break
             case.unknown?: // 指示尚未知道播放器状态，因为它尚未尝试加载新媒体资源
-                ttPlayerStatu = TTPlayerStatus.Unknown
+                ttPlayerStatu = TTPlayerStatus.unknown
                 break
             default:
                 break;
@@ -308,7 +308,7 @@ extension TTAVPlayerView {
             }
             
         } else if keyPath == "playbackBufferEmpty" {  //正在缓存视频请稍等
-            ttPlayerStatu = TTPlayerStatus.Buffering
+            ttPlayerStatu = TTPlayerStatus.buffering
         } else if keyPath == "playbackLikelyToKeepUp" { //缓存好了可以播放了
             
         }
