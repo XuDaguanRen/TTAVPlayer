@@ -65,7 +65,6 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     var ttPlayerFullScreen: TTPlayerFullScreen = .notFullScreen {
         didSet {
             if ttPlayerFullScreen == TTPlayerFullScreen.fullScreen {
-                ttContainerVC?.view.backgroundColor = UIColor.black
                 topBarView.isHidden = true
                 bottomBarView.isHidden = true
             }
