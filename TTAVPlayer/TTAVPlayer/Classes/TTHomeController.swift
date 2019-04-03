@@ -19,7 +19,7 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     }
     
     @objc func clickBut() -> Void {
-        self.navigationController?.pushViewController(TTTestViewController(), animated: false)
+        self.navigationController?.pushViewController(TTTestViewController1(), animated: false)
     }
     
     func tt_avPlayerLockScreenPreviousTrack() {

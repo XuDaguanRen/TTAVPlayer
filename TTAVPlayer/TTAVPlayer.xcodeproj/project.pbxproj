@@ -33,6 +33,7 @@
 		20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883892224C69DA008928BF /* TTPlayerOrientation.swift */; };
 		20883895224C6E27008928BF /* TTTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883894224C6E27008928BF /* TTTopBarView.swift */; };
 		20BBD0DA2252FA35007D205C /* TTTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBD0D92252FA35007D205C /* TTTestViewController.swift */; };
+		20EFCCF5225491A2000C2FC9 /* TTTestViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		20883892224C69DA008928BF /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
 		20883894224C6E27008928BF /* TTTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
 		20BBD0D92252FA35007D205C /* TTTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController.swift; sourceTree = "<group>"; };
+		20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				2061D6392249C6D4006929D8 /* TTHomeController.swift */,
 				2061D63B2249C6E5006929D8 /* TTMyController.swift */,
 				20BBD0D92252FA35007D205C /* TTTestViewController.swift */,
+				20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				2072C78D2251BF29000A9587 /* TTBrightnessView.swift in Sources */,
 				20556F6522438116007C0172 /* AppDelegate.swift in Sources */,
 				20536F97224B60970072872D /* TTBottomBarView.swift in Sources */,
+				20EFCCF5225491A2000C2FC9 /* TTTestViewController1.swift in Sources */,
 				2061D6352249B674006929D8 /* TTMainTabBar.swift in Sources */,
 				2061D63C2249C6E5006929D8 /* TTMyController.swift in Sources */,
 				2061D6332249B665006929D8 /* TTNavigationController.swift in Sources */,
