@@ -21,8 +21,15 @@ import MediaPlayer
     case pause              //暂停播放
     case endTime            //播放完成
 }
+
+// MARK: - 加完成是否默认播放
+@objc public enum TTDefaultPlay: Int {
+    case isDefaultPaly
+    case notDefaultPaly
+}
+
 // MARK: - 是否m默认全屏枚举
-enum TTPlayerFullScreen: Int {
+@objc public enum TTPlayerFullScreen: Int {
     case fullScreen       //全屏
     case notFullScreen    //不是全屏
 }
@@ -61,6 +68,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     // MARK: - 属性
     /// 代理
     weak var delegate: TTAVPlayerDelegate?
+    /// 加载完成是否播放
+    var defaultPlay: TTDefaultPlay = .notDefaultPaly
     /// 是否默认全屏
     var ttPlayerFullScreen: TTPlayerFullScreen = .notFullScreen {
         didSet {
@@ -1172,7 +1181,18 @@ extension TTAVPlayer {
             self.ttAVPlayerStatus = TTAVPlayerStatus.buffering
             break
         case .playing:
-            self.ttAVPlayerStatus = TTAVPlayerStatus.playing
+            switch self.defaultPlay { //是加载完成就播放
+            case .isDefaultPaly: //是默认播放
+                 self.ttAVPlayerStatus = TTAVPlayerStatus.playing
+                break
+            case .notDefaultPaly: //不是默认播放
+                //暂停
+                self.ttAVPlayerStatus = TTAVPlayerStatus.pause
+                //显示bar后，5秒后重新添加5秒延迟消失bar动画
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.tt_TopAndBottomBarHidden), object: nil)
+                tt_TopAndBottomBarShow(0.2, false)
+                break
+            }
             break
         case .pause:
             self.ttAVPlayerStatus = TTAVPlayerStatus.pause
