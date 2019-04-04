@@ -33,6 +33,7 @@
 		20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883892224C69DA008928BF /* TTPlayerOrientation.swift */; };
 		20883895224C6E27008928BF /* TTTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883894224C6E27008928BF /* TTTopBarView.swift */; };
 		20BBD0DA2252FA35007D205C /* TTTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBD0D92252FA35007D205C /* TTTestViewController.swift */; };
+		20EAF5342255FB9300AF0312 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EAF5332255FB9300AF0312 /* TestTableViewCell.swift */; };
 		20EFCCF5225491A2000C2FC9 /* TTTestViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		20883892224C69DA008928BF /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
 		20883894224C6E27008928BF /* TTTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
 		20BBD0D92252FA35007D205C /* TTTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController.swift; sourceTree = "<group>"; };
+		20EAF5332255FB9300AF0312 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 				2061D63B2249C6E5006929D8 /* TTMyController.swift */,
 				20BBD0D92252FA35007D205C /* TTTestViewController.swift */,
 				20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */,
+				20EAF5332255FB9300AF0312 /* TestTableViewCell.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */,
 				2064A7032248B1E000363BDC /* TTRefs.swift in Sources */,
 				20536F9B224B6AA00072872D /* TTSlider.swift in Sources */,
+				20EAF5342255FB9300AF0312 /* TestTableViewCell.swift in Sources */,
 				2072C78F2251BF61000A9587 /* TTMPVolume.swift in Sources */,
 				2061D6372249B68A006929D8 /* TTBaseController.swift in Sources */,
 				2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */,

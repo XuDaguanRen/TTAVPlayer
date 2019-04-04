@@ -35,9 +35,14 @@ class TTHomeController: TTBaseController, TTAVPlayerDelegate {
     //        let paths: String? = "https://lymanli-1258009115.cos.ap-guangzhou.myqcloud.com/video/sample/sample-video2.mp4"
     //        path =  "///var/containers/Bundle/Application/A9B82066-0405-484D-8BF0-64BC438B0D4A/Touch.app/01-%E8%AF%BE%E7%A8%8B%E5%AE%89%E6%8E%92.mp4"
     
+    let scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 0, width: kScreemWidth, height: 300))
+    scrollView.contentSize = CGSize(width: kScreemWidth, height: 320)
+    scrollView.backgroundColor = UIColor.cyan
+    self.view.addSubview(scrollView)
+    
     let paths = Bundle.main.path(forResource: "01-课程安排", ofType: "mp4")
     let videoName = "01-课程安排.mp4"
-    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), self.view)
+    let ttPlayer = TTAVPlayer.init(frame: CGRect(x: 0, y: 80, width: kScreemWidth, height: 180), scrollView)
     ttPlayer.urlString = paths!
     ttPlayer.videoName = videoName
     ttPlayer.isHiddenTopBar = true
