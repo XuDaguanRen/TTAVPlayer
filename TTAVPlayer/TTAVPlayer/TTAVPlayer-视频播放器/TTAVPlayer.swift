@@ -261,7 +261,8 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     private var beforeChangePlayerStatus: TTAVPlayerStatus?
     /// 是否在后台时继续播放
     public var isPlayingInBackground: Bool?
-    
+    /// 禁用滑动手势
+    private var panIsEnabled: Bool = true
     // MARK: - 初始化配置
     /// 初始化配置
     /// - Parameters:
@@ -275,7 +276,7 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         ttContainerVC = getControllerfromview(view: containerView)
         ttContainerView = containerView
         ttFrame = frame
-    
+        
         setupTTAVPlayerUI()
     }
     
@@ -308,6 +309,13 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
     }
     // MARK: - 获取View 所在控制器
     func getControllerfromview(view: UIView) -> UIViewController? {
+        let classString = String(describing: view.classForCoder)
+        TTLog("父视图什么类型  --->  \(classString)")
+        if classString.contains("UIScrollView") ||
+            classString.contains("UITableViewCellContentView") ||
+            classString.contains("UIScrollView") {
+            panIsEnabled = false
+        }
         var nextResponder: UIResponder? = view
         repeat {
             nextResponder = nextResponder?.next
@@ -367,10 +375,10 @@ class TTAVPlayer: UIView, TTAVPlayerViewDelegate, TTBottomBarDelegate, TTTopBarD
         
     }
     
-    // MARK: 解决视图长按滑动手势和底部Sliderz拖拽进度手势冲突问题
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    // MARK: UIGestureRecognizerDelegate 解决视图长按滑动手势和底部Sliderz拖拽进度手势冲突问题
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view!.isKind(of: TTSlider.self) {
-            //            TTLog("是TTSlider")
+//            TTLog("是TTSlider")
             return false
         }
         return true
