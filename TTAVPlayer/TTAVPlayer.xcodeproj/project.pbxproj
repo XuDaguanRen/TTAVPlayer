@@ -104,7 +104,7 @@
 				2072C7922251EFB4000A9587 /* TTAVPlayer.entitlements */,
 				2061D6312249B651006929D8 /* Main */,
 				2061D6382249C6C6006929D8 /* Classes */,
-				2064A6FD2248AC2200363BDC /* TTAVPlayer-视频播放器 */,
+				2064A6FD2248AC2200363BDC /* TTAVPlayer */,
 				20556F6422438116007C0172 /* AppDelegate.swift */,
 				20556F6622438116007C0172 /* ViewController.swift */,
 				20536F90224B1C690072872D /* 01-课程安排.mp4 */,
@@ -138,7 +138,7 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		2064A6FD2248AC2200363BDC /* TTAVPlayer-视频播放器 */ = {
+		2064A6FD2248AC2200363BDC /* TTAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				20883891224C5A9F008928BF /* Tools */,
@@ -152,7 +152,7 @@
 				2072C78E2251BF61000A9587 /* TTMPVolume.swift */,
 				2072C7902251BF81000A9587 /* TTMPVolumeView.swift */,
 			);
-			path = "TTAVPlayer-视频播放器";
+			path = TTAVPlayer;
 			sourceTree = "<group>";
 		};
 		20883891224C5A9F008928BF /* Tools */ = {
