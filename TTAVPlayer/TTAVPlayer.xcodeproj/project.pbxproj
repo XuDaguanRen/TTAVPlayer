@@ -7,12 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08A5BF332250B60B00FB4FC4 /* TTSlidePlayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */; };
+		2044084F2262B77600E29BD4 /* TTSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408402262B77600E29BD4 /* TTSlider.swift */; };
+		204408502262B77600E29BD4 /* TTBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408412262B77600E29BD4 /* TTBrightnessView.swift */; };
+		204408512262B77600E29BD4 /* TTMPVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408422262B77600E29BD4 /* TTMPVolume.swift */; };
+		204408522262B77600E29BD4 /* TTAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408432262B77600E29BD4 /* TTAVPlayer.swift */; };
+		204408532262B77600E29BD4 /* TTPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408452262B77600E29BD4 /* TTPlayerOrientation.swift */; };
+		204408542262B77600E29BD4 /* TTLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408462262B77600E29BD4 /* TTLog.swift */; };
+		204408552262B77600E29BD4 /* TTView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408472262B77600E29BD4 /* TTView+Extension.swift */; };
+		204408562262B77600E29BD4 /* TTCONSTDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408482262B77600E29BD4 /* TTCONSTDefine.swift */; };
+		204408572262B77600E29BD4 /* TTRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204408492262B77600E29BD4 /* TTRefs.swift */; };
+		204408582262B77600E29BD4 /* TTAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044084A2262B77600E29BD4 /* TTAVPlayerView.swift */; };
+		204408592262B77600E29BD4 /* TTMPVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044084B2262B77600E29BD4 /* TTMPVolumeView.swift */; };
+		2044085A2262B77600E29BD4 /* TTTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044084C2262B77600E29BD4 /* TTTopBarView.swift */; };
+		2044085B2262B77600E29BD4 /* TTBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044084D2262B77600E29BD4 /* TTBottomBarView.swift */; };
+		2044085C2262B77600E29BD4 /* TTSlidePlayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2044084E2262B77600E29BD4 /* TTSlidePlayProgress.swift */; };
 		20536F91224B1C690072872D /* 01-课程安排.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 20536F90224B1C690072872D /* 01-课程安排.mp4 */; };
-		20536F93224B4D530072872D /* TTAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F92224B4D530072872D /* TTAVPlayer.swift */; };
-		20536F97224B60970072872D /* TTBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F96224B60970072872D /* TTBottomBarView.swift */; };
-		20536F99224B660C0072872D /* TTView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F98224B660C0072872D /* TTView+Extension.swift */; };
-		20536F9B224B6AA00072872D /* TTSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20536F9A224B6AA00072872D /* TTSlider.swift */; };
 		20556F6522438116007C0172 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20556F6422438116007C0172 /* AppDelegate.swift */; };
 		20556F6722438116007C0172 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20556F6622438116007C0172 /* ViewController.swift */; };
 		20556F6A22438116007C0172 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20556F6822438116007C0172 /* Main.storyboard */; };
@@ -23,27 +32,27 @@
 		2061D6372249B68A006929D8 /* TTBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061D6362249B68A006929D8 /* TTBaseController.swift */; };
 		2061D63A2249C6D4006929D8 /* TTHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061D6392249C6D4006929D8 /* TTHomeController.swift */; };
 		2061D63C2249C6E5006929D8 /* TTMyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2061D63B2249C6E5006929D8 /* TTMyController.swift */; };
-		2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */; };
-		2064A7012248AEF700363BDC /* TTCONSTDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A7002248AEF700363BDC /* TTCONSTDefine.swift */; };
-		2064A7032248B1E000363BDC /* TTRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A7022248B1E000363BDC /* TTRefs.swift */; };
-		2064A7052248B6B100363BDC /* TTLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2064A7042248B6B100363BDC /* TTLog.swift */; };
-		2072C78D2251BF29000A9587 /* TTBrightnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C78C2251BF29000A9587 /* TTBrightnessView.swift */; };
-		2072C78F2251BF61000A9587 /* TTMPVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C78E2251BF61000A9587 /* TTMPVolume.swift */; };
-		2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2072C7902251BF81000A9587 /* TTMPVolumeView.swift */; };
-		20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883892224C69DA008928BF /* TTPlayerOrientation.swift */; };
-		20883895224C6E27008928BF /* TTTopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20883894224C6E27008928BF /* TTTopBarView.swift */; };
 		20BBD0DA2252FA35007D205C /* TTTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBD0D92252FA35007D205C /* TTTestViewController.swift */; };
 		20EAF5342255FB9300AF0312 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EAF5332255FB9300AF0312 /* TestTableViewCell.swift */; };
 		20EFCCF5225491A2000C2FC9 /* TTTestViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSlidePlayProgress.swift; sourceTree = "<group>"; };
+		204408402262B77600E29BD4 /* TTSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSlider.swift; sourceTree = "<group>"; };
+		204408412262B77600E29BD4 /* TTBrightnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTBrightnessView.swift; sourceTree = "<group>"; };
+		204408422262B77600E29BD4 /* TTMPVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTMPVolume.swift; sourceTree = "<group>"; };
+		204408432262B77600E29BD4 /* TTAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTAVPlayer.swift; sourceTree = "<group>"; };
+		204408452262B77600E29BD4 /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
+		204408462262B77600E29BD4 /* TTLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTLog.swift; sourceTree = "<group>"; };
+		204408472262B77600E29BD4 /* TTView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TTView+Extension.swift"; sourceTree = "<group>"; };
+		204408482262B77600E29BD4 /* TTCONSTDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTCONSTDefine.swift; sourceTree = "<group>"; };
+		204408492262B77600E29BD4 /* TTRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTRefs.swift; sourceTree = "<group>"; };
+		2044084A2262B77600E29BD4 /* TTAVPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTAVPlayerView.swift; sourceTree = "<group>"; };
+		2044084B2262B77600E29BD4 /* TTMPVolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTMPVolumeView.swift; sourceTree = "<group>"; };
+		2044084C2262B77600E29BD4 /* TTTopBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
+		2044084D2262B77600E29BD4 /* TTBottomBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTBottomBarView.swift; sourceTree = "<group>"; };
+		2044084E2262B77600E29BD4 /* TTSlidePlayProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTSlidePlayProgress.swift; sourceTree = "<group>"; };
 		20536F90224B1C690072872D /* 01-课程安排.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "01-课程安排.mp4"; sourceTree = "<group>"; };
-		20536F92224B4D530072872D /* TTAVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTAVPlayer.swift; sourceTree = "<group>"; };
-		20536F96224B60970072872D /* TTBottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBottomBarView.swift; sourceTree = "<group>"; };
-		20536F98224B660C0072872D /* TTView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TTView+Extension.swift"; sourceTree = "<group>"; };
-		20536F9A224B6AA00072872D /* TTSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSlider.swift; sourceTree = "<group>"; };
 		20556F6122438116007C0172 /* TTAVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTAVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20556F6422438116007C0172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20556F6622438116007C0172 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,16 +65,7 @@
 		2061D6362249B68A006929D8 /* TTBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBaseController.swift; sourceTree = "<group>"; };
 		2061D6392249C6D4006929D8 /* TTHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTHomeController.swift; sourceTree = "<group>"; };
 		2061D63B2249C6E5006929D8 /* TTMyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMyController.swift; sourceTree = "<group>"; };
-		2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTAVPlayerView.swift; sourceTree = "<group>"; };
-		2064A7002248AEF700363BDC /* TTCONSTDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTCONSTDefine.swift; sourceTree = "<group>"; };
-		2064A7022248B1E000363BDC /* TTRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTRefs.swift; sourceTree = "<group>"; };
-		2064A7042248B6B100363BDC /* TTLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTLog.swift; sourceTree = "<group>"; };
-		2072C78C2251BF29000A9587 /* TTBrightnessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTBrightnessView.swift; sourceTree = "<group>"; };
-		2072C78E2251BF61000A9587 /* TTMPVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMPVolume.swift; sourceTree = "<group>"; };
-		2072C7902251BF81000A9587 /* TTMPVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTMPVolumeView.swift; sourceTree = "<group>"; };
 		2072C7922251EFB4000A9587 /* TTAVPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TTAVPlayer.entitlements; sourceTree = "<group>"; };
-		20883892224C69DA008928BF /* TTPlayerOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTPlayerOrientation.swift; sourceTree = "<group>"; };
-		20883894224C6E27008928BF /* TTTopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTopBarView.swift; sourceTree = "<group>"; };
 		20BBD0D92252FA35007D205C /* TTTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController.swift; sourceTree = "<group>"; };
 		20EAF5332255FB9300AF0312 /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
 		20EFCCF4225491A2000C2FC9 /* TTTestViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTTestViewController1.swift; sourceTree = "<group>"; };
@@ -82,6 +82,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2044083F2262B77600E29BD4 /* TTAVPlayerSources */ = {
+			isa = PBXGroup;
+			children = (
+				204408402262B77600E29BD4 /* TTSlider.swift */,
+				204408412262B77600E29BD4 /* TTBrightnessView.swift */,
+				204408422262B77600E29BD4 /* TTMPVolume.swift */,
+				204408432262B77600E29BD4 /* TTAVPlayer.swift */,
+				204408442262B77600E29BD4 /* Tools */,
+				2044084A2262B77600E29BD4 /* TTAVPlayerView.swift */,
+				2044084B2262B77600E29BD4 /* TTMPVolumeView.swift */,
+				2044084C2262B77600E29BD4 /* TTTopBarView.swift */,
+				2044084D2262B77600E29BD4 /* TTBottomBarView.swift */,
+				2044084E2262B77600E29BD4 /* TTSlidePlayProgress.swift */,
+			);
+			name = TTAVPlayerSources;
+			path = ../../TTAVPlayerSources;
+			sourceTree = "<group>";
+		};
+		204408442262B77600E29BD4 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				204408452262B77600E29BD4 /* TTPlayerOrientation.swift */,
+				204408462262B77600E29BD4 /* TTLog.swift */,
+				204408472262B77600E29BD4 /* TTView+Extension.swift */,
+				204408482262B77600E29BD4 /* TTCONSTDefine.swift */,
+				204408492262B77600E29BD4 /* TTRefs.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		20556F5822438116007C0172 = {
 			isa = PBXGroup;
 			children = (
@@ -102,9 +132,9 @@
 			isa = PBXGroup;
 			children = (
 				2072C7922251EFB4000A9587 /* TTAVPlayer.entitlements */,
+				2044083F2262B77600E29BD4 /* TTAVPlayerSources */,
 				2061D6312249B651006929D8 /* Main */,
 				2061D6382249C6C6006929D8 /* Classes */,
-				2064A6FD2248AC2200363BDC /* TTAVPlayer */,
 				20556F6422438116007C0172 /* AppDelegate.swift */,
 				20556F6622438116007C0172 /* ViewController.swift */,
 				20536F90224B1C690072872D /* 01-课程安排.mp4 */,
@@ -136,35 +166,6 @@
 				20EAF5332255FB9300AF0312 /* TestTableViewCell.swift */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		2064A6FD2248AC2200363BDC /* TTAVPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				20883891224C5A9F008928BF /* Tools */,
-				20536F92224B4D530072872D /* TTAVPlayer.swift */,
-				2064A6FE2248AC3200363BDC /* TTAVPlayerView.swift */,
-				20536F96224B60970072872D /* TTBottomBarView.swift */,
-				20536F9A224B6AA00072872D /* TTSlider.swift */,
-				20883894224C6E27008928BF /* TTTopBarView.swift */,
-				08A5BF322250B60B00FB4FC4 /* TTSlidePlayProgress.swift */,
-				2072C78C2251BF29000A9587 /* TTBrightnessView.swift */,
-				2072C78E2251BF61000A9587 /* TTMPVolume.swift */,
-				2072C7902251BF81000A9587 /* TTMPVolumeView.swift */,
-			);
-			path = TTAVPlayer;
-			sourceTree = "<group>";
-		};
-		20883891224C5A9F008928BF /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				20536F98224B660C0072872D /* TTView+Extension.swift */,
-				2064A7022248B1E000363BDC /* TTRefs.swift */,
-				2064A7002248AEF700363BDC /* TTCONSTDefine.swift */,
-				2064A7042248B6B100363BDC /* TTLog.swift */,
-				20883892224C69DA008928BF /* TTPlayerOrientation.swift */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,30 +248,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20536F99224B660C0072872D /* TTView+Extension.swift in Sources */,
+				2044085C2262B77600E29BD4 /* TTSlidePlayProgress.swift in Sources */,
+				204408542262B77600E29BD4 /* TTLog.swift in Sources */,
+				2044084F2262B77600E29BD4 /* TTSlider.swift in Sources */,
 				20556F6722438116007C0172 /* ViewController.swift in Sources */,
-				2072C7912251BF81000A9587 /* TTMPVolumeView.swift in Sources */,
-				2064A7032248B1E000363BDC /* TTRefs.swift in Sources */,
-				20536F9B224B6AA00072872D /* TTSlider.swift in Sources */,
+				204408512262B77600E29BD4 /* TTMPVolume.swift in Sources */,
+				204408562262B77600E29BD4 /* TTCONSTDefine.swift in Sources */,
+				204408532262B77600E29BD4 /* TTPlayerOrientation.swift in Sources */,
 				20EAF5342255FB9300AF0312 /* TestTableViewCell.swift in Sources */,
-				2072C78F2251BF61000A9587 /* TTMPVolume.swift in Sources */,
+				204408552262B77600E29BD4 /* TTView+Extension.swift in Sources */,
 				2061D6372249B68A006929D8 /* TTBaseController.swift in Sources */,
-				2064A6FF2248AC3200363BDC /* TTAVPlayerView.swift in Sources */,
-				2064A7012248AEF700363BDC /* TTCONSTDefine.swift in Sources */,
 				20BBD0DA2252FA35007D205C /* TTTestViewController.swift in Sources */,
-				20883895224C6E27008928BF /* TTTopBarView.swift in Sources */,
-				08A5BF332250B60B00FB4FC4 /* TTSlidePlayProgress.swift in Sources */,
-				20883893224C69DA008928BF /* TTPlayerOrientation.swift in Sources */,
-				2064A7052248B6B100363BDC /* TTLog.swift in Sources */,
+				2044085A2262B77600E29BD4 /* TTTopBarView.swift in Sources */,
 				2061D63A2249C6D4006929D8 /* TTHomeController.swift in Sources */,
-				2072C78D2251BF29000A9587 /* TTBrightnessView.swift in Sources */,
 				20556F6522438116007C0172 /* AppDelegate.swift in Sources */,
-				20536F97224B60970072872D /* TTBottomBarView.swift in Sources */,
+				2044085B2262B77600E29BD4 /* TTBottomBarView.swift in Sources */,
 				20EFCCF5225491A2000C2FC9 /* TTTestViewController1.swift in Sources */,
+				204408592262B77600E29BD4 /* TTMPVolumeView.swift in Sources */,
+				204408572262B77600E29BD4 /* TTRefs.swift in Sources */,
 				2061D6352249B674006929D8 /* TTMainTabBar.swift in Sources */,
+				204408502262B77600E29BD4 /* TTBrightnessView.swift in Sources */,
+				204408522262B77600E29BD4 /* TTAVPlayer.swift in Sources */,
 				2061D63C2249C6E5006929D8 /* TTMyController.swift in Sources */,
+				204408582262B77600E29BD4 /* TTAVPlayerView.swift in Sources */,
 				2061D6332249B665006929D8 /* TTNavigationController.swift in Sources */,
-				20536F93224B4D530072872D /* TTAVPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
