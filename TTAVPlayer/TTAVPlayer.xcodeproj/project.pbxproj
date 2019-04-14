@@ -85,11 +85,11 @@
 		2044083F2262B77600E29BD4 /* TTAVPlayerSources */ = {
 			isa = PBXGroup;
 			children = (
+				204408442262B77600E29BD4 /* Tools */,
 				204408402262B77600E29BD4 /* TTSlider.swift */,
 				204408412262B77600E29BD4 /* TTBrightnessView.swift */,
 				204408422262B77600E29BD4 /* TTMPVolume.swift */,
 				204408432262B77600E29BD4 /* TTAVPlayer.swift */,
-				204408442262B77600E29BD4 /* Tools */,
 				2044084A2262B77600E29BD4 /* TTAVPlayerView.swift */,
 				2044084B2262B77600E29BD4 /* TTMPVolumeView.swift */,
 				2044084C2262B77600E29BD4 /* TTTopBarView.swift */,
@@ -427,7 +427,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Maiya.TTAVPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -446,7 +446,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Maiya.TTAVPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
